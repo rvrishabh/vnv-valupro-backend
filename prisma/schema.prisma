@@ -11,3 +11,223 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+enum Role {
+  ADMIN
+  CHECKER
+  BANK_MANAGER
+  SITE_ENGINEER
+}
+
+enum CaseStatus {
+  PENDING
+  ASSIGNED
+  IN_PROGRESS
+  CHECKING
+  QUERY_RAISED
+  APPROVED
+  REJECTED
+}
+
+enum PropertyType {
+  RESIDENTIAL
+  COMMERCIAL
+  LAND
+  INDUSTRIAL
+}
+
+enum PaymentMode {
+  CASH
+  UPI
+  BANK_TRANSFER
+}
+
+enum QueryType {
+  TO_ENGINEER
+  TO_BANK
+}
+
+enum QueryStatus {
+  OPEN
+  RESPONDED
+  RESOLVED
+}
+
+model Bank {
+  id        String   @id @default(uuid())
+  name      String
+  code      String   @unique
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  users User[]
+  cases Case[]
+}
+
+model User {
+  id         String   @id @default(uuid())
+  name       String
+  mobile     String   @unique
+  role       Role
+  isActive   Boolean  @default(true)
+  isApproved Boolean  @default(false)
+  bankId     String?
+  createdAt  DateTime @default(now())
+
+  bank              Bank?              @relation(fields: [bankId], references: [id])
+  engineerLocations EngineerLocation[]
+  createdCases      Case[]             @relation("CreatedBy")
+  assignedCases     Case[]             @relation("AssignedTo")
+  checkedCases      Case[]             @relation("CheckedBy")
+  uploadedDocuments Document[]
+  valuationReports  ValuationReport[]
+  raisedQueries     Query[]            @relation("RaisedBy")
+  receivedQueries   Query[]            @relation("DirectedTo")
+  auditLogs         CaseAuditLog[]
+  feeCollections    FeeCollection[]
+}
+
+model EngineerLocation {
+  id         String   @id @default(uuid())
+  engineerId String
+  city       String
+  state      String
+  createdAt  DateTime @default(now())
+
+  engineer User @relation(fields: [engineerId], references: [id], onDelete: Cascade)
+
+  @@unique([engineerId, city]) // unique constraint for engineer and city
+  @@index([city]) // index for city search
+}
+
+model Case {
+  id               String       @id @default(uuid())
+  caseNumber       String       @unique
+  status           CaseStatus   @default(PENDING)
+  bankId           String
+  createdById      String
+  assignedToId     String?
+  checkedById      String?
+  customerName     String
+  customerMobile   String
+  propertyLocation String?
+  propertyType     PropertyType
+  bankReference    String? // Bank's own loan/case number
+  assignedAt       DateTime?
+  submittedAt      DateTime?
+  approvedAt       DateTime?
+  createdAt        DateTime     @default(now())
+
+  bank          Bank             @relation(fields: [bankId], references: [id])
+  createdBy     User             @relation("CreatedBy", fields: [createdById], references: [id])
+  assignedTo    User?            @relation("AssignedTo", fields: [assignedToId], references: [id])
+  checkedBy     User?            @relation("CheckedBy", fields: [checkedById], references: [id])
+  documents     Document[]
+  report        ValuationReport?
+  auditLogs     CaseAuditLog[]
+  queries       Query[]
+  feeCollection FeeCollection?
+}
+
+model Document {
+  id           String   @id @default(uuid())
+  caseId       String
+  uploadedById String 
+  fileName     String
+  fileType     String
+  s3Key        String
+  fileSize     Int
+  docType      String // 'bank_doc' | 'site_photo' | 'valuation_report'
+  createdAt    DateTime @default(now())
+
+  case       Case @relation(fields: [caseId], references: [id])
+  uploadedBy User @relation(fields: [uploadedById], references: [id])
+}
+
+model ValuationReport {
+  id                  String    @id @default(uuid())
+  caseId              String    @unique
+  engineerId          String
+  plotArea            Float?
+  builtUpArea         Float?
+  floors              Int?
+  constructionAge     Int?
+  constructionQuality String?
+  marketValue         Decimal?  @db.Decimal(15, 2)
+  distressValue       Decimal?  @db.Decimal(15, 2)
+  recommendedLoan     Decimal?  @db.Decimal(15, 2)
+  engineerNotes       String?
+  visitLat            Float?
+  visitLng            Float?
+  visitStartedAt      DateTime?
+  visitEndedAt        DateTime?
+  checkerNotes        String?
+  checkerStatus       String? // 'pending' | 'approved' | 'rejected'
+  submittedAt         DateTime?
+  createdAt           DateTime  @default(now())
+
+  case     Case @relation(fields: [caseId], references: [id])
+  engineer User @relation(fields: [engineerId], references: [id])
+}
+
+model FeeCollection {
+  id                 String      @id @default(uuid())
+  caseId             String      @unique
+  engineerId         String
+  standardFee        Decimal     @db.Decimal(10, 2)
+  collectedAmount    Decimal     @db.Decimal(10, 2)
+  paymentMode        PaymentMode
+  utrNumber          String? // for UPI
+  receiptPhotoS3Key  String? // for cash
+  customerConfirmed  Boolean     @default(false)
+  discrepancyFlagged Boolean     @default(false)
+  discrepancyAmount  Decimal?    @db.Decimal(10, 2)
+  notes              String?
+  collectedAt        DateTime?
+  createdAt          DateTime    @default(now())
+
+  case     Case @relation(fields: [caseId], references: [id])
+  engineer User @relation(fields: [engineerId], references: [id])
+}
+
+model Query {
+  id           String      @id @default(uuid())
+  caseId       String
+  raisedById   String
+  directedToId String
+  queryType    QueryType
+  message      String
+  status       QueryStatus @default(OPEN)
+  resolvedAt   DateTime?
+  createdAt    DateTime    @default(now())
+
+  case       Case            @relation(fields: [caseId], references: [id])
+  raisedBy   User            @relation("RaisedBy", fields: [raisedById], references: [id])
+  directedTo User            @relation("DirectedTo", fields: [directedToId], references: [id])
+  responses  QueryResponse[]
+}
+
+model QueryResponse {
+  id            String   @id @default(uuid())
+  queryId       String
+  respondedById String
+  message       String
+  attachments   String[] // S3 keys
+  createdAt     DateTime @default(now())
+
+  query Query @relation(fields: [queryId], references: [id])
+}
+
+model CaseAuditLog {
+  id        String   @id @default(uuid())
+  caseId    String
+  actorId   String
+  action    String
+  oldStatus String?
+  newStatus String?
+  notes     String?
+  createdAt DateTime @default(now())
+
+  case  Case @relation(fields: [caseId], references: [id])
+  actor User @relation(fields: [actorId], references: [id])
+}
