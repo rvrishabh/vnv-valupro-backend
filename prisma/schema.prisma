@@ -132,7 +132,7 @@ model Case {
 model Document {
   id           String   @id @default(uuid())
   caseId       String
-  uploadedById String 
+  uploadedById String
   fileName     String
   fileType     String
   s3Key        String
