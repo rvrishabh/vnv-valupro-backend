@@ -12,13 +12,6 @@ datasource db {
   provider = "postgresql"
 }
 
-enum Role {
-  ADMIN
-  CHECKER
-  BANK_MANAGER
-  SITE_ENGINEER
-}
-
 enum CaseStatus {
   PENDING
   ASSIGNED
@@ -53,6 +46,37 @@ enum QueryStatus {
   RESOLVED
 }
 
+model Role {
+  id        String   @id @default(uuid())
+  name      String
+  description String?
+  isSystem Boolean @default(false)
+  createdAt DateTime @default(now())
+
+  users User[]
+  rolePermissions RolePermission[]
+}
+
+model Permission{
+  id        String   @id @default(uuid())
+  name      String
+  resource  String
+  action    String
+  description String?
+
+  rolePermissions RolePermission[]
+  @@unique([resource, action])
+}
+
+model RolePermission {
+  id        String   @id @default(uuid())
+  roleId    String
+  permissionId String
+  createdAt DateTime @default(now())
+
+  role Role @relation(fields: [roleId], references: [id])
+  permission Permission @relation(fields: [permissionId], references: [id])
+}
 model Bank {
   id        String   @id @default(uuid())
   name      String
@@ -68,7 +92,7 @@ model User {
   id         String   @id @default(uuid())
   name       String
   mobile     String   @unique
-  role       Role
+  roleId     String
   isActive   Boolean  @default(true)
   isApproved Boolean  @default(false)
   bankId     String?
@@ -85,6 +109,7 @@ model User {
   receivedQueries   Query[]            @relation("DirectedTo")
   auditLogs         CaseAuditLog[]
   feeCollections    FeeCollection[]
+  role              Role             @relation(fields: [roleId], references: [id])
 }
 
 model EngineerLocation {
