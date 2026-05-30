@@ -4,8 +4,9 @@
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider     = "prisma-client"
+  output       = "../generated/prisma"
+  moduleFormat = "cjs"
 }
 
 datasource db {
@@ -20,6 +21,17 @@ enum CaseStatus {
   QUERY_RAISED
   APPROVED
   REJECTED
+}
+
+enum AUTH_METHOD {
+  PASSWORD
+  EMAIL_OTP
+  GOOGLE
+}
+
+enum LoginChannel {
+  WEB
+  MOBILE
 }
 
 enum PropertyType {
@@ -47,35 +59,41 @@ enum QueryStatus {
 }
 
 model Role {
-  id        String   @id @default(uuid())
-  name      String
-  description String?
-  isSystem Boolean @default(false)
-  createdAt DateTime @default(now())
+  id           String       @id @default(uuid())
+  name         String       @unique
+  description  String?
+  loginChannel LoginChannel
+  isSystem     Boolean      @default(false)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
 
-  users User[]
-  rolePermissions RolePermission[]
+  users            User[]
+  rolePermissions  RolePermission[]
 }
 
-model Permission{
-  id        String   @id @default(uuid())
-  name      String
-  resource  String
-  action    String
+model Permission {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  resource    String
+  action      String
   description String?
+  createdAt   DateTime @default(now())
 
   rolePermissions RolePermission[]
+
   @@unique([resource, action])
 }
 
 model RolePermission {
-  id        String   @id @default(uuid())
-  roleId    String
+  id           String   @id @default(uuid())
+  roleId       String
   permissionId String
-  createdAt DateTime @default(now())
+  createdAt    DateTime @default(now())
 
-  role Role @relation(fields: [roleId], references: [id])
-  permission Permission @relation(fields: [permissionId], references: [id])
+  role       Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@unique([roleId, permissionId])
 }
 model Bank {
   id        String   @id @default(uuid())
@@ -89,16 +107,23 @@ model Bank {
 }
 
 model User {
-  id         String   @id @default(uuid())
-  name       String
-  mobile     String   @unique
-  roleId     String
-  isActive   Boolean  @default(true)
-  isApproved Boolean  @default(false)
-  bankId     String?
-  createdAt  DateTime @default(now())
+  id           String       @id @default(uuid())
+  name         String
+  email        String       @unique
+  mobile       String?      @unique
+  passwordHash String?
+  googleId     String?      @unique
+  authMethod   AUTH_METHOD?
+  roleId       String
+  isActive     Boolean      @default(true)
+  isApproved   Boolean      @default(false)
+  bankId       String?
+  fcmToken     String?
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
 
   bank              Bank?              @relation(fields: [bankId], references: [id])
+  role              Role               @relation(fields: [roleId], references: [id])
   engineerLocations EngineerLocation[]
   createdCases      Case[]             @relation("CreatedBy")
   assignedCases     Case[]             @relation("AssignedTo")
@@ -107,9 +132,9 @@ model User {
   valuationReports  ValuationReport[]
   raisedQueries     Query[]            @relation("RaisedBy")
   receivedQueries   Query[]            @relation("DirectedTo")
+  queryResponses    QueryResponse[]
   auditLogs         CaseAuditLog[]
   feeCollections    FeeCollection[]
-  role              Role             @relation(fields: [roleId], references: [id])
 }
 
 model EngineerLocation {
@@ -141,7 +166,9 @@ model Case {
   assignedAt       DateTime?
   submittedAt      DateTime?
   approvedAt       DateTime?
+  deadline         DateTime?
   createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
 
   bank          Bank             @relation(fields: [bankId], references: [id])
   createdBy     User             @relation("CreatedBy", fields: [createdById], references: [id])
@@ -152,6 +179,11 @@ model Case {
   auditLogs     CaseAuditLog[]
   queries       Query[]
   feeCollection FeeCollection?
+
+  @@index([status])
+  @@index([bankId])
+  @@index([assignedToId])
+  @@index([createdAt])
 }
 
 model Document {
@@ -188,8 +220,10 @@ model ValuationReport {
   visitEndedAt        DateTime?
   checkerNotes        String?
   checkerStatus       String? // 'pending' | 'approved' | 'rejected'
+  reportPdfS3Key      String?
   submittedAt         DateTime?
   createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
 
   case     Case @relation(fields: [caseId], references: [id])
   engineer User @relation(fields: [engineerId], references: [id])
@@ -225,6 +259,7 @@ model Query {
   status       QueryStatus @default(OPEN)
   resolvedAt   DateTime?
   createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
 
   case       Case            @relation(fields: [caseId], references: [id])
   raisedBy   User            @relation("RaisedBy", fields: [raisedById], references: [id])
@@ -240,7 +275,8 @@ model QueryResponse {
   attachments   String[] // S3 keys
   createdAt     DateTime @default(now())
 
-  query Query @relation(fields: [queryId], references: [id])
+  query       Query @relation(fields: [queryId], references: [id], onDelete: Cascade)
+  respondedBy User  @relation(fields: [respondedById], references: [id])
 }
 
 model CaseAuditLog {

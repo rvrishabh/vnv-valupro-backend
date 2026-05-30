@@ -1,39 +1,80 @@
+import { Type } from 'class-transformer';
 import {
+  IsEmail,
   IsEnum,
+  IsIn,
   IsJWT,
-  IsMobilePhone,
   IsNotEmpty,
-  IsNumber,
+  IsOptional,
   IsString,
   Max,
   Min,
 } from 'class-validator';
-import { AUTH_METHOD, IAuthLoginMobile } from 'types/auth.types';
 
-export class SendOtpDto implements IAuthLoginMobile {
-  @IsString()
-  @IsNotEmpty()
-  @IsMobilePhone('en-IN')
-  mobile: string;
-
-  @IsEnum(AUTH_METHOD)
-  @IsNotEmpty()
-  authMethod: AUTH_METHOD;
+/** Identifies which client is calling auth (server validates role against this). */
+export enum AuthClient {
+  WEB = 'web',
+  BANK_MANAGER_APP = 'bank_manager_app',
+  SITE_ENGINEER_APP = 'site_engineer_app',
 }
 
-export class VerifyOtpDto {
+const MOBILE_AUTH_CLIENTS = [
+  AuthClient.BANK_MANAGER_APP,
+  AuthClient.SITE_ENGINEER_APP,
+] as const;
+
+/** POST /auth/login — web portal (email + password). */
+export class LoginDto {
+  @IsEmail()
   @IsNotEmpty()
-  @IsNumber()
+  email: string;
+
+  @IsString()
+  @IsNotEmpty()
+  password: string;
+}
+
+/** POST /auth/email/send-otp — bank manager & site engineer mobile apps. */
+export class SendEmailOtpDto {
+  @IsEmail()
+  @IsNotEmpty()
+  email: string;
+
+  @IsOptional()
+  @IsEnum(AuthClient)
+  @IsIn(MOBILE_AUTH_CLIENTS)
+  client?: (typeof MOBILE_AUTH_CLIENTS)[number];
+}
+
+/** POST /auth/email/verify-otp — bank manager & site engineer mobile apps. */
+export class VerifyEmailOtpDto {
+  @IsEmail()
+  @IsNotEmpty()
+  email: string;
+
+  @Type(() => Number)
   @Min(100000, { message: 'OTP must be a 6-digit number' })
   @Max(999999, { message: 'OTP must be a 6-digit number' })
   otp: number;
 
-  @IsString()
-  @IsNotEmpty()
-  @IsMobilePhone('en-IN')
-  mobile: string;
+  @IsOptional()
+  @IsEnum(AuthClient)
+  @IsIn(MOBILE_AUTH_CLIENTS)
+  client?: (typeof MOBILE_AUTH_CLIENTS)[number];
 }
 
+/** POST /auth/google — mobile apps (Google ID token). */
+export class GoogleLoginDto {
+  @IsString()
+  @IsNotEmpty()
+  idToken: string;
+
+  @IsEnum(AuthClient)
+  @IsIn(MOBILE_AUTH_CLIENTS)
+  client: (typeof MOBILE_AUTH_CLIENTS)[number];
+}
+
+/** POST /auth/refresh */
 export class RefreshTokenDto {
   @IsString()
   @IsNotEmpty()

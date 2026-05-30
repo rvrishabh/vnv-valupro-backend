@@ -6,125 +6,189 @@ This document describes how the ValuPro NestJS backend is intended to be structu
 
 The public artifact examples use Express-style `NestFactory.create`. **This project uses Fastify** (`@nestjs/platform-fastify`). Apply the same behaviors (global prefix, validation, CORS, Swagger, uniform errors/responses) using Nest + Fastify-compatible setup.
 
-## RBAC — four roles, no super-admin
+## Clients — three frontends, one API
 
-There is **no `SUPER_ADMIN`**. Roles are:
+| Client | Users | Login | Allowed roles (from `Role` table) |
+|--------|--------|--------|-----------------------------------|
+| **Web portal** | Bootstrap admin + staff | Email + password | Any role **except** mobile-only system roles |
+| **Bank manager mobile app** | Bank managers | Email OTP + Google Sign-In | `BANK_MANAGER` only |
+| **Site engineer mobile app** | Site engineers | Email OTP + Google Sign-In | `SITE_ENGINEER` only |
 
-| Role            | Typical client     | Login identifier     | Summary                                                                       |
-| --------------- | ------------------ | -------------------- | ----------------------------------------------------------------------------- |
-| `ADMIN`         | Web (admin portal) | **Email + password** | Users, banks, case assignment, fees oversight, exports, analytics             |
-| `CHECKER`       | Web (admin portal) | **Email + password** | Checker queue, valuation review, queries; **provisioned only via admin RBAC** |
-| `BANK_MANAGER`  | Mobile             | **Mobile**           | Create cases, upload docs, own bank cases                                     |
-| `SITE_ENGINEER` | Mobile             | **Mobile**           | Assigned cases, valuation form, fee collection, engineer locations            |
+All clients call the same backend (`/api/v1`). Client separation is enforced on the server at **login** and on **every protected route** — do not rely on the app store split alone.
 
-Replace any artifact route that says `SUPER_ADMIN` with **`ADMIN`** (e.g. bank CRUD).
+Optional login body hint: `client: 'web' | 'bank_manager_app' | 'site_engineer_app'` so auth can validate the expected role; always re-check `role.name` from the database.
 
-Guards: JWT authentication plus a roles guard; enforce `isApproved` and `isActive` for protected routes unless explicitly public.
+There is **no `SUPER_ADMIN`**. Replace any artifact route that says `SUPER_ADMIN` with bootstrap **`ADMIN`** or permission checks (e.g. `users:create`, `banks:write`).
 
-## Authentication — two channels
+---
 
-Login is **not** one-size-fits-all. Mobile roles use OTP; web roles use **email and password**.
+## RBAC — roles and permissions in the database
 
-### Mobile login (`BANK_MANAGER`, `SITE_ENGINEER`)
+Roles are **not** a Prisma enum. They live in tables:
 
-- **Identifier:** Indian mobile number (`mobile` on `User`).
-- **Flow:** `POST /auth/mobile/send-otp` → SMS (MSG91) → `POST /auth/mobile/verify-otp` → JWT pair.
-- **Rules:**
-  - User must already exist (created by admin); no self-registration.
-  - Role must be `BANK_MANAGER` or `SITE_ENGINEER`; reject if role is web-only.
-  - `mobile` is required and unique for these users.
+- **`Role`** — name, description, `isSystem` (seed/system roles vs admin-created)
+- **`Permission`** — `resource` + `action` (e.g. `valuation:review`, `users:create`)
+- **`RolePermission`** — many-to-many link
 
-### Email + password login (`ADMIN`, `CHECKER`)
+### System roles (seed, `isSystem: true`)
 
-- **Identifier:** email address (`email` on `User`).
-- **Credentials:** bcrypt-hashed `passwordHash` on `User` (never store plain text).
-- **Flow:** `POST /auth/login` with `{ email, password }` → verify hash → JWT pair.
-- **Rules:**
-  - `ADMIN` and `CHECKER` sign in on the **admin portal** only (email + password).
-  - **`CHECKER` is assigned only through admin-portal RBAC** (users module): an `ADMIN` creates a user with role `CHECKER`, unique **email**, and an initial password (or forced reset on first login).
-  - `email` is required and unique for `ADMIN` and `CHECKER`.
-  - Mobile OTP endpoints must reject `CHECKER` / `ADMIN` identities.
-  - Optional later: `POST /auth/change-password` (authenticated), admin-initiated password reset.
+| `Role.name` | Client | Login channel |
+|-------------|--------|---------------|
+| `ADMIN` | Web portal | Email + password (bootstrap credential) |
+| `BANK_MANAGER` | Bank manager app | Email OTP + Google |
+| `SITE_ENGINEER` | Site engineer app | Email OTP + Google |
+
+### Custom web roles (admin-created, `isSystem: false`)
+
+Examples: `Checker`, `Operations`, `Finance` — created in the web RBAC UI with permissions assigned via `RolePermission`.
+
+**“Checker” is a role row**, not a hardcoded enum. Staff with the Checker role sign in on the **web portal** with email + password like any other web role.
+
+### Authorization
+
+- **Web portal:** permission-based guards (e.g. `@RequirePermission('valuation:review')`), not fixed role name checks where possible.
+- **Mobile apps:** role name + permissions on domain endpoints (bank manager vs engineer feature sets).
+- Enforce `isApproved` and `isActive` on all protected routes unless explicitly public.
+
+Long-term: add `loginChannel` (or similar) on `Role` (`WEB` | `MOBILE`) instead of hardcoding role names in auth — for v1, mobile-only roles are `BANK_MANAGER` and `SITE_ENGINEER`.
+
+---
+
+## Authentication
+
+### Web portal — email + password
+
+**Bootstrap admin:** one credential you set at deploy (seed from env: `ADMIN_EMAIL`, `ADMIN_PASSWORD`) → single `User` with `roleId` → `ADMIN`, `isApproved: true`, `isActive: true`. No public “register admin” endpoint.
+
+**Other web staff:** created by admin in the web portal with `email`, `password` (stored as bcrypt `passwordHash`), `name`, and `roleId` (any non-mobile role).
+
+**Flow:** `POST /auth/login` with `{ email, password }` → verify hash → JWT pair.
+
+**Rules:**
+
+- Reject if user’s role is mobile-only (`BANK_MANAGER`, `SITE_ENGINEER`).
+- Reject if `!isActive` or `!isApproved`.
+- Rate-limit failed password attempts per email (Redis).
+
+### Mobile apps — email OTP + Google (no SMS)
+
+SMS OTP is **not** used for login (paid). Mobile users authenticate with **email**.
+
+**Email OTP**
+
+1. `POST /auth/email/send-otp` — body includes `email` and optional `client` hint.
+2. Generate 6-digit OTP → Redis (`otp:email:{email}`, TTL ~5 min) → send via email provider (Resend/Brevo/etc.; dev: log to console).
+3. `POST /auth/email/verify-otp` — verify OTP → issue JWT.
+
+**Google Sign-In**
+
+1. App obtains Google ID token.
+2. `POST /auth/google` with `{ idToken, client }`.
+3. Verify token (`aud` matches app-specific client ID) → match user by email → issue JWT.
+4. Optionally persist `googleId` on first successful login.
+
+**Rules (both mobile flows):**
+
+- User must already exist (admin-created); no self-registration.
+- `role.name` must match the calling app (`BANK_MANAGER` vs `SITE_ENGINEER`).
+- Reject web-only roles and password-only accounts.
+- Reject if `!isActive` or `!isApproved`.
+- Rate-limit OTP sends per email.
+
+**Google OAuth:** separate client IDs per mobile app (`GOOGLE_CLIENT_ID_BANK_MANAGER`, `GOOGLE_CLIENT_ID_SITE_ENGINEER`).
 
 ### Shared auth behavior
 
-- Access JWT (~15m) and refresh JWT (~7d); payload includes `sub`, `role`, `isApproved`, `isActive`, and either `mobile` or `email` (not both required in token, but lookup key must match channel).
+- Access JWT (~15m) and refresh JWT (~7d).
+- JWT payload: `sub`, `email`, `roleId`, `roleName`, `isApproved`, `isActive`, optional `bankId`, optional `permissions[]` (web).
 - Logout invalidates refresh token (Redis denylist).
-- Mobile OTP stored in Redis with TTL (e.g. 5 minutes); rate-limit OTP sends per mobile.
-- Web login: rate-limit failed password attempts per email (Redis or in-memory).
+- Never return OTP in API responses; dev-only console logging is fine.
 
 ### Auth module routes (target)
 
-| Route                          | Channel          | Roles allowed                   |
-| ------------------------------ | ---------------- | ------------------------------- |
-| `POST /auth/mobile/send-otp`   | Mobile OTP       | (lookup) → only mobile roles    |
-| `POST /auth/mobile/verify-otp` | Mobile OTP       | `BANK_MANAGER`, `SITE_ENGINEER` |
-| `POST /auth/login`             | Email + password | `ADMIN`, `CHECKER`              |
-| `POST /auth/refresh`           | Either           | Any active, approved user       |
-| `POST /auth/logout`            | Either           | Authenticated                   |
+| Route | Client | Purpose |
+|-------|--------|---------|
+| `POST /auth/login` | Web portal | Email + password (non-mobile roles) |
+| `POST /auth/email/send-otp` | Mobile apps | Send OTP to email |
+| `POST /auth/email/verify-otp` | Mobile apps | Verify OTP → JWT |
+| `POST /auth/google` | Mobile apps | Google ID token → JWT |
+| `POST /auth/refresh` | All | New access token |
+| `POST /auth/logout` | All | Invalidate refresh |
 
-## Users module & admin-portal RBAC
+Removed: `POST /auth/mobile/send-otp`, SMS/MSG91 for auth.
 
-Provisioning is separate from login:
+---
 
-| Action                 | Who                        | How                                                                                   |
-| ---------------------- | -------------------------- | ------------------------------------------------------------------------------------- |
-| Create `ADMIN`         | Bootstrap / existing admin | Email + name + **password** (hashed); email/password login                            |
-| Assign **`CHECKER`**   | **`ADMIN` only** (RBAC UI) | **Email + password required**; role `CHECKER`; no mobile; login via admin portal only |
-| Create `BANK_MANAGER`  | `ADMIN`                    | Mobile + `bankId`; mobile login                                                       |
-| Create `SITE_ENGINEER` | `ADMIN`                    | Mobile; mobile login                                                                  |
-| Approve / deactivate   | `ADMIN`                    | `PATCH /users/:id/approve`, `deactivate`                                              |
+## Users module & web-portal provisioning
 
-**Checker rule:** There is no checker self-service or mobile app login. Every checker is created or role-changed by an admin using **email** as the stable identity.
+All users are created from the **web portal** (bootstrap admin or staff with `users:create` permission):
+
+| User type | Created by | Fields | Login |
+|-----------|------------|--------|--------|
+| Bootstrap admin | Seed / env | email, password, `roleId` → ADMIN | Web password |
+| Web staff (e.g. Checker) | Admin UI | email, password, name, `roleId` | Web password |
+| Bank manager | Admin UI | email, name, `roleId` → BANK_MANAGER, `bankId` | Mobile OTP / Google (no password) |
+| Site engineer | Admin UI | email, name, `roleId` → SITE_ENGINEER; optional `mobile` | Mobile OTP / Google (no password) |
+
+| Action | Endpoint (target) |
+|--------|-------------------|
+| Create user | `POST /users` |
+| List / filter users | `GET /users` |
+| Approve user | `PATCH /users/:id/approve` |
+| Deactivate user | `PATCH /users/:id/deactivate` |
+| Manage roles & permissions | Roles/permissions CRUD on web portal |
+
+Engineer locations (site engineers): existing artifact routes under `/engineers/*`.
+
+---
 
 ## Modules (nine)
 
-1. **auth** — Mobile OTP + email/password login, JWT issue, refresh, logout (channel split above)
-2. **users** — Create users, RBAC (including checker-by-email), approve/deactivate, engineer locations
-3. **banks** — Bank master data, managers per bank, seed data
+1. **auth** — Web password login; mobile email OTP + Google; JWT, refresh, logout
+2. **users** — User CRUD, approve/deactivate; roles & permissions management
+3. **banks** — Bank master data, seed data
 4. **cases** — Create, assign, status transitions, audit log
 5. **documents** — R2 presigned upload, register metadata, list, delete
-6. **valuation** — Engineer visit/submit, checker review, PDF report
+6. **valuation** — Engineer visit/submit, staff review, PDF report
 7. **fees** — Rate card, collection, customer OTP confirmation, discrepancy flags
-8. **queries** — Checker raises queries; thread responses; resolve
-9. **notifications** — FCM push + SMS (case assigned, approved, queries, fee SMS, etc.)
+8. **queries** — Staff raises queries; thread responses; resolve
+9. **notifications** — FCM push; transactional SMS/email where needed (not auth OTP via SMS)
 
 ## Recommended build order
 
-Foundation (config, throttling, Prisma client, shared guards/decorators/filters/interceptors, `main.ts` with `/api/v1`) → **banks** (so `bankId` exists) → **users** (provisioning + RBAC, password on create for web roles) → **auth** (mobile OTP + `POST /auth/login`) → **cases** + **documents** → **valuation** → **fees** → **queries** → **notifications** + PDF on approval.
+Foundation (config, throttling, Prisma, common guards/decorators/filters, `main.ts` `/api/v1`) → **seed** permissions, system roles, bootstrap admin → **banks** → **users** (RBAC + provisioning) → **auth** (web login + mobile OTP/Google) → **cases** + **documents** → **valuation** → **fees** → **queries** → **notifications** + PDF.
 
-Dependency sketch: Auth depends on Users; Cases on Banks + Users; Valuation on Cases; Fees on Valuation; Queries on Cases + Users; Notifications invoked from domain services.
+Dependency sketch: Auth depends on Users/Roles; Cases on Banks + Users; Valuation on Cases; Fees on Valuation; Queries on Cases + Users; Notifications from domain services.
 
 ## HTTP API
 
 - Global prefix: **`/api/v1`**
-- Swagger (when enabled): typically **`/api/docs`**
-- Standard success envelope: `{ success, data, timestamp }`; errors: `{ success: false, error, statusCode }`
+- Swagger: **`/api/docs`**
+- Success: `{ success, data, timestamp }`; errors: `{ success: false, error, statusCode }`
 
 ## Environment variables
 
-Maintain a committed **`.env.example`** (no secrets) with at least:
+Maintain **`.env.example`** with at least:
 
 - `PORT`, `NODE_ENV`, `FRONTEND_URL`
-- `DATABASE_URL`, `DIRECT_URL` (Prisma / Neon)
+- `DATABASE_URL`, `DIRECT_URL`
 - `JWT_SECRET`, `JWT_EXPIRES_IN`, `JWT_REFRESH_SECRET`, `JWT_REFRESH_EXPIRES_IN`
-- `REDIS_URL` (OTP, rate limits, refresh denylist as needed)
-- R2: `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`, optional public URL
-- MSG91: auth key, template IDs, sender (mobile OTP only)
-- Firebase / FCM: project id, client email, private key (if using push)
+- `REDIS_URL` (email OTP, rate limits, refresh denylist)
+- Bootstrap (seed only): `ADMIN_EMAIL`, `ADMIN_PASSWORD`
+- Email OTP: `RESEND_API_KEY` (or Brevo/SendGrid), `EMAIL_FROM`
+- Google: `GOOGLE_CLIENT_ID_BANK_MANAGER`, `GOOGLE_CLIENT_ID_SITE_ENGINEER`
+- R2, FCM, MSG91 (transactional notifications only — not auth login SMS)
 
-## Schema and product notes
+## Schema notes
 
-- Prisma **Role** enum: `ADMIN`, `CHECKER`, `BANK_MANAGER`, `SITE_ENGINEER` (no `SUPER_ADMIN`).
-- **`User` model (planned):** support both identifiers with role-based rules:
-  - `email String? @unique` — required for `ADMIN` and `CHECKER`
-  - `passwordHash String?` — required for `ADMIN` and `CHECKER` (bcrypt); never expose in API responses
-  - `mobile String? @unique` — required for `BANK_MANAGER` and `SITE_ENGINEER`
-  - Enforce in application layer: web roles must have email + passwordHash; mobile roles must have mobile; checker created only by admin with email + password.
-- Case status transitions and audit logging should be enforced in the **cases** service (centralized, not left to callers).
-- Align **valuation** DTO fields with the real report template before freezing `SubmitValuationDto`.
+- **`Role`**, **`Permission`**, **`RolePermission`** — dynamic RBAC; no `Role` enum on `User`.
+- **`User`:** `roleId` → `Role`; `email` required and unique for all users; `passwordHash` required for web users, null for mobile-only users; optional `googleId`, optional `mobile` (contact).
+- **`AUTH_METHOD`:** prefer `PASSWORD` | `EMAIL_OTP` | `GOOGLE` (drop SMS/mobile-as-login).
+- Case status transitions and audit logging enforced in **cases** service.
+- Align valuation DTO fields with the real report template before freezing `SubmitValuationDto`.
 
 ## Further reading
 
 - [NestJS documentation](https://docs.nestjs.com/)
 - [Prisma documentation](https://www.prisma.io/docs)
+- [ValuPro backend structure artifact](https://claude.ai/public/artifacts/83d2e408-6af8-4890-94fb-c7e3a2fa1256)
