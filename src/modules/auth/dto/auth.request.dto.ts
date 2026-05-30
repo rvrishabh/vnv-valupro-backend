@@ -8,7 +8,6 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
-  IsStrongPassword,
   IsUUID,
   Max,
   Min,
@@ -16,7 +15,6 @@ import {
 } from 'class-validator';
 import {
   AuthClient,
-  ICreateWebUser,
   IGoogleLogin,
   IRefreshToken,
   IRegisterGoogle,
@@ -159,37 +157,4 @@ export class RefreshTokenDto implements IRefreshToken {
   @IsNotEmpty()
   @IsJWT({ message: 'Invalid refresh token' })
   refreshToken: string;
-}
-
-/**
- * Admin web portal — create staff users (WEB loginChannel roles only).
- * BANK_MANAGER / SITE_ENGINEER self-register on mobile.
- */
-export class CreateWebUserDto implements ICreateWebUser {
-  @IsString()
-  @IsNotEmpty()
-  name: string;
-
-  @IsEmail()
-  @IsNotEmpty()
-  email: string;
-
-  @IsUUID()
-  @IsNotEmpty()
-  roleId: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @IsStrongPassword({
-    minLength: 8,
-    minNumbers: 1,
-    minSymbols: 1,
-    minUppercase: 1,
-    minLowercase: 1,
-  })
-  password: string;
-
-  @IsOptional()
-  @IsMobilePhone('en-IN')
-  mobile?: string;
 }

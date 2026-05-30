@@ -59,7 +59,7 @@ Examples: `Checker`, `Operations`, `Finance` — created in the web RBAC UI with
 
 **Bootstrap admin:** seed from env (`ADMIN_EMAIL`, `ADMIN_PASSWORD`) → one `User` with `roleId` → `ADMIN`, `isApproved: true`, `isActive: true`.
 
-**Web staff:** admin creates users with `CreateWebUserDto` — email, password, name, `roleId` where `Role.loginChannel = WEB`. Admin **never** creates `BANK_MANAGER` or `SITE_ENGINEER` users.
+**Web staff:** admin creates users via the **users module** — email, password, name, `roleId` where `Role.loginChannel = WEB`. Admin **never** creates `BANK_MANAGER` or `SITE_ENGINEER` users.
 
 **Flow:** `POST /auth/login` with `{ email, password }` → verify hash → JWT.
 
@@ -136,7 +136,7 @@ Admin does **not** create bank managers or site engineers. They register in the 
 | User type | Created by | Admin actions |
 |-----------|------------|---------------|
 | Bootstrap `ADMIN` | Seed / env | — |
-| Web staff (Checker, etc.) | Admin UI (`CreateWebUserDto`) | Create, deactivate |
+| Web staff (Checker, etc.) | Admin UI (users module) | Create, deactivate |
 | `BANK_MANAGER` | **Self-register** (mobile) | **Approve**, deactivate, optional `bankId` fix |
 | `SITE_ENGINEER` | **Self-register** (mobile) | **Approve**, deactivate |
 
