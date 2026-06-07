@@ -72,14 +72,6 @@ export interface IRefreshToken {
   refreshToken: string;
 }
 
-export interface ICreateWebUser {
-  name: string;
-  email: string;
-  roleId: string;
-  password: string;
-  mobile?: string;
-}
-
 export interface IAuthTokens {
   accessToken: string;
   refreshToken: string;
