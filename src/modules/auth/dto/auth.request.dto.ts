@@ -113,8 +113,8 @@ export class RegisterVerifyEmailOtpDto implements IRegisterVerifyEmailOtp {
   name: string;
 
   @ValidateIf(
-    (dto: RegisterVerifyEmailOtpDto) =>
-      dto.client === AuthClient.BANK_MANAGER_APP,
+    (data: RegisterVerifyEmailOtpDto) =>
+      data.client === AuthClient.BANK_MANAGER_APP,
   )
   @IsUUID()
   @IsNotEmpty()
@@ -140,7 +140,7 @@ export class RegisterGoogleDto implements IRegisterGoogle {
   name: string;
 
   @ValidateIf(
-    (dto: RegisterGoogleDto) => dto.client === AuthClient.BANK_MANAGER_APP,
+    (data: RegisterGoogleDto) => data.client === AuthClient.BANK_MANAGER_APP,
   )
   @IsUUID()
   @IsNotEmpty()

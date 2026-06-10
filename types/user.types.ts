@@ -1,4 +1,26 @@
+import { FilterRecord, IBaseFilterQuery } from 'types/common.types';
 import { AUTH_METHOD } from './auth.types';
+
+export interface UserFilter extends FilterRecord {
+  roleId?: string;
+  isActive?: boolean;
+  isApproved?: boolean;
+  bankId?: string;
+  loginChannel?: LoginChannel;
+}
+
+/** GET /users query params — extends shared list filters with user-specific fields. */
+export interface IListUsersQuery extends IBaseFilterQuery {
+  isApproved?: boolean;
+  isActive?: boolean;
+  roleId?: string;
+  loginChannel?: LoginChannel;
+}
+
+export interface EngineerLocationFilter extends FilterRecord {
+  city?: string;
+  state?: string;
+}
 
 export enum LoginChannel {
   WEB = 'WEB',
@@ -52,15 +74,6 @@ export interface IUpdateWebUser {
   roleId?: string;
   password?: string;
   isActive?: boolean;
-}
-
-/** GET /users query filters. */
-export interface IListUsersQuery {
-  isApproved?: boolean;
-  isActive?: boolean;
-  roleId?: string;
-  loginChannel?: LoginChannel;
-  search?: string;
 }
 
 /** PATCH /users/:id/bank — admin fixes bank assignment for mobile users. */

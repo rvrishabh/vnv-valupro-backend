@@ -1,4 +1,10 @@
-import { Type } from 'class-transformer';
+import {
+  ApiProperty,
+  ApiPropertyOptional,
+  OmitType,
+  PartialType,
+} from '@nestjs/swagger';
+import { Transform } from 'class-transformer';
 import {
   IsBoolean,
   IsEmail,
@@ -10,11 +16,11 @@ import {
   IsStrongPassword,
   IsUUID,
 } from 'class-validator';
+import { BaseFilterQueryDto } from 'src/common/dto';
 import {
   ICreateWebUser,
   IListUsersQuery,
   IUpdateUserBankId,
-  IUpdateWebUser,
   LoginChannel,
 } from 'types/user.types';
 
@@ -22,18 +28,25 @@ export { LoginChannel } from 'types/user.types';
 
 /** POST /users — admin creates web staff (WEB loginChannel roles only). */
 export class CreateUserDto implements ICreateWebUser {
+  @ApiProperty({ type: String, example: 'John Doe' })
   @IsString()
   @IsNotEmpty()
   name: string;
 
+  @ApiProperty({ type: String, example: 'john.doe@example.com' })
   @IsEmail()
   @IsNotEmpty()
   email: string;
 
+  @ApiProperty({
+    type: String,
+    example: '123e4567-e89b-12d3-a456-426614174000',
+  })
   @IsUUID()
   @IsNotEmpty()
   roleId: string;
 
+  @ApiProperty({ type: String, example: 'Password123!' })
   @IsString()
   @IsNotEmpty()
   @IsStrongPassword({
@@ -45,55 +58,59 @@ export class CreateUserDto implements ICreateWebUser {
   })
   password: string;
 
+  @ApiProperty({ type: String, example: '+919876543210', required: false })
   @IsOptional()
   @IsMobilePhone('en-IN')
   mobile?: string;
-}
 
-/** PATCH /users/:id — update web staff. */
-export class UpdateUserDto implements IUpdateWebUser {
-  @IsOptional()
-  @IsString()
-  @IsNotEmpty()
-  name?: string;
-
-  @IsMobilePhone('en-IN')
-  mobile?: string;
-
+  @ApiProperty({
+    type: String,
+    required: false,
+  })
   @IsOptional()
   @IsUUID()
-  @IsNotEmpty()
-  roleId?: string;
+  bankId?: string;
+}
 
+export class UpdateUserDto extends PartialType(
+  OmitType(CreateUserDto, ['email'] as const),
+) {
+  @ApiPropertyOptional()
   @IsOptional()
   @IsBoolean()
   isActive?: boolean;
 }
 
-/** GET /users — filter and search. */
-export class ListUsersQueryDto implements IListUsersQuery {
+/** GET /users — pagination, search, sort, and user filters. */
+export class ListUsersQueryDto
+  extends BaseFilterQueryDto
+  implements IListUsersQuery
+{
+  @ApiPropertyOptional()
   @IsOptional()
-  @Type(() => Boolean)
+  @Transform(
+    ({ value }: { value: unknown }) => value === 'true' || value === true,
+  )
   @IsBoolean()
   isApproved?: boolean;
 
+  @ApiPropertyOptional()
   @IsOptional()
-  @Type(() => Boolean)
+  @Transform(
+    ({ value }: { value: unknown }) => value === 'true' || value === true,
+  )
   @IsBoolean()
   isActive?: boolean;
 
+  @ApiPropertyOptional()
   @IsOptional()
   @IsUUID()
   roleId?: string;
 
+  @ApiPropertyOptional({ enum: LoginChannel })
   @IsOptional()
   @IsEnum(LoginChannel)
   loginChannel?: LoginChannel;
-
-  @IsOptional()
-  @IsString()
-  @IsNotEmpty()
-  search?: string;
 }
 
 /** PATCH /users/:id/bank — admin fixes bank assignment for mobile users. */

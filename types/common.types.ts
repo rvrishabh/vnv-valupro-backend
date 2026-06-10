@@ -33,6 +33,15 @@ export interface FindQuery<TFilter extends FilterRecord = FilterRecord>
   filter?: TFilter;
 }
 
+/** Flat query params shared by list endpoints — maps to FindQuery via toFindQuery(). */
+export interface IBaseFilterQuery extends IPaginationQuery, ISortQuery {
+  search?: string;
+  startDate?: string;
+  endDate?: string;
+  /** Column for date range filter; defaults to createdAt in toFindQuery(). */
+  dateCondition?: string;
+}
+
 export interface PaginatedResult<T> {
   data: T[];
   total: number;
