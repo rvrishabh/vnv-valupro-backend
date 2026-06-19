@@ -179,8 +179,7 @@ export class AuthService {
     email: string,
     purpose: 'registration' | 'login',
   ) {
-    const otp = String(Math.floor(100000 + Math.random() * 900000));
-    await this.otpService.store(email, purpose, otp);
+    const otp = await this.otpService.create(email, purpose);
 
     const emailFrom = process.env.EMAIL_FROM;
     if (!emailFrom) {
