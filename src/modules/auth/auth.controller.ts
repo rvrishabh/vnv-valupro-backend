@@ -1,17 +1,24 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { AuthService } from './auth.service';
 import {
-  RegisterGoogleDto,
+  LoginDto,
+  RefreshTokenDto,
   RegisterSendEmailOtpDto,
   RegisterVerifyEmailOtpDto,
   SendEmailOtpDto,
+  VerifyEmailOtpDto,
 } from './dto/auth.request.dto';
+import { AuthService } from './services/auth.service';
 
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
+
+  @Post('login')
+  login(@Body() data: LoginDto) {
+    return this.authService.login(data);
+  }
 
   @Post('register/email/send-otp')
   registerSendEmailOtp(@Body() data: RegisterSendEmailOtpDto) {
@@ -23,13 +30,23 @@ export class AuthController {
     return this.authService.registerVerifyEmailOtp(data);
   }
 
-  @Post('register/google')
-  registerGoogle(@Body() data: RegisterGoogleDto) {
-    return this.authService.registerGoogle(data);
-  }
-
   @Post('email/send-otp')
   sendEmailOtp(@Body() data: SendEmailOtpDto) {
     return this.authService.sendEmailOtp(data);
+  }
+
+  @Post('email/verify-otp')
+  verifyEmailOtp(@Body() data: VerifyEmailOtpDto) {
+    return this.authService.verifyEmailOtp(data);
+  }
+
+  @Post('refresh')
+  refresh(@Body() data: RefreshTokenDto) {
+    return this.authService.refresh(data);
+  }
+
+  @Post('logout')
+  logout(@Body() data: RefreshTokenDto) {
+    return this.authService.logout(data);
   }
 }

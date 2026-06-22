@@ -1,10 +1,13 @@
 import {
   BadRequestException,
   ConflictException,
+  ForbiddenException,
   Injectable,
   InternalServerErrorException,
   Logger,
+  UnauthorizedException,
 } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
 import { AUTH_METHOD, LoginChannel } from 'generated/prisma/client';
 import { Resend } from 'resend';
 import {
@@ -12,19 +15,22 @@ import {
   CLIENT_TO_ROLE_NAME,
   MobileAuthClient,
 } from 'types/auth.types';
-import { toUserResponse } from '../user/mappers/user.mapper';
+import { toUserResponse } from '../../user/mappers/user.mapper';
 import {
   USER_INCLUDE,
   UserRepository,
-} from '../user/repositories/user.repository';
+  UserWithRelations,
+} from '../../user/repositories/user.repository';
 import {
-  RegisterGoogleDto,
+  LoginDto,
+  RefreshTokenDto,
   RegisterSendEmailOtpDto,
   RegisterVerifyEmailOtpDto,
   SendEmailOtpDto,
-} from './dto/auth.request.dto';
-import { GoogleAuthService } from './services/google-auth.service';
-import { OtpService } from './services/otp.service';
+  VerifyEmailOtpDto,
+} from '../dto/auth.request.dto';
+import { OtpService } from './otp.service';
+import { TokenService } from './token.service';
 
 @Injectable()
 export class AuthService {
@@ -34,8 +40,30 @@ export class AuthService {
   constructor(
     private readonly userRepo: UserRepository,
     private readonly otpService: OtpService,
-    private readonly googleAuthService: GoogleAuthService,
+    private readonly tokenService: TokenService,
   ) {}
+
+  /** Web portal — email + password login. */
+  async login(data: LoginDto) {
+    const user = await this.userRepo.findByEmail(data.email);
+    if (!user?.passwordHash) {
+      throw new UnauthorizedException('Invalid email or password');
+    }
+
+    if (user.role.loginChannel !== LoginChannel.WEB) {
+      throw new ForbiddenException('Use the mobile app to sign in');
+    }
+
+    const valid = await bcrypt.compare(data.password, user.passwordHash);
+    if (!valid) {
+      throw new UnauthorizedException('Invalid email or password');
+    }
+
+    this.assertUserCanLogin(user);
+
+    const tokens = await this.tokenService.issueTokens(user);
+    return { ...tokens, user: toUserResponse(user) };
+  }
 
   /** Mobile signup — email must not exist yet. */
   async registerSendEmailOtp(data: RegisterSendEmailOtpDto) {
@@ -50,7 +78,7 @@ export class AuthService {
     return { message: 'OTP sent to email' };
   }
 
-  /** Mobile signup — verify OTP and create user. */
+  /** Mobile signup — verify OTP and create user (no JWT until approved). */
   async registerVerifyEmailOtp(data: RegisterVerifyEmailOtpDto) {
     const isValid = await this.otpService.verify(
       data.email,
@@ -76,7 +104,6 @@ export class AuthService {
       client: data.client,
       bankId: data.bankId,
       mobile: data.mobile,
-      authMethod: AUTH_METHOD.EMAIL_OTP,
     });
 
     return {
@@ -85,41 +112,7 @@ export class AuthService {
     };
   }
 
-  /** Mobile signup — Google; email must not exist yet. */
-  async registerGoogle(data: RegisterGoogleDto) {
-    const { email, googleId } = await this.googleAuthService.verifyIdToken(
-      data.idToken,
-      data.client,
-    );
-
-    const existing = await this.userRepo.findByEmail(email);
-    if (existing) {
-      throw new ConflictException(
-        'Email already registered. Use login instead.',
-      );
-    }
-
-    if (data.mobile) {
-      await this.assertMobileAvailable(data.mobile);
-    }
-
-    const user = await this.createMobileUser({
-      email,
-      name: data.name,
-      client: data.client,
-      bankId: data.bankId,
-      mobile: data.mobile,
-      authMethod: AUTH_METHOD.GOOGLE,
-      googleId,
-    });
-
-    return {
-      message: 'Registration successful. Awaiting admin approval.',
-      user: toUserResponse(user),
-    };
-  }
-
-  /** Mobile login — user must already exist. */
+  /** Mobile login — send OTP to existing user. */
   async sendEmailOtp(data: SendEmailOtpDto) {
     const user = await this.userRepo.findByEmail(data.email);
     if (!user) {
@@ -131,14 +124,54 @@ export class AuthService {
     return { message: 'OTP sent to email' };
   }
 
+  /** Mobile login — verify OTP and return JWT tokens. */
+  async verifyEmailOtp(data: VerifyEmailOtpDto) {
+    const user = await this.userRepo.findByEmail(data.email);
+    if (!user) {
+      throw new BadRequestException('User not found. Please register first.');
+    }
+
+    this.assertClientMatchesRole(data.client, user.role.name);
+
+    const isValid = await this.otpService.verify(
+      data.email,
+      'login',
+      String(data.otp),
+    );
+    if (!isValid) {
+      throw new BadRequestException('Invalid or expired OTP');
+    }
+
+    this.assertUserCanLogin(user);
+
+    const tokens = await this.tokenService.issueTokens(user);
+    return { ...tokens, user: toUserResponse(user) };
+  }
+
+  async refresh(data: RefreshTokenDto) {
+    const userId = await this.tokenService.refresh(data.refreshToken);
+    const user = await this.userRepo.findByIdWithRelations(userId);
+    if (!user) {
+      throw new UnauthorizedException('User not found');
+    }
+
+    this.assertUserCanLogin(user);
+
+    const tokens = await this.tokenService.issueTokens(user);
+    return { ...tokens, user: toUserResponse(user) };
+  }
+
+  async logout(data: RefreshTokenDto) {
+    await this.tokenService.revoke(data.refreshToken);
+    return { message: 'Logged out successfully' };
+  }
+
   private async createMobileUser(input: {
     email: string;
     name: string;
     client: MobileAuthClient;
     bankId?: string;
     mobile?: string;
-    authMethod: AUTH_METHOD;
-    googleId?: string;
   }) {
     const roleName = CLIENT_TO_ROLE_NAME[input.client];
     const role = await this.userRepo.findRoleByName(roleName);
@@ -163,8 +196,7 @@ export class AuthService {
         name: input.name,
         email: input.email,
         mobile: input.mobile,
-        googleId: input.googleId,
-        authMethod: input.authMethod,
+        authMethod: AUTH_METHOD.EMAIL_OTP,
         passwordHash: null,
         isApproved: false,
         isActive: true,
@@ -203,6 +235,15 @@ export class AuthService {
 
     if (process.env.NODE_ENV !== 'production') {
       this.logger.debug(`[DEV OTP ${purpose}] ${email}`);
+    }
+  }
+
+  private assertUserCanLogin(user: UserWithRelations) {
+    if (!user.isActive) {
+      throw new ForbiddenException('Account is deactivated');
+    }
+    if (!user.isApproved) {
+      throw new ForbiddenException('Account pending admin approval');
     }
   }
 
