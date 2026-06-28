@@ -61,8 +61,7 @@ export class AuthService {
 
     this.assertUserCanLogin(user);
 
-    const tokens = await this.tokenService.issueTokens(user);
-    return { ...tokens, user: toUserResponse(user) };
+    return this.buildAuthResponse(user);
   }
 
   /** Mobile signup — email must not exist yet. */
@@ -144,12 +143,14 @@ export class AuthService {
 
     this.assertUserCanLogin(user);
 
-    const tokens = await this.tokenService.issueTokens(user);
-    return { ...tokens, user: toUserResponse(user) };
+    return this.buildAuthResponse(user);
   }
 
-  async refresh(data: RefreshTokenDto) {
-    const userId = await this.tokenService.refresh(data.refreshToken);
+  /** Exchange a valid refresh token for a new token pair. */
+  async refreshTokens(data: RefreshTokenDto) {
+    const userId = await this.tokenService.verifyRefreshToken(
+      data.refreshToken,
+    );
     const user = await this.userRepo.findByIdWithRelations(userId);
     if (!user) {
       throw new UnauthorizedException('User not found');
@@ -157,13 +158,17 @@ export class AuthService {
 
     this.assertUserCanLogin(user);
 
-    const tokens = await this.tokenService.issueTokens(user);
-    return { ...tokens, user: toUserResponse(user) };
+    return this.buildAuthResponse(user);
   }
 
-  async logout(data: RefreshTokenDto) {
-    await this.tokenService.revoke(data.refreshToken);
+  /** Stateless JWT — client should discard tokens locally. */
+  logout() {
     return { message: 'Logged out successfully' };
+  }
+
+  private async buildAuthResponse(user: UserWithRelations) {
+    const tokens = await this.tokenService.generateTokens(user);
+    return { ...tokens, user: toUserResponse(user) };
   }
 
   private async createMobileUser(input: {

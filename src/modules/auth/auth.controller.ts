@@ -41,12 +41,12 @@ export class AuthController {
   }
 
   @Post('refresh')
-  refresh(@Body() data: RefreshTokenDto) {
-    return this.authService.refresh(data);
+  refreshTokens(@Body() data: RefreshTokenDto) {
+    return this.authService.refreshTokens(data);
   }
 
   @Post('logout')
-  logout(@Body() data: RefreshTokenDto) {
-    return this.authService.logout(data);
+  logout() {
+    return this.authService.logout();
   }
 }
