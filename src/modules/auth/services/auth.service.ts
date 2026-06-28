@@ -23,7 +23,6 @@ import {
 } from '../../user/repositories/user.repository';
 import {
   LoginDto,
-  RefreshTokenDto,
   RegisterSendEmailOtpDto,
   RegisterVerifyEmailOtpDto,
   SendEmailOtpDto,
@@ -147,10 +146,8 @@ export class AuthService {
   }
 
   /** Exchange a valid refresh token for a new token pair. */
-  async refreshTokens(data: RefreshTokenDto) {
-    const userId = await this.tokenService.verifyRefreshToken(
-      data.refreshToken,
-    );
+  async refreshTokens(refreshToken: string) {
+    const userId = await this.tokenService.verifyRefreshToken(refreshToken);
     const user = await this.userRepo.findByIdWithRelations(userId);
     if (!user) {
       throw new UnauthorizedException('User not found');

@@ -1,4 +1,5 @@
 import 'dotenv/config';
+import fastifyCookie from '@fastify/cookie';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import {
@@ -15,6 +16,8 @@ async function bootstrap() {
     AppModule,
     new FastifyAdapter({ logger: false }), // NestJS logger handles this
   );
+
+  await app.register(fastifyCookie);
 
   // ─── Global prefix ────────────────────────────────
   app.setGlobalPrefix('api/v1');

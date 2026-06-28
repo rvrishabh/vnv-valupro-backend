@@ -151,10 +151,10 @@ export class RegisterGoogleDto implements IRegisterGoogle {
   mobile?: string;
 }
 
-/** POST /auth/refresh */
-export class RefreshTokenDto implements IRefreshToken {
+/** POST /auth/refresh — refreshToken optional when sent via httpOnly cookie (web). */
+export class RefreshTokenDto implements Partial<IRefreshToken> {
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
   @IsJWT({ message: 'Invalid refresh token' })
-  refreshToken: string;
+  refreshToken?: string;
 }

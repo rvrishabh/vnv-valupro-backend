@@ -17,8 +17,9 @@ export interface JwtPayload {
   type: 'access' | 'refresh';
 }
 
-const ACCESS_TTL = '15m';
-const REFRESH_TTL_SECONDS = 7 * 24 * 60 * 60;
+export const ACCESS_TTL = '15m';
+export const ACCESS_TTL_SECONDS = 15 * 60;
+export const REFRESH_TTL_SECONDS = 7 * 24 * 60 * 60;
 
 @Injectable()
 export class TokenService {

@@ -5,6 +5,7 @@ import { UserModule } from '../user/user.module';
 import { AuthController } from './auth.controller';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { AuthService } from './services/auth.service';
+import { AuthCookieService } from './services/auth-cookie.service';
 import { OtpService } from './services/otp.service';
 import { TokenService } from './services/token.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
@@ -16,7 +17,14 @@ import { JwtStrategy } from './strategies/jwt.strategy';
     JwtModule.register({}),
   ],
   controllers: [AuthController],
-  providers: [AuthService, OtpService, TokenService, JwtStrategy, JwtAuthGuard],
-  exports: [AuthService, JwtAuthGuard, TokenService],
+  providers: [
+    AuthService,
+    AuthCookieService,
+    OtpService,
+    TokenService,
+    JwtStrategy,
+    JwtAuthGuard,
+  ],
+  exports: [AuthService, AuthCookieService, JwtAuthGuard, TokenService],
 })
 export class AuthModule {}
