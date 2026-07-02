@@ -1,5 +1,12 @@
 import { AUTH_METHOD } from 'types/auth.types';
-import { IUser, IUserBank, IUserRole, LoginChannel } from 'types/user.types';
+import {
+  IUser,
+  IUserBranch,
+  IUserInstitution,
+  IUserInstitutionType,
+  IUserRole,
+  LoginChannel,
+} from 'types/user.types';
 
 export class UserRoleDto implements IUserRole {
   id: string;
@@ -8,10 +15,24 @@ export class UserRoleDto implements IUserRole {
   isSystem: boolean;
 }
 
-export class UserBankDto implements IUserBank {
+export class UserInstitutionTypeDto implements IUserInstitutionType {
+  id: string;
+  name: string;
+}
+
+export class UserInstitutionDto implements IUserInstitution {
   id: string;
   name: string;
   code: string;
+  institutionType?: UserInstitutionTypeDto;
+}
+
+export class UserBranchDto implements IUserBranch {
+  id: string;
+  branchName: string;
+  city: string;
+  state: string;
+  needsVerification: boolean;
 }
 
 export class UserResponseDto implements IUser {
@@ -23,8 +44,10 @@ export class UserResponseDto implements IUser {
   role?: UserRoleDto;
   isActive: boolean;
   isApproved: boolean;
-  bankId?: string | null;
-  bank?: UserBankDto | null;
+  institutionId?: string | null;
+  institution?: UserInstitutionDto | null;
+  branchId?: string | null;
+  branch?: UserBranchDto | null;
   authMethod?: AUTH_METHOD | null;
   createdAt: Date | string;
   updatedAt: Date | string;

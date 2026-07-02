@@ -20,7 +20,7 @@ import { BaseFilterQueryDto } from 'src/common/dto';
 import {
   ICreateWebUser,
   IListUsersQuery,
-  IUpdateUserBankId,
+  IUpdateUserBranchId,
   LoginChannel,
 } from 'types/user.types';
 
@@ -62,14 +62,6 @@ export class CreateUserDto implements ICreateWebUser {
   @IsOptional()
   @IsMobilePhone('en-IN')
   mobile?: string;
-
-  @ApiProperty({
-    type: String,
-    required: false,
-  })
-  @IsOptional()
-  @IsUUID()
-  bankId?: string;
 }
 
 export class UpdateUserDto extends PartialType(
@@ -113,9 +105,9 @@ export class ListUsersQueryDto
   loginChannel?: LoginChannel;
 }
 
-/** PATCH /users/:id/bank — admin fixes bank assignment for mobile users. */
-export class UpdateUserBankIdDto implements IUpdateUserBankId {
+/** PATCH /users/:id/branch — admin fixes branch assignment for mobile users. */
+export class UpdateUserBranchIdDto implements IUpdateUserBranchId {
   @IsUUID()
   @IsNotEmpty()
-  bankId: string;
+  branchId: string;
 }

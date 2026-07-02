@@ -12,7 +12,7 @@ import { toFindQuery } from 'src/common/utils/to-find-query.util';
 import {
   CreateUserDto,
   ListUsersQueryDto,
-  UpdateUserBankIdDto,
+  UpdateUserBranchIdDto,
   UpdateUserDto,
 } from './dto/user.request.dto';
 import { toUserResponse } from './mappers/user.mapper';
@@ -39,13 +39,6 @@ export class UserService {
       throw new BadRequestException('roleId must be a WEB loginChannel role');
     }
 
-    if (data.bankId) {
-      const bank = await this.userRepo.findActiveBank(data.bankId);
-      if (!bank) {
-        throw new BadRequestException('Invalid bank');
-      }
-    }
-
     const passwordHash = await bcrypt.hash(data.password, SALT_ROUNDS);
 
     const user = await this.userRepo.create(
@@ -58,7 +51,6 @@ export class UserService {
         isApproved: true,
         isActive: true,
         role: { connect: { id: data.roleId } },
-        ...(data.bankId && { bank: { connect: { id: data.bankId } } }),
       },
       USER_INCLUDE,
     );
@@ -103,19 +95,11 @@ export class UserService {
       await this.assertMobileAvailable(data.mobile, id);
     }
 
-    if (data.bankId) {
-      const bank = await this.userRepo.findActiveBank(data.bankId);
-      if (!bank) {
-        throw new BadRequestException('Invalid bank');
-      }
-    }
-
     const updatePayload: Prisma.UserUpdateInput = {
       ...(data.name !== undefined && { name: data.name }),
       ...(data.mobile !== undefined && { mobile: data.mobile }),
       ...(data.isActive !== undefined && { isActive: data.isActive }),
       ...(data.roleId && { role: { connect: { id: data.roleId } } }),
-      ...(data.bankId && { bank: { connect: { id: data.bankId } } }),
     };
 
     if (data.password) {
@@ -167,20 +151,27 @@ export class UserService {
     return toUserResponse(updated);
   }
 
-  async updateBank(id: string, data: UpdateUserBankIdDto) {
+  async updateBranch(id: string, data: UpdateUserBranchIdDto) {
     const user = await this.getUserOrThrow(id);
     if (user.role.loginChannel !== LoginChannel.MOBILE) {
-      throw new BadRequestException('Bank assignment is for mobile users only');
+      throw new BadRequestException(
+        'Branch assignment is for mobile users only',
+      );
     }
 
-    const bank = await this.userRepo.findActiveBank(data.bankId);
-    if (!bank) {
-      throw new BadRequestException('Invalid bank');
+    const branch = await this.userRepo.findActiveBranchWithInstitution(
+      data.branchId,
+    );
+    if (!branch || !branch.institution.isActive) {
+      throw new BadRequestException('Invalid or inactive branch');
     }
 
     const updated = await this.userRepo.updateById(
       id,
-      { bank: { connect: { id: data.bankId } } },
+      {
+        branch: { connect: { id: data.branchId } },
+        institution: { connect: { id: branch.institutionId } },
+      },
       USER_INCLUDE,
     );
     return toUserResponse(updated);

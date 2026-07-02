@@ -7,18 +7,22 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { AdminGuard } from '../auth/guards/admin.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import {
   CreateUserDto,
   ListUsersQueryDto,
-  UpdateUserBankIdDto,
+  UpdateUserBranchIdDto,
   UpdateUserDto,
 } from './dto/user.request.dto';
 import { UserService } from './user.service';
 
 @ApiTags('users')
 @ApiBearerAuth('access-token')
+@UseGuards(JwtAuthGuard, AdminGuard)
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -54,11 +58,11 @@ export class UserController {
     return this.userService.deactivate(id);
   }
 
-  @Patch(':id/bank')
-  updateBank(
+  @Patch(':id/branch')
+  updateBranch(
     @Param('id', ParseUUIDPipe) id: string,
-    @Body() data: UpdateUserBankIdDto,
+    @Body() data: UpdateUserBranchIdDto,
   ) {
-    return this.userService.updateBank(id, data);
+    return this.userService.updateBranch(id, data);
   }
 }

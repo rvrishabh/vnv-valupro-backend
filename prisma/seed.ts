@@ -67,18 +67,29 @@ async function seedRoles(prisma: PrismaClient) {
   }
 }
 
-async function seedBanks(prisma: PrismaClient) {
+async function seedInstitutionTypeAndBanks(prisma: PrismaClient) {
+  const bankType = await prisma.institutionType.upsert({
+    where: { name: 'Bank' },
+    update: {},
+    create: {
+      name: 'Bank',
+      description: 'Scheduled commercial banks regulated by RBI',
+    },
+  });
+
   for (const bank of INDIAN_BANKS) {
-    await prisma.bank.upsert({
+    await prisma.institution.upsert({
       where: { code: bank.code },
       update: {
         name: bank.name,
         isActive: true,
+        institutionTypeId: bankType.id,
       },
       create: {
         name: bank.name,
         code: bank.code,
         isActive: true,
+        institutionTypeId: bankType.id,
       },
     });
   }
@@ -130,8 +141,8 @@ async function main() {
     console.log('Seeding system roles...');
     await seedRoles(prisma);
 
-    console.log('Seeding banks...');
-    await seedBanks(prisma);
+    console.log('Seeding institution type and banks...');
+    await seedInstitutionTypeAndBanks(prisma);
 
     console.log('Seeding admin user...');
     await seedAdminUser(prisma);

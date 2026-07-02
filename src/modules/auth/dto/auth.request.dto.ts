@@ -1,3 +1,4 @@
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
   IsEmail,
@@ -9,9 +10,11 @@ import {
   IsOptional,
   IsString,
   IsUUID,
+  Matches,
   Max,
   Min,
   ValidateIf,
+  ValidateNested,
 } from 'class-validator';
 import {
   AuthClient,
@@ -93,6 +96,28 @@ export class RegisterSendEmailOtpDto implements ISendEmailOtp {
   client: MobileAuthClient;
 }
 
+export class ManualBranchDto {
+  @IsUUID()
+  @IsNotEmpty()
+  institutionId: string;
+
+  @IsString()
+  @IsNotEmpty()
+  branchName: string;
+
+  @IsString()
+  @IsNotEmpty()
+  city: string;
+
+  @IsString()
+  @IsNotEmpty()
+  state: string;
+
+  @IsOptional()
+  @IsString()
+  address?: string;
+}
+
 /** POST /auth/register/email/verify-otp — creates User with roleId from client. */
 export class RegisterVerifyEmailOtpDto implements IRegisterVerifyEmailOtp {
   @IsEmail()
@@ -116,9 +141,37 @@ export class RegisterVerifyEmailOtpDto implements IRegisterVerifyEmailOtp {
     (data: RegisterVerifyEmailOtpDto) =>
       data.client === AuthClient.BANK_MANAGER_APP,
   )
+  @IsOptional()
+  @IsString()
+  @Matches(/^[A-Z]{4}0[A-Z0-9]{6}$/, {
+    message: 'IFSC code must match format AAAA0XXXXXX',
+  })
+  ifscCode?: string;
+
+  @ValidateIf(
+    (data: RegisterVerifyEmailOtpDto) =>
+      data.client === AuthClient.BANK_MANAGER_APP,
+  )
+  @IsOptional()
   @IsUUID()
-  @IsNotEmpty()
-  bankId?: string;
+  institutionId?: string;
+
+  @ValidateIf(
+    (data: RegisterVerifyEmailOtpDto) =>
+      data.client === AuthClient.BANK_MANAGER_APP,
+  )
+  @IsOptional()
+  @IsUUID()
+  branchId?: string;
+
+  @ValidateIf(
+    (data: RegisterVerifyEmailOtpDto) =>
+      data.client === AuthClient.BANK_MANAGER_APP,
+  )
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => ManualBranchDto)
+  manualBranch?: ManualBranchDto;
 
   @IsOptional()
   @IsMobilePhone('en-IN')
@@ -142,9 +195,34 @@ export class RegisterGoogleDto implements IRegisterGoogle {
   @ValidateIf(
     (data: RegisterGoogleDto) => data.client === AuthClient.BANK_MANAGER_APP,
   )
+  @IsOptional()
+  @IsString()
+  @Matches(/^[A-Z]{4}0[A-Z0-9]{6}$/, {
+    message: 'IFSC code must match format AAAA0XXXXXX',
+  })
+  ifscCode?: string;
+
+  @ValidateIf(
+    (data: RegisterGoogleDto) => data.client === AuthClient.BANK_MANAGER_APP,
+  )
+  @IsOptional()
   @IsUUID()
-  @IsNotEmpty()
-  bankId?: string;
+  institutionId?: string;
+
+  @ValidateIf(
+    (data: RegisterGoogleDto) => data.client === AuthClient.BANK_MANAGER_APP,
+  )
+  @IsOptional()
+  @IsUUID()
+  branchId?: string;
+
+  @ValidateIf(
+    (data: RegisterGoogleDto) => data.client === AuthClient.BANK_MANAGER_APP,
+  )
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => ManualBranchDto)
+  manualBranch?: ManualBranchDto;
 
   @IsOptional()
   @IsMobilePhone('en-IN')

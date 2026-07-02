@@ -31,7 +31,8 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
       roleName: payload.roleName,
       isApproved: payload.isApproved,
       isActive: payload.isActive,
-      bankId: payload.bankId,
+      institutionId: payload.institutionId,
+      branchId: payload.branchId,
     };
   }
 }

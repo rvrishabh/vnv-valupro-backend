@@ -13,7 +13,8 @@ export interface JwtPayload {
   roleName: string;
   isApproved: boolean;
   isActive: boolean;
-  bankId?: string | null;
+  institutionId?: string | null;
+  branchId?: string | null;
   type: 'access' | 'refresh';
 }
 
@@ -72,7 +73,8 @@ export class TokenService {
       roleName: user.role.name,
       isApproved: user.isApproved,
       isActive: user.isActive,
-      bankId: user.bankId,
+      institutionId: user.institutionId,
+      branchId: user.branchId,
     };
   }
 

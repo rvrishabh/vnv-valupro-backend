@@ -13,8 +13,11 @@ import { Resend } from 'resend';
 import {
   AuthClient,
   CLIENT_TO_ROLE_NAME,
+  IManualBranchInput,
   MobileAuthClient,
 } from 'types/auth.types';
+import { BranchesService } from '../../branches/branches.service';
+import { InstitutionsRepository } from '../../institutions/repositories/institutions.repository';
 import { toUserResponse } from '../../user/mappers/user.mapper';
 import {
   USER_INCLUDE,
@@ -38,6 +41,8 @@ export class AuthService {
 
   constructor(
     private readonly userRepo: UserRepository,
+    private readonly institutionsRepo: InstitutionsRepository,
+    private readonly branchesService: BranchesService,
     private readonly otpService: OtpService,
     private readonly tokenService: TokenService,
   ) {}
@@ -100,7 +105,10 @@ export class AuthService {
       email: data.email,
       name: data.name,
       client: data.client,
-      bankId: data.bankId,
+      ifscCode: data.ifscCode,
+      institutionId: data.institutionId,
+      branchId: data.branchId,
+      manualBranch: data.manualBranch,
       mobile: data.mobile,
     });
 
@@ -172,7 +180,10 @@ export class AuthService {
     email: string;
     name: string;
     client: MobileAuthClient;
-    bankId?: string;
+    ifscCode?: string;
+    institutionId?: string;
+    branchId?: string;
+    manualBranch?: IManualBranchInput;
     mobile?: string;
   }) {
     const roleName = CLIENT_TO_ROLE_NAME[input.client];
@@ -181,16 +192,22 @@ export class AuthService {
       throw new InternalServerErrorException('Mobile role not configured');
     }
 
+    let institutionId: string | undefined;
+    let branchId: string | undefined;
+
     if (input.client === AuthClient.BANK_MANAGER_APP) {
-      if (!input.bankId) {
-        throw new BadRequestException('bankId is required for bank manager');
-      }
-      const bank = await this.userRepo.findActiveBank(input.bankId);
-      if (!bank) {
-        throw new BadRequestException('Invalid bank');
-      }
-    } else if (input.bankId) {
-      throw new BadRequestException('bankId is not allowed for site engineer');
+      const assignment = await this.resolveBankManagerAssignment(input);
+      institutionId = assignment.institutionId;
+      branchId = assignment.branchId;
+    } else if (
+      input.ifscCode ||
+      input.institutionId ||
+      input.branchId ||
+      input.manualBranch
+    ) {
+      throw new BadRequestException(
+        'Institution and branch fields are not allowed for site engineer',
+      );
     }
 
     return this.userRepo.create(
@@ -203,10 +220,94 @@ export class AuthService {
         isApproved: false,
         isActive: true,
         role: { connect: { id: role.id } },
-        ...(input.bankId && { bank: { connect: { id: input.bankId } } }),
+        ...(institutionId && {
+          institution: { connect: { id: institutionId } },
+        }),
+        ...(branchId && { branch: { connect: { id: branchId } } }),
       },
       USER_INCLUDE,
     );
+  }
+
+  private async resolveBankManagerAssignment(input: {
+    ifscCode?: string;
+    institutionId?: string;
+    branchId?: string;
+    manualBranch?: IManualBranchInput;
+  }) {
+    const hasIfsc = !!input.ifscCode;
+    const hasManualPick = !!(input.institutionId && input.branchId);
+    const hasPartialManualPick =
+      !!input.institutionId !== !!input.branchId;
+
+    if (hasPartialManualPick) {
+      throw new BadRequestException(
+        'Both institutionId and branchId are required for manual selection',
+      );
+    }
+
+    if (hasIfsc && hasManualPick) {
+      throw new BadRequestException(
+        'Provide either ifscCode (with optional manualBranch fallback) or institutionId + branchId, not both',
+      );
+    }
+
+    if (!hasIfsc && !hasManualPick) {
+      throw new BadRequestException(
+        'Bank manager registration requires ifscCode or institutionId + branchId',
+      );
+    }
+
+    if (hasIfsc) {
+      return this.resolveIfscPath(input.ifscCode!, input.manualBranch);
+    }
+
+    const institution = await this.institutionsRepo.findActiveById(
+      input.institutionId!,
+    );
+    if (!institution) {
+      throw new BadRequestException('Invalid or inactive institution');
+    }
+
+    await this.branchesService.assertActiveVerifiedBranch(
+      input.branchId!,
+      input.institutionId!,
+    );
+
+    return {
+      institutionId: input.institutionId!,
+      branchId: input.branchId!,
+    };
+  }
+
+  private async resolveIfscPath(
+    ifscCode: string,
+    manualBranch?: IManualBranchInput,
+  ) {
+    const result = await this.branchesService.lookupOrCreateByIfsc(ifscCode);
+
+    if (result.found) {
+      return {
+        institutionId: result.branch.institutionId,
+        branchId: result.branch.id,
+      };
+    }
+
+    if (!manualBranch) {
+      throw new BadRequestException(
+        'IFSC code not found in registry. Provide manualBranch with institutionId, branchName, city, and state.',
+      );
+    }
+
+    const branch = await this.branchesService.createManualBranch(
+      manualBranch,
+      false,
+    );
+
+    return {
+      institutionId: branch.institutionId,
+      branchId: branch.id,
+    };
   }
 
   private async dispatchEmailOtp(

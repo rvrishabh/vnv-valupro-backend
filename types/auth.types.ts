@@ -43,11 +43,22 @@ export type IVerifyEmailOtp = Pick<IAuth, 'email'> & {
   client: MobileAuthClient;
 };
 
+export interface IManualBranchInput {
+  institutionId: string;
+  branchName: string;
+  city: string;
+  state: string;
+  address?: string;
+}
+
 export interface IMobileRegister {
   email: string;
   client: MobileAuthClient;
   name: string;
-  bankId?: string;
+  ifscCode?: string;
+  institutionId?: string;
+  branchId?: string;
+  manualBranch?: IManualBranchInput;
   mobile?: string;
 }
 
@@ -64,7 +75,10 @@ export interface IRegisterGoogle {
   idToken: string;
   client: MobileAuthClient;
   name: string;
-  bankId?: string;
+  ifscCode?: string;
+  institutionId?: string;
+  branchId?: string;
+  manualBranch?: IManualBranchInput;
   mobile?: string;
 }
 

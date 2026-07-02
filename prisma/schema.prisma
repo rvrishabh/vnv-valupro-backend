@@ -95,15 +95,55 @@ model RolePermission {
 
   @@unique([roleId, permissionId])
 }
-model Bank {
-  id        String   @id @default(uuid())
-  name      String
-  code      String   @unique
-  isActive  Boolean  @default(true)
-  createdAt DateTime @default(now())
+model InstitutionType {
+  id          String   @id @default(uuid())
+  name        String   @unique
+  description String?
+  createdAt   DateTime @default(now())
 
-  users User[]
-  cases Case[]
+  institutions Institution[]
+}
+
+model Institution {
+  id                String   @id @default(uuid())
+  name              String
+  code              String   @unique
+  institutionTypeId String
+  isActive          Boolean  @default(true)
+  createdAt         DateTime @default(now())
+
+  institutionType InstitutionType @relation(fields: [institutionTypeId], references: [id])
+  branches        Branch[]
+  users           User[]
+  cases           Case[]
+
+  @@index([institutionTypeId])
+}
+
+model Branch {
+  id                String    @id @default(uuid())
+  institutionId     String
+  branchName        String
+  ifscCode          String?   @unique
+  city              String
+  state             String
+  district          String?
+  address           String?
+  isManuallyEntered Boolean   @default(false)
+  needsVerification Boolean   @default(false)
+  verifiedAt        DateTime?
+  verifiedById      String?
+  createdAt         DateTime  @default(now())
+
+  institution Institution @relation(fields: [institutionId], references: [id], onDelete: Cascade)
+  verifiedBy  User?       @relation("BranchVerifiedBy", fields: [verifiedById], references: [id])
+  users       User[]
+  cases       Case[]
+
+  @@index([institutionId])
+  @@index([city])
+  @@index([needsVerification])
+  @@unique([institutionId, branchName, city])
 }
 
 model User {
@@ -117,12 +157,15 @@ model User {
   roleId       String
   isActive     Boolean      @default(true)
   isApproved   Boolean      @default(false)
-  bankId       String?
+  institutionId String?
+  branchId      String?
   fcmToken     String?
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
 
-  bank              Bank?              @relation(fields: [bankId], references: [id])
+  institution       Institution?       @relation(fields: [institutionId], references: [id])
+  branch            Branch?            @relation(fields: [branchId], references: [id])
+  verifiedBranches  Branch[]           @relation("BranchVerifiedBy")
   role              Role               @relation(fields: [roleId], references: [id])
   engineerLocations EngineerLocation[]
   createdCases      Case[]             @relation("CreatedBy")
@@ -154,7 +197,8 @@ model Case {
   id               String       @id @default(uuid())
   caseNumber       String       @unique
   status           CaseStatus   @default(PENDING)
-  bankId           String
+  institutionId    String
+  branchId         String?
   createdById      String
   assignedToId     String?
   checkedById      String?
@@ -170,7 +214,8 @@ model Case {
   createdAt        DateTime     @default(now())
   updatedAt        DateTime     @updatedAt
 
-  bank          Bank             @relation(fields: [bankId], references: [id])
+  institution   Institution      @relation(fields: [institutionId], references: [id])
+  branch        Branch?          @relation(fields: [branchId], references: [id])
   createdBy     User             @relation("CreatedBy", fields: [createdById], references: [id])
   assignedTo    User?            @relation("AssignedTo", fields: [assignedToId], references: [id])
   checkedBy     User?            @relation("CheckedBy", fields: [checkedById], references: [id])
@@ -181,7 +226,8 @@ model Case {
   feeCollection FeeCollection?
 
   @@index([status])
-  @@index([bankId])
+  @@index([institutionId])
+  @@index([branchId])
   @@index([assignedToId])
   @@index([createdAt])
 }

@@ -5,7 +5,11 @@ import { PrismaBaseRepository } from 'src/core/base/base.repository';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UserFilter } from 'types/user.types';
 
-export const USER_INCLUDE = { role: true, bank: true } as const;
+export const USER_INCLUDE = {
+  role: true,
+  institution: { include: { institutionType: true } },
+  branch: true,
+} as const;
 
 export type UserWithRelations = Prisma.UserGetPayload<{
   include: typeof USER_INCLUDE;
@@ -34,7 +38,8 @@ export class UserRepository extends PrismaBaseRepository<
     'isApproved',
     'isActive',
     'roleId',
-    'bankId',
+    'institutionId',
+    'branchId',
     'createdAt',
     'updatedAt',
   ];
@@ -79,9 +84,10 @@ export class UserRepository extends PrismaBaseRepository<
     return this.prisma.role.findFirst({ where: { name } });
   }
 
-  findActiveBank(bankId: string) {
-    return this.prisma.bank.findFirst({
-      where: { id: bankId, isActive: true },
+  findActiveBranchWithInstitution(branchId: string) {
+    return this.prisma.branch.findFirst({
+      where: { id: branchId, needsVerification: false },
+      include: { institution: true },
     });
   }
 }

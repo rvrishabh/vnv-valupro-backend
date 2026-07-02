@@ -5,7 +5,8 @@ export interface UserFilter extends FilterRecord {
   roleId?: string;
   isActive?: boolean;
   isApproved?: boolean;
-  bankId?: string;
+  institutionId?: string;
+  branchId?: string;
   loginChannel?: LoginChannel;
 }
 
@@ -34,10 +35,24 @@ export interface IUserRole {
   isSystem: boolean;
 }
 
-export interface IUserBank {
+export interface IUserInstitutionType {
+  id: string;
+  name: string;
+}
+
+export interface IUserInstitution {
   id: string;
   name: string;
   code: string;
+  institutionType?: IUserInstitutionType;
+}
+
+export interface IUserBranch {
+  id: string;
+  branchName: string;
+  city: string;
+  state: string;
+  needsVerification: boolean;
 }
 
 /** Safe user shape for API responses (no passwordHash, googleId, fcmToken). */
@@ -50,8 +65,10 @@ export interface IUser {
   role?: IUserRole;
   isActive: boolean;
   isApproved: boolean;
-  bankId?: string | null;
-  bank?: IUserBank | null;
+  institutionId?: string | null;
+  institution?: IUserInstitution | null;
+  branchId?: string | null;
+  branch?: IUserBranch | null;
   authMethod?: AUTH_METHOD | null;
   createdAt: Date | string;
   updatedAt: Date | string;
@@ -76,7 +93,7 @@ export interface IUpdateWebUser {
   isActive?: boolean;
 }
 
-/** PATCH /users/:id/bank — admin fixes bank assignment for mobile users. */
-export interface IUpdateUserBankId {
-  bankId: string;
+/** PATCH /users/:id/branch — admin fixes branch assignment for mobile users. */
+export interface IUpdateUserBranchId {
+  branchId: string;
 }
