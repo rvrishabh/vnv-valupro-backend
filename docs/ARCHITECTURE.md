@@ -73,13 +73,13 @@ Examples: `Checker`, `Operations`, `Finance` — created in the web RBAC UI with
 
 Admin does **not** create bank managers or site engineers. They register in the correct mobile app.
 
-**Email OTP registration**
+**OTP registration (email or WhatsApp delivery)**
 
-1. `POST /auth/register/email/send-otp` — `{ email, client }` (email must not already exist).
-2. OTP → Redis → email provider (dev: console log).
-3. `POST /auth/register/email/verify-otp` — `{ email, otp, client, name, bankId?, mobile? }`.
+1. `POST /auth/mobile/register/send-otp` — `{ email, client, channel?, mobile? }` (email must not already exist).
+2. OTP → Redis → Zavu (email or WhatsApp).
+3. `POST /auth/mobile/register/verify-otp` — `{ email, otp, client }`. Profile fields (name, mobile, institution/branch) are completed later via the user update API.
 4. Server resolves role: `client` → `Role.name` (`BANK_MANAGER` | `SITE_ENGINEER`) → `roleId`.
-5. Create `User`: `email`, `name`, `roleId`, `authMethod: EMAIL_OTP`, `passwordHash: null`, `isApproved: false` (default), `bankId` required when `client = bank_manager_app`.
+5. Create `User`: provisional `name` (email local-part), `email`, `roleId`, `authMethod: EMAIL_OTP`, `passwordHash: null`, `isApproved: false`. Name, mobile, institution/branch are set later via user update.
 
 **Google registration**
 
@@ -91,12 +91,11 @@ Admin does **not** create bank managers or site engineers. They register in the 
 
 - Reject duplicate email.
 - Reject `client` mismatch (engineer app cannot register as bank manager).
-- `bankId` required for `BANK_MANAGER`; optional for `SITE_ENGINEER`.
-- Public `GET /banks` for bank picker during bank manager signup.
+- Institution/branch for bank managers is assigned after registration (user update / branch APIs), not at OTP verify.
 
 ### Mobile — login (returning users)
 
-**Email OTP:** `POST /auth/email/send-otp` → `POST /auth/email/verify-otp` — user must exist; `user.role.name` must match `client`.
+**OTP login:** `POST /auth/mobile/login/send-otp` → `POST /auth/mobile/login/verify-otp` — user must exist; `user.role.name` must match `client`. Delivery via Zavu email or WhatsApp (`channel`).
 
 **Google:** `POST /auth/google` — find user by email / `googleId`; role must match `client`.
 
@@ -120,11 +119,11 @@ Admin does **not** create bank managers or site engineers. They register in the 
 | Route | Purpose |
 |-------|---------|
 | `POST /auth/login` | Web: email + password |
-| `POST /auth/register/email/send-otp` | Mobile: start signup |
-| `POST /auth/register/email/verify-otp` | Mobile: complete signup → create user |
+| `POST /auth/mobile/register/send-otp` | Mobile: start signup |
+| `POST /auth/mobile/register/verify-otp` | Mobile: complete signup → create user |
 | `POST /auth/register/google` | Mobile: Google signup → create user |
-| `POST /auth/email/send-otp` | Mobile: login OTP |
-| `POST /auth/email/verify-otp` | Mobile: verify login → JWT |
+| `POST /auth/mobile/login/send-otp` | Mobile: login OTP |
+| `POST /auth/mobile/login/verify-otp` | Mobile: verify login → JWT |
 | `POST /auth/google` | Mobile: Google login → JWT |
 | `POST /auth/refresh` | Refresh access token |
 | `POST /auth/logout` | Invalidate refresh |
@@ -180,7 +179,7 @@ Foundation → seed roles/permissions/bootstrap admin → **banks** (public list
 - `DATABASE_URL`, `DIRECT_URL`
 - JWT secrets, `REDIS_URL`
 - Bootstrap: `ADMIN_EMAIL`, `ADMIN_PASSWORD`
-- Email OTP: `RESEND_API_KEY`, `EMAIL_FROM`
+- OTP delivery (Zavu): `ZAVUDEV_API_KEY`, `ZAVU_SENDER_ID`; WhatsApp uses `ZAVU_OTP_TEMPLATE_ID`; email sends inline subject/body
 - Google: `GOOGLE_CLIENT_ID_BANK_MANAGER`, `GOOGLE_CLIENT_ID_SITE_ENGINEER`
 - R2, FCM
 

@@ -1,8 +1,6 @@
-import { Module, forwardRef } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { BranchesModule } from '../branches/branches.module';
-import { InstitutionsModule } from '../institutions/institutions.module';
 import { UserModule } from '../user/user.module';
 import { AuthController } from './auth.controller';
 import { AdminGuard } from './guards/admin.guard';
@@ -16,8 +14,6 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 @Module({
   imports: [
     UserModule,
-    forwardRef(() => InstitutionsModule),
-    forwardRef(() => BranchesModule),
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({}),
   ],

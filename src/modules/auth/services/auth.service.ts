@@ -9,42 +9,35 @@ import {
 } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { AUTH_METHOD, LoginChannel } from 'generated/prisma/client';
-import { Resend } from 'resend';
+import { ZavuService } from 'src/common/services/zavu.service';
 import {
-  AuthClient,
   CLIENT_TO_ROLE_NAME,
-  IManualBranchInput,
+  IRegisterVerifyMobileOtp,
+  ISendMobileLoginOtp,
+  ISendMobileRegisterOtp,
+  IVerifyMobileLoginOtp,
   MobileAuthClient,
+  OtpChannel,
 } from 'types/auth.types';
-import { BranchesService } from '../../branches/branches.service';
-import { InstitutionsRepository } from '../../institutions/repositories/institutions.repository';
 import { toUserResponse } from '../../user/mappers/user.mapper';
 import {
   USER_INCLUDE,
   UserRepository,
   UserWithRelations,
 } from '../../user/repositories/user.repository';
-import {
-  LoginDto,
-  RegisterSendEmailOtpDto,
-  RegisterVerifyEmailOtpDto,
-  SendEmailOtpDto,
-  VerifyEmailOtpDto,
-} from '../dto/auth.request.dto';
+import { LoginDto } from '../dto/auth.request.dto';
 import { OtpService } from './otp.service';
 import { TokenService } from './token.service';
 
 @Injectable()
 export class AuthService {
   private readonly logger = new Logger(AuthService.name);
-  private readonly resend = new Resend(process.env.RESEND_API_KEY);
 
   constructor(
     private readonly userRepo: UserRepository,
-    private readonly institutionsRepo: InstitutionsRepository,
-    private readonly branchesService: BranchesService,
     private readonly otpService: OtpService,
     private readonly tokenService: TokenService,
+    private readonly zavu: ZavuService,
   ) {}
 
   /** Web portal — email + password login. */
@@ -69,7 +62,7 @@ export class AuthService {
   }
 
   /** Mobile signup — email must not exist yet. */
-  async registerSendEmailOtp(data: RegisterSendEmailOtpDto) {
+  async sendMobileRegisterOtp(data: ISendMobileRegisterOtp) {
     const existing = await this.userRepo.findByEmail(data.email);
     if (existing) {
       throw new ConflictException(
@@ -77,12 +70,21 @@ export class AuthService {
       );
     }
 
-    await this.dispatchEmailOtp(data.email, 'registration');
-    return { message: 'OTP sent to email' };
+    await this.dispatchOtp(data.email, 'registration', {
+      channel: data.channel,
+      mobile: data.mobile,
+    });
+    return {
+      message:
+        (data.channel ?? 'email') === 'whatsapp'
+          ? 'OTP sent via WhatsApp'
+          : 'OTP sent to email',
+    };
   }
 
   /** Mobile signup — verify OTP and create user (no JWT until approved). */
-  async registerVerifyEmailOtp(data: RegisterVerifyEmailOtpDto) {
+  async verifyMobileRegisterOtp(data: IRegisterVerifyMobileOtp) {
+    console.log('data', data);
     const isValid = await this.otpService.verify(
       data.email,
       'registration',
@@ -97,19 +99,9 @@ export class AuthService {
       throw new ConflictException('Email already registered');
     }
 
-    if (data.mobile) {
-      await this.assertMobileAvailable(data.mobile);
-    }
-
     const user = await this.createMobileUser({
       email: data.email,
-      name: data.name,
       client: data.client,
-      ifscCode: data.ifscCode,
-      institutionId: data.institutionId,
-      branchId: data.branchId,
-      manualBranch: data.manualBranch,
-      mobile: data.mobile,
     });
 
     return {
@@ -119,19 +111,27 @@ export class AuthService {
   }
 
   /** Mobile login — send OTP to existing user. */
-  async sendEmailOtp(data: SendEmailOtpDto) {
+  async sendMobileLoginOtp(data: ISendMobileLoginOtp) {
     const user = await this.userRepo.findByEmail(data.email);
     if (!user) {
       throw new BadRequestException('User not found. Please register first.');
     }
     this.assertClientMatchesRole(data.client, user.role.name);
 
-    await this.dispatchEmailOtp(data.email, 'login');
-    return { message: 'OTP sent to email' };
+    const channel = data.channel ?? 'email';
+    const mobile =
+      data.mobile ??
+      (channel === 'whatsapp' ? (user.mobile ?? undefined) : undefined);
+
+    await this.dispatchOtp(data.email, 'login', { channel, mobile });
+    return {
+      message:
+        channel === 'whatsapp' ? 'OTP sent via WhatsApp' : 'OTP sent to email',
+    };
   }
 
   /** Mobile login — verify OTP and return JWT tokens. */
-  async verifyEmailOtp(data: VerifyEmailOtpDto) {
+  async verifyMobileLoginOtp(data: IVerifyMobileLoginOtp) {
     const user = await this.userRepo.findByEmail(data.email);
     if (!user) {
       throw new BadRequestException('User not found. Please register first.');
@@ -178,13 +178,7 @@ export class AuthService {
 
   private async createMobileUser(input: {
     email: string;
-    name: string;
     client: MobileAuthClient;
-    ifscCode?: string;
-    institutionId?: string;
-    branchId?: string;
-    manualBranch?: IManualBranchInput;
-    mobile?: string;
   }) {
     const roleName = CLIENT_TO_ROLE_NAME[input.client];
     const role = await this.userRepo.findRoleByName(roleName);
@@ -192,152 +186,48 @@ export class AuthService {
       throw new InternalServerErrorException('Mobile role not configured');
     }
 
-    let institutionId: string | undefined;
-    let branchId: string | undefined;
-
-    if (input.client === AuthClient.BANK_MANAGER_APP) {
-      const assignment = await this.resolveBankManagerAssignment(input);
-      institutionId = assignment.institutionId;
-      branchId = assignment.branchId;
-    } else if (
-      input.ifscCode ||
-      input.institutionId ||
-      input.branchId ||
-      input.manualBranch
-    ) {
-      throw new BadRequestException(
-        'Institution and branch fields are not allowed for site engineer',
-      );
-    }
+    const provisionalName = input.email.split('@')[0] || 'User';
 
     return this.userRepo.create(
       {
-        name: input.name,
+        name: provisionalName,
         email: input.email,
-        mobile: input.mobile,
         authMethod: AUTH_METHOD.EMAIL_OTP,
         passwordHash: null,
         isApproved: false,
         isActive: true,
         role: { connect: { id: role.id } },
-        ...(institutionId && {
-          institution: { connect: { id: institutionId } },
-        }),
-        ...(branchId && { branch: { connect: { id: branchId } } }),
       },
       USER_INCLUDE,
     );
   }
 
-  private async resolveBankManagerAssignment(input: {
-    ifscCode?: string;
-    institutionId?: string;
-    branchId?: string;
-    manualBranch?: IManualBranchInput;
-  }) {
-    const hasIfsc = !!input.ifscCode;
-    const hasManualPick = !!(input.institutionId && input.branchId);
-    const hasPartialManualPick =
-      input.institutionId !== undefined && input.branchId !== undefined;
-
-    if (hasPartialManualPick) {
-      throw new BadRequestException(
-        'Both institutionId and branchId are required for manual selection',
-      );
-    }
-
-    if (hasIfsc && hasManualPick) {
-      throw new BadRequestException(
-        'Provide either ifscCode (with optional manualBranch fallback) or institutionId + branchId, not both',
-      );
-    }
-
-    if (!hasIfsc && !hasManualPick) {
-      throw new BadRequestException(
-        'Bank manager registration requires ifscCode or institutionId + branchId',
-      );
-    }
-
-    if (hasIfsc) {
-      return this.resolveIfscPath(input.ifscCode, input.manualBranch);
-    }
-
-    const institution = await this.institutionsRepo.findActiveById(
-      input.institutionId,
-    );
-    if (!institution) {
-      throw new BadRequestException('Invalid or inactive institution');
-    }
-
-    await this.branchesService.assertActiveVerifiedBranch(
-      input.branchId,
-      input.institutionId,
-    );
-
-    return {
-      institutionId: input.institutionId,
-      branchId: input.branchId,
-    };
-  }
-
-  private async resolveIfscPath(
-    ifscCode: string,
-    manualBranch?: IManualBranchInput,
-  ) {
-    const result = await this.branchesService.lookupOrCreateByIfsc(ifscCode);
-
-    if (result.found) {
-      return {
-        institutionId: result.branch.institutionId,
-        branchId: result.branch.id,
-      };
-    }
-
-    if (!manualBranch) {
-      throw new BadRequestException(
-        'IFSC code not found in registry. Provide manualBranch with institutionId, branchName, city, and state.',
-      );
-    }
-
-    const branch = await this.branchesService.createManualBranch(
-      manualBranch,
-      false,
-    );
-
-    return {
-      institutionId: branch.institutionId,
-      branchId: branch.id,
-    };
-  }
-
-  private async dispatchEmailOtp(
+  private async dispatchOtp(
     email: string,
     purpose: 'registration' | 'login',
+    options?: { channel?: OtpChannel; mobile?: string },
   ) {
     const otp = await this.otpService.create(email, purpose);
 
-    const emailFrom = process.env.EMAIL_FROM;
-    if (!emailFrom) {
-      throw new InternalServerErrorException('EMAIL_FROM is not configured');
-    }
-
-    const emailSubject =
-      purpose === 'registration' ? 'Welcome to ValuPro' : 'Your ValuPro Login';
-
-    const { error } = await this.resend.emails.send({
-      from: emailFrom,
-      to: email,
-      subject: emailSubject,
-      html: `<p>Your OTP is <strong>${otp}</strong>. It expires in 5 minutes.</p>`,
-    });
-
-    if (error) {
-      this.logger.error(`Resend error: ${error.message}`);
-      throw new InternalServerErrorException('Failed to send OTP email');
+    if (options?.channel === 'whatsapp') {
+      if (!options?.mobile) {
+        throw new BadRequestException(
+          'Mobile number is required to send OTP via WhatsApp',
+        );
+      }
+      await this.zavu.sendWhatsAppOtp({ to: options.mobile, otp });
+    } else {
+      const subject =
+        purpose === 'registration'
+          ? 'Welcome to VNV Engineers (ValPro)'
+          : 'Your VNV Engineers (ValPro) Login';
+      await this.zavu.sendEmailOtp({ to: email, otp, subject });
     }
 
     if (process.env.NODE_ENV !== 'production') {
-      this.logger.debug(`[DEV OTP ${purpose}] ${email}`);
+      this.logger.debug(
+        `[DEV OTP ${purpose}] channel=${options?.channel ?? 'email'} email=${email}`,
+      );
     }
   }
 
@@ -353,13 +243,6 @@ export class AuthService {
   private assertClientMatchesRole(client: MobileAuthClient, roleName: string) {
     if (CLIENT_TO_ROLE_NAME[client] !== roleName) {
       throw new BadRequestException('Account does not belong to this app');
-    }
-  }
-
-  private async assertMobileAvailable(mobile: string) {
-    const existing = await this.userRepo.findByMobile(mobile);
-    if (existing) {
-      throw new ConflictException('Mobile already in use');
     }
   }
 }

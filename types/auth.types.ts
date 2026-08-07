@@ -34,11 +34,17 @@ export type IWebLogin = Required<Pick<IAuth, 'email'>> & {
   password: string;
 };
 
-export type ISendEmailOtp = Pick<IAuth, 'email'> & {
+export type OtpChannel = 'email' | 'whatsapp';
+
+export type ISendMobileLoginOtp = Pick<IAuth, 'email'> & {
   client: MobileAuthClient;
+  /** Delivery channel. Defaults to email. WhatsApp requires mobile. */
+  channel?: OtpChannel;
+  /** Required when channel is whatsapp (or used as WhatsApp destination). */
+  mobile?: string;
 };
 
-export type IVerifyEmailOtp = Pick<IAuth, 'email'> & {
+export type IVerifyMobileLoginOtp = Pick<IAuth, 'email'> & {
   otp: number;
   client: MobileAuthClient;
 };
@@ -51,20 +57,14 @@ export interface IManualBranchInput {
   address?: string;
 }
 
-export interface IMobileRegister {
-  email: string;
-  client: MobileAuthClient;
-  name: string;
-  ifscCode?: string;
-  institutionId?: string;
-  branchId?: string;
-  manualBranch?: IManualBranchInput;
-  mobile?: string;
-}
-
-export type IRegisterVerifyEmailOtp = IMobileRegister & {
+/** Mobile register verify — OTP only; profile completed via user update API. */
+export type IRegisterVerifyMobileOtp = Pick<IAuth, 'email' | 'mobile'> & {
   otp: number;
+  client: MobileAuthClient;
 };
+
+/** Alias used by register send-otp (same payload shape as login send). */
+export type ISendMobileRegisterOtp = ISendMobileLoginOtp;
 
 export interface IGoogleLogin {
   idToken: string;

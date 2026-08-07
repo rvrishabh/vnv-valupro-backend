@@ -24,7 +24,7 @@ export class OtpService {
 
   constructor(private readonly redis: RedisService) {}
 
-  /** Generate OTP, enforce send rate limit, store in Redis. Returns OTP for email delivery. */
+  /** Generate OTP, enforce send rate limit, store in Redis. Returns OTP for delivery. */
   async create(email: string, purpose: OtpPurpose): Promise<string> {
     await this.assertCanSend(email, purpose);
 

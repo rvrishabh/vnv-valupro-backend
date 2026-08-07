@@ -20,12 +20,14 @@ import {
   IGoogleLogin,
   IRefreshToken,
   IRegisterGoogle,
-  IRegisterVerifyEmailOtp,
-  ISendEmailOtp,
-  IVerifyEmailOtp,
+  IRegisterVerifyMobileOtp,
+  ISendMobileLoginOtp,
+  ISendMobileRegisterOtp,
+  IVerifyMobileLoginOtp,
   IWebLogin,
   MOBILE_AUTH_CLIENTS,
   MobileAuthClient,
+  OtpChannel,
 } from 'types/auth.types';
 
 export {
@@ -34,6 +36,9 @@ export {
   MOBILE_AUTH_CLIENTS,
   type MobileAuthClient,
 } from 'types/auth.types';
+
+const isBankManagerClient = (data: { client?: MobileAuthClient }) =>
+  data.client === AuthClient.BANK_MANAGER_APP;
 
 /** POST /auth/login — existing web users (admin-created staff). */
 export class LoginDto implements IWebLogin {
@@ -46,8 +51,8 @@ export class LoginDto implements IWebLogin {
   password: string;
 }
 
-/** POST /auth/email/send-otp — returning mobile user. */
-export class SendEmailOtpDto implements ISendEmailOtp {
+/** POST /auth/mobile/login/send-otp — returning mobile user. */
+export class SendMobileLoginOtpDto implements ISendMobileLoginOtp {
   @IsEmail()
   @IsNotEmpty()
   email: string;
@@ -55,10 +60,19 @@ export class SendEmailOtpDto implements ISendEmailOtp {
   @IsEnum(AuthClient)
   @IsIn(MOBILE_AUTH_CLIENTS)
   client: MobileAuthClient;
+
+  @IsOptional()
+  @IsIn(['email', 'whatsapp'])
+  channel?: OtpChannel;
+
+  @ValidateIf((data: { channel?: OtpChannel }) => data.channel === 'whatsapp')
+  @IsMobilePhone('en-IN')
+  @IsNotEmpty()
+  mobile?: string;
 }
 
-/** POST /auth/email/verify-otp — returning mobile user. */
-export class VerifyEmailOtpDto implements IVerifyEmailOtp {
+/** POST /auth/mobile/login/verify-otp — returning mobile user. */
+export class VerifyMobileLoginOtpDto implements IVerifyMobileLoginOtp {
   @IsEmail()
   @IsNotEmpty()
   email: string;
@@ -84,8 +98,8 @@ export class GoogleLoginDto implements IGoogleLogin {
   client: MobileAuthClient;
 }
 
-/** POST /auth/register/email/send-otp */
-export class RegisterSendEmailOtpDto implements ISendEmailOtp {
+/** POST /auth/mobile/register/send-otp */
+export class SendMobileRegisterOtpDto implements ISendMobileRegisterOtp {
   @IsEmail()
   @IsNotEmpty()
   email: string;
@@ -93,6 +107,15 @@ export class RegisterSendEmailOtpDto implements ISendEmailOtp {
   @IsEnum(AuthClient)
   @IsIn(MOBILE_AUTH_CLIENTS)
   client: MobileAuthClient;
+
+  @IsOptional()
+  @IsIn(['email', 'whatsapp'])
+  channel?: OtpChannel;
+
+  @ValidateIf((data: { channel?: OtpChannel }) => data.channel === 'whatsapp')
+  @IsMobilePhone('en-IN')
+  @IsNotEmpty()
+  mobile?: string;
 }
 
 export class ManualBranchDto {
@@ -117,8 +140,8 @@ export class ManualBranchDto {
   address?: string;
 }
 
-/** POST /auth/register/email/verify-otp — creates User with roleId from client. */
-export class RegisterVerifyEmailOtpDto implements IRegisterVerifyEmailOtp {
+/** POST /auth/mobile/register/verify-otp — creates User; profile via user update. */
+export class VerifyMobileRegisterOtpDto implements IRegisterVerifyMobileOtp {
   @IsEmail()
   @IsNotEmpty()
   email: string;
@@ -131,50 +154,6 @@ export class RegisterVerifyEmailOtpDto implements IRegisterVerifyEmailOtp {
   @IsEnum(AuthClient)
   @IsIn(MOBILE_AUTH_CLIENTS)
   client: MobileAuthClient;
-
-  @IsString()
-  @IsNotEmpty()
-  name: string;
-
-  @ValidateIf(
-    (data: RegisterVerifyEmailOtpDto) =>
-      data.client === AuthClient.BANK_MANAGER_APP,
-  )
-  @IsOptional()
-  @IsString()
-  @Matches(/^[A-Z]{4}0[A-Z0-9]{6}$/, {
-    message: 'IFSC code must match format AAAA0XXXXXX',
-  })
-  ifscCode?: string;
-
-  @ValidateIf(
-    (data: RegisterVerifyEmailOtpDto) =>
-      data.client === AuthClient.BANK_MANAGER_APP,
-  )
-  @IsOptional()
-  @IsUUID()
-  institutionId?: string;
-
-  @ValidateIf(
-    (data: RegisterVerifyEmailOtpDto) =>
-      data.client === AuthClient.BANK_MANAGER_APP,
-  )
-  @IsOptional()
-  @IsUUID()
-  branchId?: string;
-
-  @ValidateIf(
-    (data: RegisterVerifyEmailOtpDto) =>
-      data.client === AuthClient.BANK_MANAGER_APP,
-  )
-  @IsOptional()
-  @ValidateNested()
-  @Type(() => ManualBranchDto)
-  manualBranch?: ManualBranchDto;
-
-  @IsOptional()
-  @IsMobilePhone('en-IN')
-  mobile?: string;
 }
 
 /** POST /auth/register/google — creates User on first Google sign-in. */
@@ -191,9 +170,7 @@ export class RegisterGoogleDto implements IRegisterGoogle {
   @IsNotEmpty()
   name: string;
 
-  @ValidateIf(
-    (data: RegisterGoogleDto) => data.client === AuthClient.BANK_MANAGER_APP,
-  )
+  @ValidateIf(isBankManagerClient)
   @IsOptional()
   @IsString()
   @Matches(/^[A-Z]{4}0[A-Z0-9]{6}$/, {
@@ -201,23 +178,17 @@ export class RegisterGoogleDto implements IRegisterGoogle {
   })
   ifscCode?: string;
 
-  @ValidateIf(
-    (data: RegisterGoogleDto) => data.client === AuthClient.BANK_MANAGER_APP,
-  )
+  @ValidateIf(isBankManagerClient)
   @IsOptional()
   @IsUUID()
   institutionId?: string;
 
-  @ValidateIf(
-    (data: RegisterGoogleDto) => data.client === AuthClient.BANK_MANAGER_APP,
-  )
+  @ValidateIf(isBankManagerClient)
   @IsOptional()
   @IsUUID()
   branchId?: string;
 
-  @ValidateIf(
-    (data: RegisterGoogleDto) => data.client === AuthClient.BANK_MANAGER_APP,
-  )
+  @ValidateIf(isBankManagerClient)
   @IsOptional()
   @ValidateNested()
   @Type(() => ManualBranchDto)

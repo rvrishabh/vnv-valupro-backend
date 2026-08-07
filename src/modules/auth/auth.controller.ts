@@ -10,10 +10,10 @@ import { ApiTags } from '@nestjs/swagger';
 import {
   LoginDto,
   RefreshTokenDto,
-  RegisterSendEmailOtpDto,
-  RegisterVerifyEmailOtpDto,
-  SendEmailOtpDto,
-  VerifyEmailOtpDto,
+  SendMobileLoginOtpDto,
+  SendMobileRegisterOtpDto,
+  VerifyMobileLoginOtpDto,
+  VerifyMobileRegisterOtpDto,
 } from './dto/auth.request.dto';
 import {
   AuthCookieReply,
@@ -42,24 +42,24 @@ export class AuthController {
     return { user };
   }
 
-  @Post('register/email/send-otp')
-  registerSendEmailOtp(@Body() data: RegisterSendEmailOtpDto) {
-    return this.authService.registerSendEmailOtp(data);
+  @Post('mobile/register/send-otp')
+  sendMobileRegisterOtp(@Body() data: SendMobileRegisterOtpDto) {
+    return this.authService.sendMobileRegisterOtp(data);
   }
 
-  @Post('register/email/verify-otp')
-  registerVerifyEmailOtp(@Body() data: RegisterVerifyEmailOtpDto) {
-    return this.authService.registerVerifyEmailOtp(data);
+  @Post('mobile/register/verify-otp')
+  verifyMobileRegisterOtp(@Body() data: VerifyMobileRegisterOtpDto) {
+    return this.authService.verifyMobileRegisterOtp(data);
   }
 
-  @Post('email/send-otp')
-  sendEmailOtp(@Body() data: SendEmailOtpDto) {
-    return this.authService.sendEmailOtp(data);
+  @Post('mobile/login/send-otp')
+  sendMobileLoginOtp(@Body() data: SendMobileLoginOtpDto) {
+    return this.authService.sendMobileLoginOtp(data);
   }
 
-  @Post('email/verify-otp')
-  verifyEmailOtp(@Body() data: VerifyEmailOtpDto) {
-    return this.authService.verifyEmailOtp(data);
+  @Post('mobile/login/verify-otp')
+  verifyMobileLoginOtp(@Body() data: VerifyMobileLoginOtpDto) {
+    return this.authService.verifyMobileLoginOtp(data);
   }
 
   /** Web: reads refresh token from cookie. Mobile: reads from body. */
