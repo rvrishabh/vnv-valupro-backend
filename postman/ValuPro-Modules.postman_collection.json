@@ -1,6 +1,6 @@
 {
   "info": {
-    "name": "ValPro Modules",
+    "name": "ValuPro Modules",
     "description": "Institution Types, Institutions, and Branches APIs (excludes Auth & Users).",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },

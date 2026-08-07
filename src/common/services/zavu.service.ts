@@ -54,7 +54,7 @@ export class ZavuService implements OnModuleInit {
     subject: string;
   }): Promise<void> {
     const text = [
-      `Your ValuPro OTP is ${params.otp}.`,
+      `Your VNV Engineers (ValuPro) OTP is ${params.otp}.`,
       'It expires in 5 minutes. Do not share this code.',
       '',
       'VNV Engineers',
@@ -128,7 +128,7 @@ export class ZavuService implements OnModuleInit {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VNV Engineers (ValPro) OTP</title>
+  <title>VNV Engineers (ValuPro) OTP</title>
 </head>
 <body style="margin:0;padding:0;background:#f5f6f8;font-family:Arial,Helvetica,sans-serif;">
   <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f5f6f8;padding:24px 12px;">
@@ -137,7 +137,7 @@ export class ZavuService implements OnModuleInit {
         <table role="presentation" width="560" cellspacing="0" cellpadding="0" style="max-width:560px;width:100%;background:#ffffff;border-radius:8px;overflow:hidden;border:1px solid #e8e8e8;">
           <tr>
             <td style="padding:28px 28px 8px 28px;color:#1a2a4a;font-family:Georgia,'Times New Roman',serif;font-size:22px;font-weight:bold;">
-              VNV Engineers (ValPro) verification
+              VNV Engineers (ValuPro) verification
             </td>
           </tr>
           <tr>

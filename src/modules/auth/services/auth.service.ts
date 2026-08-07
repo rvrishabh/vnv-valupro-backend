@@ -84,7 +84,6 @@ export class AuthService {
 
   /** Mobile signup — verify OTP and create user (no JWT until approved). */
   async verifyMobileRegisterOtp(data: IRegisterVerifyMobileOtp) {
-    console.log('data', data);
     const isValid = await this.otpService.verify(
       data.email,
       'registration',
@@ -219,8 +218,8 @@ export class AuthService {
     } else {
       const subject =
         purpose === 'registration'
-          ? 'Welcome to VNV Engineers (ValPro)'
-          : 'Your VNV Engineers (ValPro) Login';
+          ? 'Welcome to VNV Engineers (ValuPro)'
+          : 'Your VNV Engineers (ValuPro) Login';
       await this.zavu.sendEmailOtp({ to: email, otp, subject });
     }
 
