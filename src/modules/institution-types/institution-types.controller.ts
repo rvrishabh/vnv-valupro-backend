@@ -33,6 +33,8 @@ export class InstitutionTypesController {
   }
 
   @Get()
+  @ApiBearerAuth('access-token')
+  @UseGuards(JwtAuthGuard, AdminGuard)
   findAll(@Query() query: BaseFilterQueryDto) {
     return this.institutionTypesService.findAll(toFindQuery(query));
   }

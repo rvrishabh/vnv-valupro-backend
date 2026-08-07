@@ -1,4 +1,8 @@
-import { ConflictException, NotFoundException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Prisma } from 'generated/prisma/client';
 import { FindQuery } from 'types/common.types';
 import { InstitutionTypeFilter } from 'types/institution-type.types';
@@ -8,7 +12,7 @@ import {
   UpdateInstitutionTypeDto,
 } from 'src/modules/institution-types/dto/institution-type.dto';
 import { InstitutionTypesRepository } from './repositories/institution-types.repository';
-
+@Injectable()
 export class InstitutionTypesService {
   constructor(
     private readonly institutionTypesRepo: InstitutionTypesRepository,
@@ -30,8 +34,11 @@ export class InstitutionTypesService {
     }
   }
 
-  findAll(query: FindQuery<InstitutionTypeFilter>) {
-    return this.institutionTypesRepo.findAll(query);
+  async findAll(query: FindQuery<InstitutionTypeFilter>) {
+    const res = await this.institutionTypesRepo.findAll(query);
+    return res.data.map((institutionType) => ({
+      ...institutionType,
+    }));
   }
 
   async findOne(id: string) {

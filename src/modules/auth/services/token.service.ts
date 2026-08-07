@@ -19,7 +19,7 @@ export interface JwtPayload {
 }
 
 export const ACCESS_TTL = '15m';
-export const ACCESS_TTL_SECONDS = 15 * 60;
+export const ACCESS_TTL_SECONDS = 7 * 24 * 60 * 60;
 export const REFRESH_TTL_SECONDS = 7 * 24 * 60 * 60;
 
 @Injectable()

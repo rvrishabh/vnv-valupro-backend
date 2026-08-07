@@ -172,7 +172,7 @@ Foundation → seed roles/permissions/bootstrap admin → **banks** (public list
 
 - Global prefix: **`/api/v1`**
 - Swagger: **`/api/docs`**
-- Success: `{ success, data, timestamp }`; errors: `{ success: false, error, statusCode }`
+- Success: `{ success, data }`; errors: `{ success: false, error, statusCode }`
 
 ## Environment variables
 

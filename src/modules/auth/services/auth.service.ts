@@ -238,7 +238,7 @@ export class AuthService {
     const hasIfsc = !!input.ifscCode;
     const hasManualPick = !!(input.institutionId && input.branchId);
     const hasPartialManualPick =
-      !!input.institutionId !== !!input.branchId;
+      input.institutionId !== undefined && input.branchId !== undefined;
 
     if (hasPartialManualPick) {
       throw new BadRequestException(
@@ -259,24 +259,24 @@ export class AuthService {
     }
 
     if (hasIfsc) {
-      return this.resolveIfscPath(input.ifscCode!, input.manualBranch);
+      return this.resolveIfscPath(input.ifscCode, input.manualBranch);
     }
 
     const institution = await this.institutionsRepo.findActiveById(
-      input.institutionId!,
+      input.institutionId,
     );
     if (!institution) {
       throw new BadRequestException('Invalid or inactive institution');
     }
 
     await this.branchesService.assertActiveVerifiedBranch(
-      input.branchId!,
-      input.institutionId!,
+      input.branchId,
+      input.institutionId,
     );
 
     return {
-      institutionId: input.institutionId!,
-      branchId: input.branchId!,
+      institutionId: input.institutionId,
+      branchId: input.branchId,
     };
   }
 

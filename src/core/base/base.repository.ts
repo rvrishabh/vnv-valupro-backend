@@ -134,7 +134,6 @@ export abstract class PrismaBaseRepository<
       this.delegate.findMany({ where, orderBy, skip, take, include }),
       this.delegate.count({ where }),
     ]);
-
     return {
       data,
       total,

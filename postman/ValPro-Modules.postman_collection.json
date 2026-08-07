@@ -1,0 +1,516 @@
+{
+  "info": {
+    "name": "ValPro Modules",
+    "description": "Institution Types, Institutions, and Branches APIs (excludes Auth & Users).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{accessToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000/api/v1"
+    },
+    {
+      "key": "accessToken",
+      "value": ""
+    },
+    {
+      "key": "institutionTypeId",
+      "value": ""
+    },
+    {
+      "key": "institutionId",
+      "value": ""
+    },
+    {
+      "key": "branchId",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Institution Types",
+      "item": [
+        {
+          "name": "Create Institution Type",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"NBFC\",\n  \"description\": \"Non-banking financial companies\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/institution-types",
+            "description": "Admin only. Create a new institution type."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201 || pm.response.code === 200) {",
+                  "  const data = pm.response.json();",
+                  "  const id = data?.id || data?.data?.id;",
+                  "  if (id) pm.collectionVariables.set('institutionTypeId', id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List Institution Types",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/institution-types?page=1&limit=20&sort=createdAt:desc&search=",
+              "host": ["{{baseUrl}}"],
+              "path": ["institution-types"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "sort",
+                  "value": "createdAt:desc"
+                },
+                {
+                  "key": "search",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "startDate",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "endDate",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Public. Paginated list of institution types."
+          }
+        },
+        {
+          "name": "Get Institution Type",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/institution-types/{{institutionTypeId}}",
+            "description": "Admin only. Get a single institution type by ID."
+          }
+        },
+        {
+          "name": "Update Institution Type",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"NBFC\",\n  \"description\": \"Updated description\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/institution-types/{{institutionTypeId}}",
+            "description": "Admin only. Update an institution type."
+          }
+        },
+        {
+          "name": "Delete Institution Type",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/institution-types/{{institutionTypeId}}",
+            "description": "Admin only. Delete an institution type."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Institutions",
+      "item": [
+        {
+          "name": "Create Institution",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Bajaj Finance\",\n  \"code\": \"BAJAJ\",\n  \"institutionTypeId\": \"{{institutionTypeId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/institutions",
+            "description": "Admin only. Create a new institution."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201 || pm.response.code === 200) {",
+                  "  const data = pm.response.json();",
+                  "  const id = data?.id || data?.data?.id;",
+                  "  if (id) pm.collectionVariables.set('institutionId', id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List Public Institutions",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/institutions/public",
+            "description": "Public. List active institutions for dropdowns."
+          }
+        },
+        {
+          "name": "List Institutions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/institutions?page=1&limit=20&sort=createdAt:desc&institutionTypeId=&isActive=",
+              "host": ["{{baseUrl}}"],
+              "path": ["institutions"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "sort",
+                  "value": "createdAt:desc"
+                },
+                {
+                  "key": "search",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "institutionTypeId",
+                  "value": "{{institutionTypeId}}",
+                  "disabled": true
+                },
+                {
+                  "key": "isActive",
+                  "value": "true",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Admin only. Paginated list with filters."
+          }
+        },
+        {
+          "name": "Get Institution",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/institutions/{{institutionId}}",
+            "description": "Admin only. Get a single institution by ID."
+          }
+        },
+        {
+          "name": "Update Institution",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Bajaj Finance\",\n  \"code\": \"BAJAJ\",\n  \"institutionTypeId\": \"{{institutionTypeId}}\",\n  \"isActive\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/institutions/{{institutionId}}",
+            "description": "Admin only. Update an institution."
+          }
+        },
+        {
+          "name": "Delete Institution",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/institutions/{{institutionId}}",
+            "description": "Admin only. Delete an institution."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Branches",
+      "item": [
+        {
+          "name": "Lookup IFSC",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ifscCode\": \"HDFC0001234\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/branches/lookup-ifsc",
+            "description": "Public. Lookup or create branch by IFSC code."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201 || pm.response.code === 200) {",
+                  "  const data = pm.response.json();",
+                  "  const id = data?.id || data?.data?.id;",
+                  "  if (id) pm.collectionVariables.set('branchId', id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create Manual Branch",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"institutionId\": \"{{institutionId}}\",\n  \"branchName\": \"MG Road Branch\",\n  \"city\": \"Mumbai\",\n  \"state\": \"Maharashtra\",\n  \"district\": \"Mumbai\",\n  \"address\": \"123 MG Road\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/branches/manual",
+            "description": "Admin only. Manually create a branch (needs verification)."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 201 || pm.response.code === 200) {",
+                  "  const data = pm.response.json();",
+                  "  const id = data?.id || data?.data?.id;",
+                  "  if (id) pm.collectionVariables.set('branchId', id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "List Public Branches by Institution",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/branches/public?institutionId={{institutionId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["branches", "public"],
+              "query": [
+                {
+                  "key": "institutionId",
+                  "value": "{{institutionId}}"
+                }
+              ]
+            },
+            "description": "Public. List verified public branches for an institution."
+          }
+        },
+        {
+          "name": "Get Verification Queue",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/branches/verification-queue",
+            "description": "Admin only. List branches awaiting verification."
+          }
+        },
+        {
+          "name": "List Branches",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/branches?page=1&limit=20&sort=createdAt:desc",
+              "host": ["{{baseUrl}}"],
+              "path": ["branches"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "sort",
+                  "value": "createdAt:desc"
+                },
+                {
+                  "key": "search",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "institutionId",
+                  "value": "{{institutionId}}",
+                  "disabled": true
+                },
+                {
+                  "key": "city",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "needsVerification",
+                  "value": "true",
+                  "disabled": true
+                },
+                {
+                  "key": "isManuallyEntered",
+                  "value": "true",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Admin only. Paginated list with filters."
+          }
+        },
+        {
+          "name": "Verify Branch",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": "{{baseUrl}}/branches/{{branchId}}/verify",
+            "description": "Admin only. Mark a branch as verified."
+          }
+        },
+        {
+          "name": "Update Branch",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"branchName\": \"MG Road Branch\",\n  \"city\": \"Mumbai\",\n  \"state\": \"Maharashtra\",\n  \"district\": \"Mumbai\",\n  \"address\": \"123 MG Road\",\n  \"ifscCode\": \"HDFC0001234\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": "{{baseUrl}}/branches/{{branchId}}",
+            "description": "Admin only. Update a branch."
+          }
+        },
+        {
+          "name": "Reject / Delete Branch",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": "{{baseUrl}}/branches/{{branchId}}",
+            "description": "Admin only. Reject/delete a branch."
+          }
+        }
+      ]
+    }
+  ]
+}
