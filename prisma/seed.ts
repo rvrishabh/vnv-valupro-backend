@@ -134,6 +134,34 @@ async function seedAdminUser(prisma: PrismaClient) {
   });
 }
 
+const VALUATION_CONFIGS = [
+  {
+    key: 'MUMTY_THRESHOLD_SQFT',
+    value: '162',
+    description:
+      'Minimum area in sq ft below which a floor is classified as Mumty instead of a full floor',
+  },
+  {
+    key: 'MAX_PLOT_SQM',
+    value: '2000',
+    description:
+      'Maximum supported plot area in sq meters for coverage bracket lookup',
+  },
+] as const;
+
+async function seedValuationConfig(prisma: PrismaClient) {
+  for (const config of VALUATION_CONFIGS) {
+    await prisma.valuationConfig.upsert({
+      where: { key: config.key },
+      update: {
+        value: config.value,
+        description: config.description,
+      },
+      create: config,
+    });
+  }
+}
+
 async function main() {
   const prisma = createPrismaClient();
 
@@ -146,6 +174,9 @@ async function main() {
 
     console.log('Seeding admin user...');
     await seedAdminUser(prisma);
+
+    console.log('Seeding valuation config...');
+    await seedValuationConfig(prisma);
 
     console.log('Seed completed successfully.');
   } finally {

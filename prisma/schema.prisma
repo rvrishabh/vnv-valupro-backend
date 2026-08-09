@@ -178,6 +178,7 @@ model User {
   queryResponses    QueryResponse[]
   auditLogs         CaseAuditLog[]
   feeCollections    FeeCollection[]
+  valuationEstimates ValuationEstimate[]
 }
 
 model EngineerLocation {
@@ -337,4 +338,34 @@ model CaseAuditLog {
 
   case  Case @relation(fields: [caseId], references: [id])
   actor User @relation(fields: [actorId], references: [id])
+}
+
+model ValuationConfig {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model ValuationEstimate {
+  id                       String   @id @default(cuid())
+  ownerName                String
+  address                  String
+  plotAreaSqFt             Float
+  plotAreaSqM              Float
+  estimatedAmount          Float
+  rate                     Float
+  coveragePercent          Float
+  totalPermissibleAreaSqFt Float
+  groundFloorAreaSqFt      Float
+  floorBreakdown           Json
+  createdBy                String
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime @updatedAt
+
+  creator User @relation(fields: [createdBy], references: [id])
+
+  @@index([createdBy])
 }

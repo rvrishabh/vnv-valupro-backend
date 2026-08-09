@@ -5,6 +5,7 @@ import { UserModule } from '../user/user.module';
 import { AuthController } from './auth.controller';
 import { AdminGuard } from './guards/admin.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { RolesGuard } from './guards/roles.guard';
 import { AuthService } from './services/auth.service';
 import { AuthCookieService } from './services/auth-cookie.service';
 import { OtpService } from './services/otp.service';
@@ -26,12 +27,14 @@ import { JwtStrategy } from './strategies/jwt.strategy';
     JwtStrategy,
     JwtAuthGuard,
     AdminGuard,
+    RolesGuard,
   ],
   exports: [
     AuthService,
     AuthCookieService,
     JwtAuthGuard,
     AdminGuard,
+    RolesGuard,
     TokenService,
   ],
 })

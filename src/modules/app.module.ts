@@ -6,6 +6,7 @@ import { BranchesModule } from './branches/branches.module';
 import { InstitutionTypesModule } from './institution-types/institution-types.module';
 import { InstitutionsModule } from './institutions/institutions.module';
 import { UserModule } from './user/user.module';
+import { ValuationEstimateModule } from './valuation-estimate/valuation-estimate.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { UserModule } from './user/user.module';
     InstitutionTypesModule,
     InstitutionsModule,
     BranchesModule,
+    ValuationEstimateModule,
   ],
   controllers: [],
   providers: [],
