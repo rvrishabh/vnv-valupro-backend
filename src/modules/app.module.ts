@@ -5,6 +5,8 @@ import { AuthModule } from './auth/auth.module';
 import { BranchesModule } from './branches/branches.module';
 import { InstitutionTypesModule } from './institution-types/institution-types.module';
 import { InstitutionsModule } from './institutions/institutions.module';
+import { PermissionsModule } from './permissions/permissions.module';
+import { RolesModule } from './roles/roles.module';
 import { UserModule } from './user/user.module';
 import { ValuationEstimateModule } from './valuation-estimate/valuation-estimate.module';
 
@@ -14,6 +16,8 @@ import { ValuationEstimateModule } from './valuation-estimate/valuation-estimate
     PrismaModule,
     AuthModule,
     UserModule,
+    RolesModule,
+    PermissionsModule,
     InstitutionTypesModule,
     InstitutionsModule,
     BranchesModule,
