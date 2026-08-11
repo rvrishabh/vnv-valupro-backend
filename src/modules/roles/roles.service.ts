@@ -88,7 +88,8 @@ export class RolesService {
   }
 
   async assignPermissions(id: string, data: AssignPermissionsDto) {
-    await this.findOne(id);
+    const role = await this.findOne(id);
+    this.guardAdminPermissions(role.name);
 
     const permissions = await Promise.all(
       data.permissionIds.map((permissionId) =>
@@ -106,8 +107,17 @@ export class RolesService {
   }
 
   async unassignPermission(id: string, permissionId: string) {
-    await this.findOne(id);
+    const role = await this.findOne(id);
+    this.guardAdminPermissions(role.name);
     return this.rolesRepo.unassignPermission(id, permissionId);
+  }
+
+  private guardAdminPermissions(roleName: string): void {
+    if (roleName === 'ADMIN') {
+      throw new ConflictException(
+        'Cannot change permissions of the ADMIN role',
+      );
+    }
   }
 
   private handleUniqueError(error: unknown, name: string): void {
