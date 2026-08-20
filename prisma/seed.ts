@@ -6,6 +6,8 @@ import {
   LoginChannel,
   PrismaClient,
 } from '../generated/prisma/client';
+import constructionRates from './data/construction-rates.json';
+import valuationOptions from './data/valuation-options.json';
 
 const SALT_ROUNDS = 10;
 
@@ -65,6 +67,14 @@ const MODULE_PERMISSIONS = [
   {
     resource: 'valuation_estimate',
     actions: ['create', 'read'],
+  },
+  {
+    resource: 'valuation',
+    actions: ['create', 'read', 'update', 'submit', 'review', 'download'],
+  },
+  {
+    resource: 'case',
+    actions: ['create', 'read', 'update', 'assign'],
   },
 ] as const;
 
@@ -240,6 +250,54 @@ async function seedValuationConfig(prisma: PrismaClient) {
   }
 }
 
+/**
+ * Govt. construction rates and dropdown master data, generated from the
+ * valuation workbook's hidden reference sheets by
+ * `scripts/generate-valuation-seed.ts`. Re-run that script when the book is
+ * revised, then re-seed.
+ */
+async function seedConstructionRates(prisma: PrismaClient) {
+  for (const rate of constructionRates) {
+    await prisma.constructionRate.upsert({
+      where: {
+        tehsil_roofType_category: {
+          tehsil: rate.tehsil,
+          roofType: rate.roofType,
+          category: rate.category,
+        },
+      },
+      update: { rate: rate.rate },
+      create: rate,
+    });
+  }
+}
+
+async function seedValuationOptions(prisma: PrismaClient) {
+  for (const option of valuationOptions) {
+    await prisma.valuationOption.upsert({
+      where: {
+        group_value: { group: option.group, value: option.value },
+      },
+      update: { sortOrder: option.sortOrder, isActive: true },
+      create: option,
+    });
+  }
+}
+
+/** Maps each seeded bank to the report layout its PDF is rendered from. */
+async function seedReportTemplates(prisma: PrismaClient) {
+  const institutions = await prisma.institution.findMany();
+
+  for (const institution of institutions) {
+    const templateKey = institution.code === 'CANARA' ? 'canara' : 'canara';
+    await prisma.bankReportTemplate.upsert({
+      where: { institutionId: institution.id },
+      update: {},
+      create: { institutionId: institution.id, templateKey },
+    });
+  }
+}
+
 async function main() {
   const prisma = createPrismaClient();
 
@@ -261,6 +319,15 @@ async function main() {
 
     console.log('Seeding valuation config...');
     await seedValuationConfig(prisma);
+
+    console.log(`Seeding ${constructionRates.length} construction rates...`);
+    await seedConstructionRates(prisma);
+
+    console.log(`Seeding ${valuationOptions.length} valuation options...`);
+    await seedValuationOptions(prisma);
+
+    console.log('Seeding bank report templates...');
+    await seedReportTemplates(prisma);
 
     console.log('Seed completed successfully.');
   } finally {

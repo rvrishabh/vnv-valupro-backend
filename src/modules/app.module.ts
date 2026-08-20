@@ -9,6 +9,8 @@ import { PermissionsModule } from './permissions/permissions.module';
 import { RolesModule } from './roles/roles.module';
 import { UserModule } from './user/user.module';
 import { ValuationEstimateModule } from './valuation-estimate/valuation-estimate.module';
+import { ValuationModule } from './valuation/valuation.module';
+import { CasesModule } from './cases/cases.module';
 
 @Module({
   imports: [
@@ -22,6 +24,8 @@ import { ValuationEstimateModule } from './valuation-estimate/valuation-estimate
     InstitutionsModule,
     BranchesModule,
     ValuationEstimateModule,
+    ValuationModule,
+    CasesModule,
   ],
   controllers: [],
   providers: [],

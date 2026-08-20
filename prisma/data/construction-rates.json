@@ -1,0 +1,2570 @@
+[
+  {
+    "tehsil": "Agra",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 14500
+  },
+  {
+    "tehsil": "Agra",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 13500
+  },
+  {
+    "tehsil": "Agra",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 13000
+  },
+  {
+    "tehsil": "Agra",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 8000
+  },
+  {
+    "tehsil": "Agra",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Aliganj",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 10000
+  },
+  {
+    "tehsil": "Aliganj",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Aliganj",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 8000
+  },
+  {
+    "tehsil": "Aliganj",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 7200
+  },
+  {
+    "tehsil": "Aligarh",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 12500
+  },
+  {
+    "tehsil": "Aligarh",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 11000
+  },
+  {
+    "tehsil": "Aligarh",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Aligarh",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 7000
+  },
+  {
+    "tehsil": "Aligarh",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 3000
+  },
+  {
+    "tehsil": "Atrauli",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 12500
+  },
+  {
+    "tehsil": "Atrauli",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 11000
+  },
+  {
+    "tehsil": "Atrauli",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Atrauli",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 7000
+  },
+  {
+    "tehsil": "Atrauli",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 3000
+  },
+  {
+    "tehsil": "Auraiya",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 13000
+  },
+  {
+    "tehsil": "Auraiya",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 11500
+  },
+  {
+    "tehsil": "Auraiya",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 8000
+  },
+  {
+    "tehsil": "Auraiya",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 6500
+  },
+  {
+    "tehsil": "Auraiya",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 4000
+  },
+  {
+    "tehsil": "Bah",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 14500
+  },
+  {
+    "tehsil": "Bah",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 13500
+  },
+  {
+    "tehsil": "Bah",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 13000
+  },
+  {
+    "tehsil": "Bah",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 8000
+  },
+  {
+    "tehsil": "Bah",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Bakshi Ka Talab",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 15000
+  },
+  {
+    "tehsil": "Bakshi Ka Talab",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 10000
+  },
+  {
+    "tehsil": "Bakshi Ka Talab",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 5000
+  },
+  {
+    "tehsil": "Bakshi Ka Talab",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 4000
+  },
+  {
+    "tehsil": "Bakshi Ka Talab",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 2000
+  },
+  {
+    "tehsil": "Bharthna",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 14000
+  },
+  {
+    "tehsil": "Bharthna",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 11000
+  },
+  {
+    "tehsil": "Bharthna",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 9500
+  },
+  {
+    "tehsil": "Bharthna",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 8000
+  },
+  {
+    "tehsil": "Bharthna",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Bhogaon",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 16000
+  },
+  {
+    "tehsil": "Bhogaon",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 15000
+  },
+  {
+    "tehsil": "Bhogaon",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 13500
+  },
+  {
+    "tehsil": "Bhogaon",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 11000
+  },
+  {
+    "tehsil": "Bhogaon",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 7500
+  },
+  {
+    "tehsil": "Bidhuna",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 14000
+  },
+  {
+    "tehsil": "Bidhuna",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 12500
+  },
+  {
+    "tehsil": "Bidhuna",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 8500
+  },
+  {
+    "tehsil": "Bidhuna",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 7000
+  },
+  {
+    "tehsil": "Bidhuna",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 4300
+  },
+  {
+    "tehsil": "Chhata",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 12500
+  },
+  {
+    "tehsil": "Chhata",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 12000
+  },
+  {
+    "tehsil": "Chhata",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Chhata",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Chhata",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 4000
+  },
+  {
+    "tehsil": "Dadri",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 15000
+  },
+  {
+    "tehsil": "Dadri",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 14000
+  },
+  {
+    "tehsil": "Dadri",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 10000
+  },
+  {
+    "tehsil": "Dadri",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 7000
+  },
+  {
+    "tehsil": "Dadri",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Dholpur",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 12920
+  },
+  {
+    "tehsil": "Dholpur",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 6460
+  },
+  {
+    "tehsil": "Dholpur",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 2000
+  },
+  {
+    "tehsil": "Dholpur",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 2700
+  },
+  {
+    "tehsil": "Etah",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 10000
+  },
+  {
+    "tehsil": "Etah",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Etah",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 8000
+  },
+  {
+    "tehsil": "Etah",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 7200
+  },
+  {
+    "tehsil": "Etawah",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 14000
+  },
+  {
+    "tehsil": "Etawah",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 11000
+  },
+  {
+    "tehsil": "Etawah",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 9500
+  },
+  {
+    "tehsil": "Etawah",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 8000
+  },
+  {
+    "tehsil": "Etawah",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Etmadpur",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 14500
+  },
+  {
+    "tehsil": "Etmadpur",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 13500
+  },
+  {
+    "tehsil": "Etmadpur",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 13000
+  },
+  {
+    "tehsil": "Etmadpur",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 8000
+  },
+  {
+    "tehsil": "Etmadpur",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Farukkhabad",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 13000
+  },
+  {
+    "tehsil": "Farukkhabad",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 12000
+  },
+  {
+    "tehsil": "Farukkhabad",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Farukkhabad",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 5500
+  },
+  {
+    "tehsil": "Farukkhabad",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 3000
+  },
+  {
+    "tehsil": "Fatehabad",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 14500
+  },
+  {
+    "tehsil": "Fatehabad",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 13500
+  },
+  {
+    "tehsil": "Fatehabad",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 13000
+  },
+  {
+    "tehsil": "Fatehabad",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 8000
+  },
+  {
+    "tehsil": "Fatehabad",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Firozabad",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 16000
+  },
+  {
+    "tehsil": "Firozabad",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 15000
+  },
+  {
+    "tehsil": "Firozabad",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 14000
+  },
+  {
+    "tehsil": "Firozabad",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 10000
+  },
+  {
+    "tehsil": "Firozabad",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 8000
+  },
+  {
+    "tehsil": "Gabhana",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 12500
+  },
+  {
+    "tehsil": "Gabhana",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 11000
+  },
+  {
+    "tehsil": "Gabhana",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Gabhana",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 7000
+  },
+  {
+    "tehsil": "Gabhana",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 3000
+  },
+  {
+    "tehsil": "Greater Noida",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 15000
+  },
+  {
+    "tehsil": "Greater Noida",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 14000
+  },
+  {
+    "tehsil": "Greater Noida",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 10000
+  },
+  {
+    "tehsil": "Greater Noida",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 7000
+  },
+  {
+    "tehsil": "Greater Noida",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Hathras",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 13000
+  },
+  {
+    "tehsil": "Hathras",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 12000
+  },
+  {
+    "tehsil": "Hathras",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 10500
+  },
+  {
+    "tehsil": "Hathras",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Hathras",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 7000
+  },
+  {
+    "tehsil": "Iglas",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 12500
+  },
+  {
+    "tehsil": "Iglas",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 11000
+  },
+  {
+    "tehsil": "Iglas",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Iglas",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 7000
+  },
+  {
+    "tehsil": "Iglas",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 3000
+  },
+  {
+    "tehsil": "Jalesar",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 10000
+  },
+  {
+    "tehsil": "Jalesar",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Jalesar",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 8000
+  },
+  {
+    "tehsil": "Jalesar",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 7200
+  },
+  {
+    "tehsil": "Jasrana",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 13000
+  },
+  {
+    "tehsil": "Jasrana",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 12000
+  },
+  {
+    "tehsil": "Jasrana",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 12000
+  },
+  {
+    "tehsil": "Jasrana",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 8000
+  },
+  {
+    "tehsil": "Jasrana",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Jaswant Nagar",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 14000
+  },
+  {
+    "tehsil": "Jaswant Nagar",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 11000
+  },
+  {
+    "tehsil": "Jaswant Nagar",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 9500
+  },
+  {
+    "tehsil": "Jaswant Nagar",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 8000
+  },
+  {
+    "tehsil": "Jaswant Nagar",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Jewar",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 15000
+  },
+  {
+    "tehsil": "Jewar",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 14000
+  },
+  {
+    "tehsil": "Jewar",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 10000
+  },
+  {
+    "tehsil": "Jewar",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 7000
+  },
+  {
+    "tehsil": "Jewar",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Jhansi",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 13300
+  },
+  {
+    "tehsil": "Jhansi",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 12000
+  },
+  {
+    "tehsil": "Jhansi",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 10000
+  },
+  {
+    "tehsil": "Jhansi",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 7800
+  },
+  {
+    "tehsil": "Jhansi",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 5400
+  },
+  {
+    "tehsil": "Karhal",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 15000
+  },
+  {
+    "tehsil": "Karhal",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 13500
+  },
+  {
+    "tehsil": "Karhal",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 12500
+  },
+  {
+    "tehsil": "Karhal",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 10000
+  },
+  {
+    "tehsil": "Karhal",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Karhal",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 16000
+  },
+  {
+    "tehsil": "Karhal",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 15000
+  },
+  {
+    "tehsil": "Karhal",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 13500
+  },
+  {
+    "tehsil": "Karhal",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 11000
+  },
+  {
+    "tehsil": "Karhal",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 7500
+  },
+  {
+    "tehsil": "Kasganj",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 13000
+  },
+  {
+    "tehsil": "Kasganj",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 11000
+  },
+  {
+    "tehsil": "Kasganj",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 8000
+  },
+  {
+    "tehsil": "Kasganj",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Kasganj",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 3000
+  },
+  {
+    "tehsil": "Kayamganj",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Kayamganj",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 8000
+  },
+  {
+    "tehsil": "Kayamganj",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 6600
+  },
+  {
+    "tehsil": "Kayamganj",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 5000
+  },
+  {
+    "tehsil": "Kayamganj",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 4000
+  },
+  {
+    "tehsil": "Khair",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 12500
+  },
+  {
+    "tehsil": "Khair",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 11000
+  },
+  {
+    "tehsil": "Khair",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Khair",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 7000
+  },
+  {
+    "tehsil": "Khair",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 3000
+  },
+  {
+    "tehsil": "Kheragarh",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 14500
+  },
+  {
+    "tehsil": "Kheragarh",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 13500
+  },
+  {
+    "tehsil": "Kheragarh",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 13000
+  },
+  {
+    "tehsil": "Kheragarh",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 8000
+  },
+  {
+    "tehsil": "Kheragarh",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Khurja",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 15000
+  },
+  {
+    "tehsil": "Khurja",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 14000
+  },
+  {
+    "tehsil": "Khurja",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 10000
+  },
+  {
+    "tehsil": "Khurja",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 7000
+  },
+  {
+    "tehsil": "Khurja",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Kiraoli",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 14500
+  },
+  {
+    "tehsil": "Kiraoli",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 13500
+  },
+  {
+    "tehsil": "Kiraoli",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 13000
+  },
+  {
+    "tehsil": "Kiraoli",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 8000
+  },
+  {
+    "tehsil": "Kiraoli",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Lucknow",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 15000
+  },
+  {
+    "tehsil": "Lucknow",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 10000
+  },
+  {
+    "tehsil": "Lucknow",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 5000
+  },
+  {
+    "tehsil": "Lucknow",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 4000
+  },
+  {
+    "tehsil": "Lucknow",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 2000
+  },
+  {
+    "tehsil": "Maant",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 14000
+  },
+  {
+    "tehsil": "Maant",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 10000
+  },
+  {
+    "tehsil": "Maant",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Maant",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 8600
+  },
+  {
+    "tehsil": "Maant",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Mahavan",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 12500
+  },
+  {
+    "tehsil": "Mahavan",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 12000
+  },
+  {
+    "tehsil": "Mahavan",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Mahavan",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Mahavan",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 4000
+  },
+  {
+    "tehsil": "Mahilabad",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 15000
+  },
+  {
+    "tehsil": "Mahilabad",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 10000
+  },
+  {
+    "tehsil": "Mahilabad",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 5000
+  },
+  {
+    "tehsil": "Mahilabad",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 4000
+  },
+  {
+    "tehsil": "Mahilabad",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 2000
+  },
+  {
+    "tehsil": "Mainpuri",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 16000
+  },
+  {
+    "tehsil": "Mainpuri",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 15000
+  },
+  {
+    "tehsil": "Mainpuri",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 13500
+  },
+  {
+    "tehsil": "Mainpuri",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 11000
+  },
+  {
+    "tehsil": "Mainpuri",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 7500
+  },
+  {
+    "tehsil": "Mathura 1",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 12500
+  },
+  {
+    "tehsil": "Mathura 1",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 12000
+  },
+  {
+    "tehsil": "Mathura 1",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Mathura 1",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Mathura 1",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 4000
+  },
+  {
+    "tehsil": "Mathura 2",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 12500
+  },
+  {
+    "tehsil": "Mathura 2",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 12000
+  },
+  {
+    "tehsil": "Mathura 2",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Mathura 2",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Mathura 2",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 4000
+  },
+  {
+    "tehsil": "Mohanlal Ganj",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 15000
+  },
+  {
+    "tehsil": "Mohanlal Ganj",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 10000
+  },
+  {
+    "tehsil": "Mohanlal Ganj",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 5000
+  },
+  {
+    "tehsil": "Mohanlal Ganj",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 4000
+  },
+  {
+    "tehsil": "Mohanlal Ganj",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 2000
+  },
+  {
+    "tehsil": "Noida",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 15000
+  },
+  {
+    "tehsil": "Noida",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 14000
+  },
+  {
+    "tehsil": "Noida",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 10000
+  },
+  {
+    "tehsil": "Noida",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 7000
+  },
+  {
+    "tehsil": "Noida",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Patiyali",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 13000
+  },
+  {
+    "tehsil": "Patiyali",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 11000
+  },
+  {
+    "tehsil": "Patiyali",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 8000
+  },
+  {
+    "tehsil": "Patiyali",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Patiyali",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 3000
+  },
+  {
+    "tehsil": "Sadabad",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 14500
+  },
+  {
+    "tehsil": "Sadabad",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 13000
+  },
+  {
+    "tehsil": "Sadabad",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 12000
+  },
+  {
+    "tehsil": "Sadabad",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 10000
+  },
+  {
+    "tehsil": "Sadabad",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 8000
+  },
+  {
+    "tehsil": "Sahawar",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 13000
+  },
+  {
+    "tehsil": "Sahawar",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 11000
+  },
+  {
+    "tehsil": "Sahawar",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 8000
+  },
+  {
+    "tehsil": "Sahawar",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Sahawar",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 3000
+  },
+  {
+    "tehsil": "Saifai",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 12000
+  },
+  {
+    "tehsil": "Saifai",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 9500
+  },
+  {
+    "tehsil": "Saifai",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 8000
+  },
+  {
+    "tehsil": "Saifai",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 7000
+  },
+  {
+    "tehsil": "Saifai",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 5000
+  },
+  {
+    "tehsil": "Sasni",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 13000
+  },
+  {
+    "tehsil": "Sasni",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 12000
+  },
+  {
+    "tehsil": "Sasni",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 10500
+  },
+  {
+    "tehsil": "Sasni",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Sasni",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 7000
+  },
+  {
+    "tehsil": "Shikohabad",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 13000
+  },
+  {
+    "tehsil": "Shikohabad",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 12000
+  },
+  {
+    "tehsil": "Shikohabad",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 12000
+  },
+  {
+    "tehsil": "Shikohabad",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 7000
+  },
+  {
+    "tehsil": "Shikohabad",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 5000
+  },
+  {
+    "tehsil": "Sikandra Rao",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 15000
+  },
+  {
+    "tehsil": "Sikandra Rao",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 13000
+  },
+  {
+    "tehsil": "Sikandra Rao",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 11000
+  },
+  {
+    "tehsil": "Sikandra Rao",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 9500
+  },
+  {
+    "tehsil": "Sikandra Rao",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 7500
+  },
+  {
+    "tehsil": "Tundla",
+    "roofType": "RCC",
+    "category": 1,
+    "rate": 13000
+  },
+  {
+    "tehsil": "Tundla",
+    "roofType": "RBC",
+    "category": 1,
+    "rate": 12000
+  },
+  {
+    "tehsil": "Tundla",
+    "roofType": "Girder Stone",
+    "category": 1,
+    "rate": 12000
+  },
+  {
+    "tehsil": "Tundla",
+    "roofType": "Tin Shed",
+    "category": 1,
+    "rate": 7000
+  },
+  {
+    "tehsil": "Tundla",
+    "roofType": "Kachcha",
+    "category": 1,
+    "rate": 5000
+  },
+  {
+    "tehsil": "Aliganj (Rural Area)",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 9500
+  },
+  {
+    "tehsil": "Aliganj (Rural Area)",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 8500
+  },
+  {
+    "tehsil": "Aliganj (Rural Area)",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 7500
+  },
+  {
+    "tehsil": "Aliganj (Rural Area)",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 6500
+  },
+  {
+    "tehsil": "Aligarh",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 11500
+  },
+  {
+    "tehsil": "Aligarh",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 10000
+  },
+  {
+    "tehsil": "Aligarh",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Aligarh",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 7000
+  },
+  {
+    "tehsil": "Aligarh",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 3000
+  },
+  {
+    "tehsil": "Atrauli",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 11500
+  },
+  {
+    "tehsil": "Atrauli",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 10000
+  },
+  {
+    "tehsil": "Atrauli",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Atrauli",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 7000
+  },
+  {
+    "tehsil": "Atrauli",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 3000
+  },
+  {
+    "tehsil": "Auraiya",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 12000
+  },
+  {
+    "tehsil": "Auraiya",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 11000
+  },
+  {
+    "tehsil": "Auraiya",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 7000
+  },
+  {
+    "tehsil": "Auraiya",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Auraiya",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 3500
+  },
+  {
+    "tehsil": "Bakshi Ka Talab",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 12000
+  },
+  {
+    "tehsil": "Bakshi Ka Talab",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Bakshi Ka Talab",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 5000
+  },
+  {
+    "tehsil": "Bakshi Ka Talab",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 4000
+  },
+  {
+    "tehsil": "Bakshi Ka Talab",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 2000
+  },
+  {
+    "tehsil": "Bharthna",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 13000
+  },
+  {
+    "tehsil": "Bharthna",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 10000
+  },
+  {
+    "tehsil": "Bharthna",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Bharthna",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 7500
+  },
+  {
+    "tehsil": "Bharthna",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 4000
+  },
+  {
+    "tehsil": "Bhogaon",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 15000
+  },
+  {
+    "tehsil": "Bhogaon",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 13500
+  },
+  {
+    "tehsil": "Bhogaon",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 12500
+  },
+  {
+    "tehsil": "Bhogaon",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 10000
+  },
+  {
+    "tehsil": "Bhogaon",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Bidhuna",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 13000
+  },
+  {
+    "tehsil": "Bidhuna",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 12000
+  },
+  {
+    "tehsil": "Bidhuna",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 7500
+  },
+  {
+    "tehsil": "Bidhuna",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 6500
+  },
+  {
+    "tehsil": "Bidhuna",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 3700
+  },
+  {
+    "tehsil": "Dadri",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 14000
+  },
+  {
+    "tehsil": "Dadri",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 13000
+  },
+  {
+    "tehsil": "Dadri",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 9500
+  },
+  {
+    "tehsil": "Dadri",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Dadri",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 5500
+  },
+  {
+    "tehsil": "Etah (Rural Area)",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 9500
+  },
+  {
+    "tehsil": "Etah (Rural Area)",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 8500
+  },
+  {
+    "tehsil": "Etah (Rural Area)",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 7500
+  },
+  {
+    "tehsil": "Etah (Rural Area)",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 6500
+  },
+  {
+    "tehsil": "Etawah",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 13000
+  },
+  {
+    "tehsil": "Etawah",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 10000
+  },
+  {
+    "tehsil": "Etawah",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Etawah",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 7500
+  },
+  {
+    "tehsil": "Etawah",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 4000
+  },
+  {
+    "tehsil": "Farukkhabad",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 12000
+  },
+  {
+    "tehsil": "Farukkhabad",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 11000
+  },
+  {
+    "tehsil": "Farukkhabad",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 7500
+  },
+  {
+    "tehsil": "Farukkhabad",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 4400
+  },
+  {
+    "tehsil": "Farukkhabad",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 2000
+  },
+  {
+    "tehsil": "Firozabad",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 12000
+  },
+  {
+    "tehsil": "Firozabad",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 11000
+  },
+  {
+    "tehsil": "Firozabad",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 11000
+  },
+  {
+    "tehsil": "Firozabad",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 8000
+  },
+  {
+    "tehsil": "Firozabad",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Gabhana",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 11500
+  },
+  {
+    "tehsil": "Gabhana",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 10000
+  },
+  {
+    "tehsil": "Gabhana",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Gabhana",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 7000
+  },
+  {
+    "tehsil": "Gabhana",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 3000
+  },
+  {
+    "tehsil": "Greater Noida",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 14000
+  },
+  {
+    "tehsil": "Greater Noida",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 13000
+  },
+  {
+    "tehsil": "Greater Noida",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 9500
+  },
+  {
+    "tehsil": "Greater Noida",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Greater Noida",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 5500
+  },
+  {
+    "tehsil": "Hathras",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 11000
+  },
+  {
+    "tehsil": "Hathras",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 10000
+  },
+  {
+    "tehsil": "Hathras",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 8000
+  },
+  {
+    "tehsil": "Hathras",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 7000
+  },
+  {
+    "tehsil": "Hathras",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 5500
+  },
+  {
+    "tehsil": "Iglas",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 11500
+  },
+  {
+    "tehsil": "Iglas",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 10000
+  },
+  {
+    "tehsil": "Iglas",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Iglas",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 7000
+  },
+  {
+    "tehsil": "Iglas",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 3000
+  },
+  {
+    "tehsil": "Jalesar (Rural Area)",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 9500
+  },
+  {
+    "tehsil": "Jalesar (Rural Area)",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 8500
+  },
+  {
+    "tehsil": "Jalesar (Rural Area)",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 7500
+  },
+  {
+    "tehsil": "Jalesar (Rural Area)",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 6500
+  },
+  {
+    "tehsil": "Jasrana",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 12000
+  },
+  {
+    "tehsil": "Jasrana",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 11000
+  },
+  {
+    "tehsil": "Jasrana",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 11000
+  },
+  {
+    "tehsil": "Jasrana",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 8000
+  },
+  {
+    "tehsil": "Jasrana",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Jaswant Nagar",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 13000
+  },
+  {
+    "tehsil": "Jaswant Nagar",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 10000
+  },
+  {
+    "tehsil": "Jaswant Nagar",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Jaswant Nagar",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 7500
+  },
+  {
+    "tehsil": "Jaswant Nagar",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 4000
+  },
+  {
+    "tehsil": "Jewar",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 14000
+  },
+  {
+    "tehsil": "Jewar",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 13000
+  },
+  {
+    "tehsil": "Jewar",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 9500
+  },
+  {
+    "tehsil": "Jewar",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Jewar",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 5500
+  },
+  {
+    "tehsil": "Jhansi",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 12500
+  },
+  {
+    "tehsil": "Jhansi",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 11500
+  },
+  {
+    "tehsil": "Jhansi",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Jhansi",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 6500
+  },
+  {
+    "tehsil": "Jhansi",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 4400
+  },
+  {
+    "tehsil": "Khair",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 11500
+  },
+  {
+    "tehsil": "Khair",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 10000
+  },
+  {
+    "tehsil": "Khair",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Khair",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 7000
+  },
+  {
+    "tehsil": "Khair",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 3000
+  },
+  {
+    "tehsil": "Khurja",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 14000
+  },
+  {
+    "tehsil": "Khurja",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 13000
+  },
+  {
+    "tehsil": "Khurja",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 9500
+  },
+  {
+    "tehsil": "Khurja",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Khurja",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 5500
+  },
+  {
+    "tehsil": "Lucknow",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 12000
+  },
+  {
+    "tehsil": "Lucknow",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Lucknow",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 5000
+  },
+  {
+    "tehsil": "Lucknow",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 4000
+  },
+  {
+    "tehsil": "Lucknow",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 2000
+  },
+  {
+    "tehsil": "Mahilabad",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 12000
+  },
+  {
+    "tehsil": "Mahilabad",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Mahilabad",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 5000
+  },
+  {
+    "tehsil": "Mahilabad",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 4000
+  },
+  {
+    "tehsil": "Mahilabad",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 2000
+  },
+  {
+    "tehsil": "Mainpuri",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 15000
+  },
+  {
+    "tehsil": "Mainpuri",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 13500
+  },
+  {
+    "tehsil": "Mainpuri",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 12500
+  },
+  {
+    "tehsil": "Mainpuri",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 10000
+  },
+  {
+    "tehsil": "Mainpuri",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Mohanlal Ganj",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 12000
+  },
+  {
+    "tehsil": "Mohanlal Ganj",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Mohanlal Ganj",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 5000
+  },
+  {
+    "tehsil": "Mohanlal Ganj",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 4000
+  },
+  {
+    "tehsil": "Mohanlal Ganj",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 2000
+  },
+  {
+    "tehsil": "Noida",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 14000
+  },
+  {
+    "tehsil": "Noida",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 13000
+  },
+  {
+    "tehsil": "Noida",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 9500
+  },
+  {
+    "tehsil": "Noida",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 6000
+  },
+  {
+    "tehsil": "Noida",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 5500
+  },
+  {
+    "tehsil": "Sadabad",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 12500
+  },
+  {
+    "tehsil": "Sadabad",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 11000
+  },
+  {
+    "tehsil": "Sadabad",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Sadabad",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 7500
+  },
+  {
+    "tehsil": "Sadabad",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 600
+  },
+  {
+    "tehsil": "Saifai",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 11000
+  },
+  {
+    "tehsil": "Saifai",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Saifai",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 7500
+  },
+  {
+    "tehsil": "Saifai",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 6500
+  },
+  {
+    "tehsil": "Saifai",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 3500
+  },
+  {
+    "tehsil": "Sansni",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 11000
+  },
+  {
+    "tehsil": "Sansni",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 10000
+  },
+  {
+    "tehsil": "Sansni",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 8000
+  },
+  {
+    "tehsil": "Sansni",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 7000
+  },
+  {
+    "tehsil": "Sansni",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 5500
+  },
+  {
+    "tehsil": "Shikohabad",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 12000
+  },
+  {
+    "tehsil": "Shikohabad",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 11000
+  },
+  {
+    "tehsil": "Shikohabad",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 11000
+  },
+  {
+    "tehsil": "Shikohabad",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 7000
+  },
+  {
+    "tehsil": "Shikohabad",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 5000
+  },
+  {
+    "tehsil": "Sikandra Rao",
+    "roofType": "RCC",
+    "category": 2,
+    "rate": 13000
+  },
+  {
+    "tehsil": "Sikandra Rao",
+    "roofType": "RBC",
+    "category": 2,
+    "rate": 11000
+  },
+  {
+    "tehsil": "Sikandra Rao",
+    "roofType": "Girder Stone",
+    "category": 2,
+    "rate": 9000
+  },
+  {
+    "tehsil": "Sikandra Rao",
+    "roofType": "Tin Shed",
+    "category": 2,
+    "rate": 8000
+  },
+  {
+    "tehsil": "Sikandra Rao",
+    "roofType": "Kachcha",
+    "category": 2,
+    "rate": 6000
+  }
+]

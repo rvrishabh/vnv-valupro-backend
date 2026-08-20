@@ -8,6 +8,11 @@
       {
         "include": "common/assets/**/*",
         "watchAssets": true
+      },
+      {
+        "include": "modules/**/*.hbs",
+        "watchAssets": true,
+        "outDir": "dist/src"
       }
     ]
   }

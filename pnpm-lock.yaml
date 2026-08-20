@@ -80,6 +80,9 @@ importers:
       dotenv:
         specifier: ^17.4.2
         version: 17.4.2
+      handlebars:
+        specifier: ^4.7.9
+        version: 4.7.9
       ifsc:
         specifier: ^2.0.50
         version: 2.0.50

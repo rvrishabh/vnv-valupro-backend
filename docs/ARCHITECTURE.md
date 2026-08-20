@@ -163,6 +163,36 @@ Engineer locations: `/engineers/*` (after engineer is approved).
 8. **queries** — Staff raises queries; thread responses; resolve
 9. **notifications** — FCM push; transactional email/SMS (not auth login SMS)
 
+## Valuation estimate module (quick calculator)
+
+`src/modules/valuation-estimate/` is a standalone quick-estimate calculator, distinct from the full **valuation** module (#6 above, which covers engineer visits, staff review, and PDF reports). It lets a caller submit plot area, an estimated amount, and a rate, and get back a computed floor-by-floor area breakdown — no case/document workflow attached.
+
+**Files:**
+
+- `valuation-estimate.controller.ts` — `POST /valuation-estimate` (calculate + persist), `GET /valuation-estimate` (list, paginated/filterable)
+- `valuation-estimate.service.ts` — orchestrates calculation, resolves config, applies role-based read scoping
+- `services/valuation-estimate.calculator.ts` — pure calculation logic (`ValuationEstimateCalculator.calculate`)
+- `repositories/valuation-estimate.repository.ts` — extends `PrismaBaseRepository`; search on `ownerName`/`address`, filter on `createdBy`/`createdAt`, sort on `createdAt`/`ownerName`/`estimatedAmount`
+- `dto/valuation-estimate.dto.ts` — `CreateValuationEstimateDto` (`ownerName`, `address`, `plotAreaSqFt`, `estimatedAmount`, `rate` [1200–1650]), `FilterValuationEstimateDto`
+- `valuation-estimate.module.ts` — imports `AuthModule` (guards), exports service + repository
+
+**Access control** (`@Roles`, enforced in the controller + service):
+
+- `POST` / `GET`: `SUPER_ADMIN` (legacy artifact role — not seeded, see note above), `ADMIN`, `SITE_ENGINEER`, `BANK_MANAGER`
+- `GET` scoping in the service: `ADMIN`-tier roles see all estimates; `SITE_ENGINEER`/`BANK_MANAGER` are scoped to their own (`createdBy = userId`); `CHECKER` is explicitly forbidden
+
+**Calculation** (`ValuationEstimateCalculator`):
+
+1. `totalPermissibleAreaSqFt = estimatedAmount / rate`
+2. `plotAreaSqM = plotAreaSqFt / 10.7639` (rejects plots over 2000 sq m)
+3. Coverage percent by plot size: ≤100 sq m → 75%, ≤300 → 65%, ≤500 → 55%, else 45%
+4. `groundFloorAreaSqFt = plotAreaSqFt * coveragePercent`
+5. Remaining permissible area is distributed across additional floors (capped at the ground floor area each), with a final **Mumty** floor once remaining area drops below the mumty threshold
+
+**`ValuationConfig` table:** key/value store for tunable config; `MUMTY_THRESHOLD_SQFT` overrides the default mumty threshold (162 sq ft) used in step 5.
+
+**`ValuationEstimate` table:** stores every calculated estimate (`plotAreaSqFt`, `plotAreaSqM`, `estimatedAmount`, `rate`, `coveragePercent`, `totalPermissibleAreaSqFt`, `groundFloorAreaSqFt`, `floorBreakdown` as JSON) linked to the creating `User` via `createdBy`.
+
 ## Recommended build order
 
 Foundation → seed roles/permissions/bootstrap admin → **banks** (public list for signup) → **auth** (register + login flows) → **users** (web CRUD + approve mobile) → cases → documents → valuation → fees → queries → notifications.
