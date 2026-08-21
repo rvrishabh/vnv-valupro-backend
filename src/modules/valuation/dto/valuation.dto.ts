@@ -135,6 +135,44 @@ export class UpsertValuationDto {
   @Type(() => BuildingDto)
   building?: BuildingDto;
 
+  @ApiPropertyOptional({ description: 'M-Doc!C8 — House / Flat / Shop / ...' })
+  @IsOptional()
+  @IsString()
+  propertyType?: string;
+
+  @ApiPropertyOptional({ description: 'M-Doc!C10' })
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  advanceReceived?: number;
+
+  @ApiPropertyOptional({ description: 'M-Doc!C55', example: 'Land & Building' })
+  @IsOptional()
+  @IsString()
+  assetsSoldAsPerDeed?: string;
+
+  @ApiPropertyOptional({ enum: ['Freehold', 'Leasehold'], description: 'M-Doc!C62' })
+  @IsOptional()
+  @IsString()
+  tenure?: string;
+
+  @ApiPropertyOptional({
+    description: 'M-Doc!C63:C69 — lessor, lessee, dates, premium, ground rent, easements',
+  })
+  @IsOptional()
+  @IsObject()
+  leaseDetails?: Record<string, unknown>;
+
+  @ApiPropertyOptional({ description: 'M-Doc!C41:C52 — address as observed on site' })
+  @IsOptional()
+  @IsObject()
+  siteAddress?: Record<string, unknown>;
+
+  @ApiPropertyOptional({ description: 'M-Doc!C80:C87 — discrepancy checks' })
+  @IsOptional()
+  @IsObject()
+  discrepancy?: Record<string, unknown>;
+
   @ApiPropertyOptional() @IsOptional() @IsObject() titleDeed?: Record<string, unknown>;
   @ApiPropertyOptional() @IsOptional() @IsObject() boundaries?: Record<string, unknown>;
   @ApiPropertyOptional() @IsOptional() @IsObject() dimensions?: Record<string, unknown>;

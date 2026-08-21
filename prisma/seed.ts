@@ -282,6 +282,17 @@ async function seedValuationOptions(prisma: PrismaClient) {
       create: option,
     });
   }
+
+  // This is master data mirrored from the workbook, so anything no longer in
+  // the book must go: a stale group would otherwise keep offering choices the
+  // valuer can no longer justify against the sheet.
+  const groups = [...new Set(valuationOptions.map((o) => o.group))];
+  const removed = await prisma.valuationOption.deleteMany({
+    where: { group: { notIn: groups } },
+  });
+  if (removed.count) {
+    console.log(`  pruned ${removed.count} option(s) no longer in the workbook`);
+  }
 }
 
 /** Maps each seeded bank to the report layout its PDF is rendered from. */

@@ -6,7 +6,9 @@
  */
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { byRow, readWorkbook, type Cell } from './xlsm/workbook';
+import { byRow, readWorkbook, type Cell, type Sheet } from './xlsm/workbook';
+import { keyFor } from './xlsm/field-keys';
+import { readEntry } from './xlsm/zip';
 
 const ROOF_COLUMNS: Record<string, string> = {
   C: 'RCC',
@@ -42,41 +44,143 @@ function constructionRates(sheetCells: Cell[]) {
 }
 
 /**
- * The Lists sheet is column-per-dropdown, but the header is not on a fixed row:
- * some columns start at row 1, others at row 2 or 3. The first text cell in a
- * column is therefore taken as its group name, and everything below it as the
- * options. Purely numeric cells are helper/lookup columns and are skipped.
+ * Every dropdown in the three input sheets, resolved to its actual options.
+ *
+ * The sheets declare dropdowns as x14 data validations pointing at ranges in
+ * `Lists` / `Construction Rates`. Reading those gives an exact per-field option
+ * list, which is far better than guessing from the `Lists` column headers:
+ * those columns are shared and reordered between unrelated fields.
  */
-function options(sheetCells: Cell[]) {
-  const rows = byRow(sheetCells);
+function options(archive: string, sheets: Sheet[]) {
+  const cellsBySheet = new Map(sheets.map((s) => [s.name, s.cells]));
+  const entries = sheetEntryMap(archive);
   const out: { group: string; value: string; sortOrder: number }[] = [];
-  const columns = new Set(sheetCells.map((c) => c.col));
-  const seenGroups = new Map<string, string>();
+  const seen = new Set<string>();
 
-  const isNumeric = (v: string) => /^\d+(\.\d+)?$/.test(v);
+  for (const sheetName of ['M-Doc', 'M-Rate', 'M-Gen']) {
+    const entry = entries.get(sheetName);
+    if (!entry) continue;
+    const xml = readEntry(archive, entry);
 
-  for (const col of columns) {
-    let group = '';
-    let sortOrder = 0;
+    for (const block of xml.matchAll(
+      /<x14:dataValidation\b([\s\S]*?)<\/x14:dataValidation>/g,
+    )) {
+      const body = block[1];
+      const source = /<xm:f>([\s\S]*?)<\/xm:f>/.exec(body)?.[1];
+      const sqref = /<xm:sqref>([\s\S]*?)<\/xm:sqref>/.exec(body)?.[1];
+      if (!source || !sqref) continue;
 
-    for (const [, row] of rows) {
-      const value = text(row[col]);
-      if (!value || isNumeric(value)) continue;
+      // One rule often covers several cells that are different fields sharing an
+      // option list ("C80 C82 C84" = boundaries matching / plot demarcated /
+      // ..., "C23:C25" = maintenance / exterior / interior), so every cell the
+      // rule spans has to be keyed, not just the first.
+      const keys = [...new Set(expandSqref(sqref).map((ref) => keyFor(sheetName, ref)))].filter(
+        (k): k is string => Boolean(k),
+      );
+      if (!keys.length) continue;
 
-      if (!group) {
-        // Two columns both label themselves "Type of Property"; keep them
-        // distinct so neither silently overwrites the other.
-        const taken = seenGroups.get(value);
-        group = taken && taken !== col ? `${value} (${col})` : value;
-        seenGroups.set(value, col);
-        continue;
+      const resolved = resolveRange(source.replace(/&amp;/g, '&'), cellsBySheet);
+      if (!resolved?.options.length) continue;
+
+      for (const key of keys) {
+        let sortOrder = 0;
+        for (const value of resolved.options) {
+          const dedupe = `${key}::${value}`;
+          // The book carries near-duplicate rules for some cells (a range that
+          // was extended over time); keep the union, first occurrence wins.
+          if (seen.has(dedupe)) continue;
+          seen.add(dedupe);
+          out.push({ group: key, value, sortOrder: sortOrder++ });
+        }
       }
-
-      out.push({ group, value, sortOrder: sortOrder++ });
     }
   }
 
   return out;
+}
+
+/** "C80 C82 C84" / "C23:C25" / "C68:E68" -> the individual cell references. */
+function expandSqref(sqref: string): string[] {
+  const refs: string[] = [];
+
+  for (const token of sqref.trim().split(/\s+/)) {
+    const range = /^([A-Z]+)(\d+):([A-Z]+)(\d+)$/.exec(token);
+    if (!range) {
+      refs.push(token);
+      continue;
+    }
+
+    const [, c1, r1, c2, r2] = range;
+    const fromRow = Math.min(Number(r1), Number(r2));
+    const toRow = Math.max(Number(r1), Number(r2));
+    const fromCol = colToIndex(c1) < colToIndex(c2) ? c1 : c2;
+    const span = Math.abs(colToIndex(c1) - colToIndex(c2));
+
+    for (let row = fromRow; row <= toRow; row += 1) {
+      for (let i = 0; i <= span; i += 1) {
+        refs.push(`${indexToCol(colToIndex(fromCol) + i)}${row}`);
+      }
+    }
+  }
+
+  return refs;
+}
+
+function colToIndex(col: string): number {
+  return [...col].reduce((n, ch) => n * 26 + (ch.charCodeAt(0) - 64), 0);
+}
+
+function indexToCol(index: number): string {
+  let n = index;
+  let out = '';
+  while (n > 0) {
+    const rem = (n - 1) % 26;
+    out = String.fromCharCode(65 + rem) + out;
+    n = Math.floor((n - 1) / 26);
+  }
+  return out;
+}
+
+function sheetEntryMap(archive: string): Map<string, string> {
+  const rels = new Map<string, string>();
+  for (const m of readEntry(archive, 'xl/_rels/workbook.xml.rels').matchAll(
+    /Id="([^"]+)"[^>]*Target="([^"]+)"/g,
+  )) {
+    rels.set(m[1], m[2].replace(/^\/?xl\//, ''));
+  }
+
+  const map = new Map<string, string>();
+  for (const m of readEntry(archive, 'xl/workbook.xml').matchAll(/<sheet ([^>]*)\/>/g)) {
+    const name = /name="([^"]*)"/.exec(m[1])?.[1] ?? '';
+    const target = rels.get(/r:id="([^"]+)"/.exec(m[1])?.[1] ?? '');
+    if (name && target) map.set(name.replace(/&amp;/g, '&'), `xl/${target}`);
+  }
+  return map;
+}
+
+function resolveRange(
+  source: string,
+  cellsBySheet: Map<string, Cell[]>,
+): { options: string[] } | null {
+  const m = /^'?([^'!]+)'?!\$?([A-Z]+)\$?(\d+):\$?([A-Z]+)\$?(\d+)$/.exec(source.trim());
+  if (!m) return null;
+
+  const [, sheetName, startCol, startRow, endCol, endRow] = m;
+  const cells = cellsBySheet.get(sheetName);
+  if (!cells) return null;
+
+  const from = Math.min(Number(startRow), Number(endRow));
+  const to = Math.max(Number(startRow), Number(endRow));
+  const cols = startCol === endCol ? [startCol] : [startCol, endCol];
+
+  const values: string[] = [];
+  for (const cell of cells) {
+    if (!cols.includes(cell.col) || cell.row < from || cell.row > to) continue;
+    const value = cell.value === undefined ? '' : String(cell.value).trim();
+    if (value) values.push(value);
+  }
+
+  return { options: [...new Set(values)] };
 }
 
 function main(): void {
@@ -86,9 +190,9 @@ function main(): void {
     process.exit(1);
   }
 
-  const sheets = readWorkbook(file, ['Construction Rates', 'Lists']);
+  const sheets = readWorkbook(file);
   const rates = constructionRates(sheets.find((s) => s.name === 'Construction Rates')!.cells);
-  const opts = options(sheets.find((s) => s.name === 'Lists')!.cells);
+  const opts = options(file, sheets);
 
   const dir = join(__dirname, '..', 'prisma', 'data');
   mkdirSync(dir, { recursive: true });

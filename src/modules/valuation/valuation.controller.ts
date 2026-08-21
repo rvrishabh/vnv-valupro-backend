@@ -114,7 +114,7 @@ export class ValuationController {
     @Body() dto: ReviewValuationDto,
     @Req() req: AuthenticatedRequest,
   ) {
-    return this.valuationService.review(id, dto, req.user.roleName);
+    return this.valuationService.review(id, dto, req.user.id, req.user.roleName);
   }
 
   @Get(':id/pdf')

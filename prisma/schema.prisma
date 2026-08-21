@@ -210,25 +210,30 @@ model EngineerLocation {
 }
 
 model Case {
-  id               String       @id @default(uuid())
-  caseNumber       String       @unique
-  status           CaseStatus   @default(PENDING)
-  institutionId    String
-  branchId         String?
-  createdById      String
-  assignedToId     String?
-  checkedById      String?
-  customerName     String
-  customerMobile   String
-  propertyLocation String?
-  propertyType     PropertyType
-  bankReference    String? // Bank's own loan/case number
-  assignedAt       DateTime?
-  submittedAt      DateTime?
-  approvedAt       DateTime?
-  deadline         DateTime?
-  createdAt        DateTime     @default(now())
-  updatedAt        DateTime     @updatedAt
+  id                String       @id @default(uuid())
+  caseNumber        String       @unique
+  status            CaseStatus   @default(PENDING)
+  institutionId     String
+  branchId          String?
+  createdById       String
+  assignedToId      String?
+  checkedById       String?
+  customerName      String
+  customerMobile    String
+  propertyLocation  String?
+  propertyType      PropertyType
+  bankReference     String? // Bank's own loan/case number
+  assignedAt        DateTime?
+  /// Site engineer opened the visit on the mobile app.
+  surveyStartedAt   DateTime?
+  /// Site engineer finished the visit and handed the case back.
+  surveyCompletedAt DateTime?
+  submittedAt       DateTime?
+  approvedAt        DateTime?
+  rejectedAt        DateTime?
+  deadline          DateTime?
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
 
   institution   Institution      @relation(fields: [institutionId], references: [id])
   branch        Branch?          @relation(fields: [branchId], references: [id])
@@ -259,7 +264,7 @@ model Document {
   docType      String // 'bank_doc' | 'site_photo' | 'valuation_report'
   createdAt    DateTime @default(now())
 
-  case       Case @relation(fields: [caseId], references: [id])
+  case       Case @relation(fields: [caseId], references: [id], onDelete: Cascade)
   uploadedBy User @relation(fields: [uploadedById], references: [id])
 }
 
@@ -278,6 +283,22 @@ model ValuationReport {
   areaUnit           String?  @default("Sq.m")
   yearOfConstruction Int?
   expectedLifeYears  Int?     @default(80)
+
+  /// M-Doc!C8 — "Specify Type of Property" (House/Flat/Shop/...). Distinct from
+  /// Case.propertyType, which is the broader RESIDENTIAL/COMMERCIAL class.
+  propertyType        String?
+  /// M-Doc!C10
+  advanceReceived     Decimal? @db.Decimal(15, 2)
+  /// M-Doc!C55
+  assetsSoldAsPerDeed String?
+  /// M-Doc!C62 — Freehold | Leasehold. Drives the lease block below.
+  tenure              String?
+  /// M-Doc!C63:C69 — only meaningful when tenure is Leasehold.
+  leaseDetails        Json?
+  /// M-Doc!C41:C52 — address as observed on site, alongside the deed address.
+  siteAddress         Json?
+  /// M-Doc!C80:C87 — boundary/ownership discrepancy checks and road frontage.
+  discrepancy         Json?
 
   prevailingMarketRate Decimal? @db.Decimal(15, 2)
   circleRate           Decimal? @db.Decimal(15, 2)
@@ -335,7 +356,7 @@ model ValuationReport {
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 
-  case     Case @relation(fields: [caseId], references: [id])
+  case     Case @relation(fields: [caseId], references: [id], onDelete: Cascade)
   engineer User @relation(fields: [engineerId], references: [id])
 
   @@index([status])
@@ -415,7 +436,7 @@ model FeeCollection {
   collectedAt        DateTime?
   createdAt          DateTime    @default(now())
 
-  case     Case @relation(fields: [caseId], references: [id])
+  case     Case @relation(fields: [caseId], references: [id], onDelete: Cascade)
   engineer User @relation(fields: [engineerId], references: [id])
 }
 
@@ -431,7 +452,7 @@ model Query {
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
 
-  case       Case            @relation(fields: [caseId], references: [id])
+  case       Case            @relation(fields: [caseId], references: [id], onDelete: Cascade)
   raisedBy   User            @relation("RaisedBy", fields: [raisedById], references: [id])
   directedTo User            @relation("DirectedTo", fields: [directedToId], references: [id])
   responses  QueryResponse[]
@@ -459,7 +480,7 @@ model CaseAuditLog {
   notes     String?
   createdAt DateTime @default(now())
 
-  case  Case @relation(fields: [caseId], references: [id])
+  case  Case @relation(fields: [caseId], references: [id], onDelete: Cascade)
   actor User @relation(fields: [actorId], references: [id])
 }
 

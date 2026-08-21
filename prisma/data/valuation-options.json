@@ -1,4872 +1,2647 @@
 [
   {
-    "group": "Tenancy",
-    "value": "Owner occupied",
-    "sortOrder": 0
-  },
-  {
-    "group": "Tenancy",
-    "value": "Tenanted",
-    "sortOrder": 1
-  },
-  {
-    "group": "Tenancy",
-    "value": "Both-Owner Occupied & tenanted",
-    "sortOrder": 2
-  },
-  {
-    "group": "Tenancy",
-    "value": "Under Owner's Possession",
-    "sortOrder": 3
-  },
-  {
-    "group": "Tenancy",
-    "value": "Vacant Plot Under Owner's Possession",
-    "sortOrder": 4
-  },
-  {
-    "group": "Tenancy",
-    "value": "Vacant Plot",
-    "sortOrder": 5
-  },
-  {
-    "group": "Tenancy",
-    "value": "Presently lying Vacant",
-    "sortOrder": 6
-  },
-  {
-    "group": "Tenancy",
-    "value": "Under Construction",
-    "sortOrder": 7
-  },
-  {
-    "group": "Tenancy",
-    "value": "Covered Area Considered",
-    "sortOrder": 8
-  },
-  {
-    "group": "Tenancy",
-    "value": "As per actual",
-    "sortOrder": 9
-  },
-  {
-    "group": "Tenancy",
-    "value": "As per approved plan",
-    "sortOrder": 10
-  },
-  {
-    "group": "Tenancy",
-    "value": "As per bye laws",
-    "sortOrder": 11
-  },
-  {
-    "group": "Tenancy",
-    "value": "N.A.",
-    "sortOrder": 12
-  },
-  {
-    "group": "Tenancy",
-    "value": "Ownership",
-    "sortOrder": 13
-  },
-  {
-    "group": "Tenancy",
-    "value": "Single Ownership",
-    "sortOrder": 14
-  },
-  {
-    "group": "Tenancy",
-    "value": "Co-ownership",
-    "sortOrder": 15
-  },
-  {
-    "group": "Tenancy",
-    "value": "Joint Ownership",
-    "sortOrder": 16
-  },
-  {
-    "group": "Tenancy",
-    "value": "Company Ownership",
-    "sortOrder": 17
-  },
-  {
-    "group": "Tenancy",
-    "value": "Society's Ownership",
-    "sortOrder": 18
-  },
-  {
-    "group": "Tenancy",
-    "value": "Institutional Ownership",
-    "sortOrder": 19
-  },
-  {
-    "group": "Tenancy",
-    "value": "Firm's Ownership",
-    "sortOrder": 20
-  },
-  {
-    "group": "Tenancy",
-    "value": "Sq.ft",
-    "sortOrder": 21
-  },
-  {
-    "group": "Tenancy",
-    "value": "Sq.yds",
-    "sortOrder": 22
-  },
-  {
-    "group": "Tenancy",
-    "value": "N.A.",
-    "sortOrder": 23
-  },
-  {
-    "group": "Tenancy",
-    "value": "Construction Approval Status",
-    "sortOrder": 24
-  },
-  {
-    "group": "Tenancy",
-    "value": "Construction is as per approved plan",
-    "sortOrder": 25
-  },
-  {
-    "group": "Tenancy",
-    "value": "Covered area on site is more",
-    "sortOrder": 26
-  },
-  {
-    "group": "Tenancy",
-    "value": "House has been fully covered",
-    "sortOrder": 27
-  },
-  {
-    "group": "Tenancy",
-    "value": "We have considered covered area as per approved building plan/ Original Allotment",
-    "sortOrder": 28
-  },
-  {
-    "group": "Tenancy",
-    "value": "Plan not available, though covered area is within limits permissible under building byelaws",
-    "sortOrder": 29
-  },
-  {
-    "group": "Tenancy",
-    "value": "SPECIFICATIONS",
-    "sortOrder": 30
-  },
-  {
-    "group": "Tenancy",
-    "value": "Walls",
-    "sortOrder": 31
-  },
-  {
-    "group": "Tenancy",
-    "value": "Plastered Painted Walls",
-    "sortOrder": 32
-  },
-  {
-    "group": "Tenancy",
-    "value": "Plastered Whitewashed Walls",
-    "sortOrder": 33
-  },
-  {
-    "group": "Tenancy",
-    "value": "Unplastered Walls",
-    "sortOrder": 34
-  },
-  {
-    "group": "Tenancy",
-    "value": "Plastered unpainted walls",
-    "sortOrder": 35
-  },
-  {
-    "group": "Tenancy",
-    "value": "Unplastered Whitewashed Walls",
-    "sortOrder": 36
-  },
-  {
-    "group": "Tenancy",
-    "value": "Plastered Limewashed Walls",
-    "sortOrder": 37
-  },
-  {
-    "group": "Tenancy",
-    "value": "N.A.",
-    "sortOrder": 38
-  },
-  {
-    "group": "Tenancy",
-    "value": "Doors",
-    "sortOrder": 39
-  },
-  {
-    "group": "Tenancy",
-    "value": "MS Doors",
-    "sortOrder": 40
-  },
-  {
-    "group": "Tenancy",
-    "value": "Wooden Doors on Wooden Frame",
-    "sortOrder": 41
-  },
-  {
-    "group": "Tenancy",
-    "value": "MS Shutters",
-    "sortOrder": 42
-  },
-  {
-    "group": "Tenancy",
-    "value": "None",
-    "sortOrder": 43
-  },
-  {
-    "group": "Tenancy",
-    "value": "Aluminium Frame Glass Doors",
-    "sortOrder": 44
-  },
-  {
-    "group": "Tenancy",
-    "value": "Glass Door",
-    "sortOrder": 45
-  },
-  {
-    "group": "Tenancy",
-    "value": "Wooden Doors on MS Frame",
-    "sortOrder": 46
-  },
-  {
-    "group": "Tenancy",
-    "value": "Wooden Doors on Wooden Frame",
-    "sortOrder": 47
-  },
-  {
-    "group": "Tenancy",
-    "value": "Wooden frame only",
-    "sortOrder": 48
-  },
-  {
-    "group": "Tenancy",
-    "value": "Type of Structure",
-    "sortOrder": 49
-  },
-  {
-    "group": "Tenancy",
-    "value": "RCC Framed",
-    "sortOrder": 50
-  },
-  {
-    "group": "Tenancy",
-    "value": "Load Bearing",
-    "sortOrder": 51
-  },
-  {
-    "group": "Tenancy",
-    "value": "Mixed-RCC & Load Bearing",
-    "sortOrder": 52
-  },
-  {
-    "group": "Tenancy",
-    "value": "Shed on Truss",
-    "sortOrder": 53
-  },
-  {
-    "group": "Tenancy",
-    "value": "N.A.",
-    "sortOrder": 54
-  },
-  {
-    "group": "Tenancy",
-    "value": "Sewerage",
-    "sortOrder": 55
-  },
-  {
-    "group": "Tenancy",
-    "value": "Septic Tank",
-    "sortOrder": 56
-  },
-  {
-    "group": "Tenancy",
-    "value": "Sewer Line",
-    "sortOrder": 57
-  },
-  {
-    "group": "Tenancy",
-    "value": "None",
-    "sortOrder": 58
-  },
-  {
-    "group": "Tenancy",
-    "value": "N.A.",
-    "sortOrder": 59
-  },
-  {
-    "group": "Tenancy",
-    "value": "Units",
-    "sortOrder": 60
-  },
-  {
-    "group": "Tenancy",
-    "value": "Sq.yds",
-    "sortOrder": 61
-  },
-  {
-    "group": "Tenancy",
-    "value": "Sq.ft",
-    "sortOrder": 62
-  },
-  {
-    "group": "Tenancy",
-    "value": "N.A.",
-    "sortOrder": 63
-  },
-  {
-    "group": "Tenancy",
-    "value": "Name of Banks",
-    "sortOrder": 64
-  },
-  {
-    "group": "Tenancy",
-    "value": "Indian Bank",
-    "sortOrder": 65
-  },
-  {
-    "group": "Tenancy",
-    "value": "Aryavart Bank",
-    "sortOrder": 66
-  },
-  {
-    "group": "Tenancy",
-    "value": "Axis Bank",
-    "sortOrder": 67
-  },
-  {
-    "group": "Tenancy",
-    "value": "Bank of Baroda",
-    "sortOrder": 68
-  },
-  {
-    "group": "Tenancy",
-    "value": "Bank of India",
-    "sortOrder": 69
-  },
-  {
-    "group": "Tenancy",
-    "value": "Bharat Petroleum Corporation Limited",
-    "sortOrder": 70
-  },
-  {
-    "group": "Tenancy",
-    "value": "Central Bank of India",
-    "sortOrder": 71
-  },
-  {
-    "group": "Tenancy",
-    "value": "Cent Bank Home Finance Limited",
-    "sortOrder": 72
-  },
-  {
-    "group": "Tenancy",
-    "value": "Hindustan Petroleum Corporation Ltd",
-    "sortOrder": 73
-  },
-  {
-    "group": "Tenancy",
-    "value": "Canara Bank",
-    "sortOrder": 74
-  },
-  {
-    "group": "Tenancy",
-    "value": "Oriental Bank of Commerce",
-    "sortOrder": 75
-  },
-  {
-    "group": "Tenancy",
-    "value": "Punjab National Bank",
-    "sortOrder": 76
-  },
-  {
-    "group": "Tenancy",
-    "value": "State Bank of India",
-    "sortOrder": 77
-  },
-  {
-    "group": "Tenancy",
-    "value": "South Indian Bank",
-    "sortOrder": 78
-  },
-  {
-    "group": "Tenancy",
-    "value": "Union Bank of India",
-    "sortOrder": 79
-  },
-  {
-    "group": "Tenancy",
-    "value": "UCO Bank",
-    "sortOrder": 80
-  },
-  {
-    "group": "Tenancy",
-    "value": "Type of Roof for guideline rate",
-    "sortOrder": 81
-  },
-  {
-    "group": "Tenancy",
-    "value": "Girder Stone",
-    "sortOrder": 82
-  },
-  {
-    "group": "Tenancy",
-    "value": "Kachcha",
-    "sortOrder": 83
-  },
-  {
-    "group": "Tenancy",
-    "value": "RBC",
-    "sortOrder": 84
-  },
-  {
-    "group": "Tenancy",
-    "value": "RCC",
-    "sortOrder": 85
-  },
-  {
-    "group": "Tenancy",
-    "value": "Tin Shed",
-    "sortOrder": 86
-  },
-  {
-    "group": "Tenancy",
-    "value": "Restrictive Covenant",
-    "sortOrder": 87
-  },
-  {
-    "group": "Tenancy",
-    "value": "N.A.",
-    "sortOrder": 88
-  },
-  {
-    "group": "Tenancy",
-    "value": "Only for cloth market",
-    "sortOrder": 89
-  },
-  {
-    "group": "Tenancy",
-    "value": "No major construction activity allowed as per SC orders due to proximity to Taj Mahal",
-    "sortOrder": 90
-  },
-  {
-    "group": "Tenancy",
-    "value": "Only residential",
-    "sortOrder": 91
-  },
-  {
-    "group": "Tenancy",
-    "value": "Only Commercial",
-    "sortOrder": 92
-  },
-  {
-    "group": "Tenancy",
-    "value": "Only Industrial",
-    "sortOrder": 93
-  },
-  {
-    "group": "Tenancy",
-    "value": "Only Export Oriented Units",
-    "sortOrder": 94
-  },
-  {
-    "group": "Tenancy",
-    "value": "Only for shoe shops",
-    "sortOrder": 95
-  },
-  {
-    "group": "Tenancy",
-    "value": "Only for Petha Industry",
-    "sortOrder": 96
-  },
-  {
-    "group": "Tenancy",
-    "value": "Received Thru",
-    "sortOrder": 97
-  },
-  {
-    "group": "Tenancy",
-    "value": "Thru Bank Revaluation Case",
-    "sortOrder": 98
-  },
-  {
-    "group": "Tenancy",
-    "value": "Thru Bank New Case",
-    "sortOrder": 99
-  },
-  {
-    "group": "Tenancy",
-    "value": "BANK NPA Account",
-    "sortOrder": 100
-  },
-  {
-    "group": "Tenancy",
-    "value": "Direct fm Party",
-    "sortOrder": 101
-  },
-  {
-    "group": "Tenancy",
-    "value": "Category",
-    "sortOrder": 102
-  },
-  {
-    "group": "Tenancy",
-    "value": "Purpose of Valuation",
-    "sortOrder": 103
-  },
-  {
-    "group": "Tenancy",
-    "value": "Ascertaining the value of property offered as security",
-    "sortOrder": 104
-  },
-  {
-    "group": "Tenancy",
-    "value": "Realizing the values of Non-Performing Assets (NPAs)",
-    "sortOrder": 105
-  },
-  {
-    "group": "Tenancy",
-    "value": "Ascertaining the value of property for Visa Purpose",
-    "sortOrder": 106
-  },
-  {
-    "group": "Tenancy",
-    "value": "Branch in concern",
-    "sortOrder": 107
-  },
-  {
-    "group": "Tenancy",
-    "value": "Bank Details",
-    "sortOrder": 108
-  },
-  {
-    "group": "Tenancy",
-    "value": "A/c Name:",
-    "sortOrder": 109
-  },
-  {
-    "group": "Tenancy",
-    "value": "A/c No.:",
-    "sortOrder": 110
-  },
-  {
-    "group": "Tenancy",
-    "value": "NEFT/IFS Code",
-    "sortOrder": 111
-  },
-  {
-    "group": "Tenancy",
-    "value": "Branch:",
-    "sortOrder": 112
-  },
-  {
-    "group": "Tenancy",
-    "value": "Valuation",
-    "sortOrder": 113
-  },
-  {
-    "group": "Tenancy",
-    "value": "Indian Bank",
-    "sortOrder": 114
-  },
-  {
-    "group": "Tenancy",
-    "value": "Aryavart Bank",
-    "sortOrder": 115
-  },
-  {
-    "group": "Tenancy",
-    "value": "Axis Bank",
-    "sortOrder": 116
-  },
-  {
-    "group": "Tenancy",
-    "value": "Bank of Baroda",
-    "sortOrder": 117
-  },
-  {
-    "group": "Tenancy",
-    "value": "Bank of India",
-    "sortOrder": 118
-  },
-  {
-    "group": "Tenancy",
-    "value": "Bharat Petroleum Corporation Limited",
-    "sortOrder": 119
-  },
-  {
-    "group": "Tenancy",
-    "value": "Central Bank of India",
-    "sortOrder": 120
-  },
-  {
-    "group": "Tenancy",
-    "value": "Hindustan Petroleum Corporation Ltd",
-    "sortOrder": 121
-  },
-  {
-    "group": "Tenancy",
-    "value": "Punjab National Bank",
-    "sortOrder": 122
-  },
-  {
-    "group": "Tenancy",
-    "value": "State Bank of India",
-    "sortOrder": 123
-  },
-  {
-    "group": "Tenancy",
-    "value": "South Indian Bank",
-    "sortOrder": 124
-  },
-  {
-    "group": "Tenancy",
-    "value": "Union Bank of India",
-    "sortOrder": 125
-  },
-  {
-    "group": "Tenancy",
-    "value": "Canara Bank",
-    "sortOrder": 126
-  },
-  {
-    "group": "Tenancy",
-    "value": "Remarks",
-    "sortOrder": 127
-  },
-  {
-    "group": "Tenancy",
-    "value": "1. Property could not be surveyed from inside as no co-operation is available from owner, same has been informed to bank and as asked by bank, report has been prepared considering area & specifications as per previous records available from bank and external visual inspection.",
-    "sortOrder": 128
-  },
-  {
-    "group": "Tenancy",
-    "value": "1. Property could not be surveyed from inside as no co-operation is available from owner, same has been informed to bank and as asked by bank, property as identified by matching photographs in last available report has been considered & valued as no other document for property identification is available and report has been prepared considering area & specifications as per previous records available from bank and external visual inspection.",
-    "sortOrder": 129
-  },
-  {
-    "group": "Tenancy",
-    "value": "99acres",
-    "sortOrder": 130
-  },
-  {
-    "group": "Tenancy",
-    "value": "As per property websites like 99 Acres, Magic Bricks and Housing.com etc, Market rates in this locality are varying from ₹ 80000 to ₹ 100000 per Sq.yds (Plot rates are deduced from total Value of house given on sites) and as per market survey and discreet enquiries made in neighbourhood. Rates in this area are ranging around ₹ 48000 to ₹ 55000 per Sq.yds ).",
-    "sortOrder": 131
-  },
-  {
-    "group": "Tenancy",
-    "value": "As per property websites like 99 Acres, Magic Bricks and Housing.com etc, Listings for this area are not available, so rates in this report have been adopted as per market survey and discreet enquiries made in neighbourhood.",
-    "sortOrder": 132
-  },
-  {
-    "group": "Property Identification",
-    "value": "Yes",
-    "sortOrder": 0
-  },
-  {
-    "group": "Property Identification",
-    "value": "No",
-    "sortOrder": 1
-  },
-  {
-    "group": "Property Identification",
-    "value": "Building approval",
-    "sortOrder": 2
-  },
-  {
-    "group": "Property Identification",
-    "value": "Approved",
-    "sortOrder": 3
-  },
-  {
-    "group": "Property Identification",
-    "value": "Approved building plan not available",
-    "sortOrder": 4
-  },
-  {
-    "group": "Property Identification",
-    "value": "Building plan is not approved",
-    "sortOrder": 5
-  },
-  {
-    "group": "Property Identification",
-    "value": "Originally Constructed & Allotted by ADA",
-    "sortOrder": 6
-  },
-  {
-    "group": "Property Identification",
-    "value": "Originally Constructed & Allotted by UP Awas Vikas Parishad",
-    "sortOrder": 7
-  },
-  {
-    "group": "Property Identification",
-    "value": "Approved as 3 storeyed individual residence",
-    "sortOrder": 8
-  },
-  {
-    "group": "Property Identification",
-    "value": "Nature of Property",
-    "sortOrder": 9
-  },
-  {
-    "group": "Property Identification",
-    "value": "Residential",
-    "sortOrder": 10
-  },
-  {
-    "group": "Property Identification",
-    "value": "Commercial",
-    "sortOrder": 11
-  },
-  {
-    "group": "Property Identification",
-    "value": "Industrial",
-    "sortOrder": 12
-  },
-  {
-    "group": "Property Identification",
-    "value": "Agricultural",
-    "sortOrder": 13
-  },
-  {
-    "group": "Property Identification",
-    "value": "Institutional",
-    "sortOrder": 14
-  },
-  {
-    "group": "Property Identification",
-    "value": "Mixed-residential & commercial",
-    "sortOrder": 15
-  },
-  {
-    "group": "Property Identification",
-    "value": "Declared non-agricultural u/s 143",
-    "sortOrder": 16
-  },
-  {
-    "group": "Property Identification",
-    "value": "N.A.",
-    "sortOrder": 17
-  },
-  {
-    "group": "Property Identification",
-    "value": "Colony Approval Status",
-    "sortOrder": 18
-  },
-  {
-    "group": "Property Identification",
-    "value": "Approved, being old property prior to formation of ADA",
-    "sortOrder": 19
-  },
-  {
-    "group": "Property Identification",
-    "value": "Colony is not approved by ADA",
-    "sortOrder": 20
-  },
-  {
-    "group": "Property Identification",
-    "value": "Approved though no documentary evidence provided",
-    "sortOrder": 21
-  },
-  {
-    "group": "Property Identification",
-    "value": "Approved Colony",
-    "sortOrder": 22
-  },
-  {
-    "group": "Property Identification",
-    "value": "N.A.",
-    "sortOrder": 23
-  },
-  {
-    "group": "Property Identification",
-    "value": "Approved Area.",
-    "sortOrder": 24
-  },
-  {
-    "group": "Property Identification",
-    "value": "Unapproved",
-    "sortOrder": 25
-  },
-  {
-    "group": "Property Identification",
-    "value": "Ceiling",
-    "sortOrder": 26
-  },
-  {
-    "group": "Property Identification",
-    "value": "Plastered Painted Ceiling",
-    "sortOrder": 27
-  },
-  {
-    "group": "Property Identification",
-    "value": "Plastered Painted Ceiling with POP work",
-    "sortOrder": 28
-  },
-  {
-    "group": "Property Identification",
-    "value": "Gypsum Board False Ceiling",
-    "sortOrder": 29
-  },
-  {
-    "group": "Property Identification",
-    "value": "POP False Ceiling",
-    "sortOrder": 30
-  },
-  {
-    "group": "Property Identification",
-    "value": "Plastered whitewashed ceiling",
-    "sortOrder": 31
-  },
-  {
-    "group": "Property Identification",
-    "value": "Girder Stone Roofing",
-    "sortOrder": 32
-  },
-  {
-    "group": "Property Identification",
-    "value": "N.A.",
-    "sortOrder": 33
-  },
-  {
-    "group": "Property Identification",
-    "value": "Tin Shed Roof",
-    "sortOrder": 34
-  },
-  {
-    "group": "Property Identification",
-    "value": "Windows",
-    "sortOrder": 35
-  },
-  {
-    "group": "Property Identification",
-    "value": "MS Framed MS Windows",
-    "sortOrder": 36
-  },
-  {
-    "group": "Property Identification",
-    "value": "Wooden Windows on wooden frame",
-    "sortOrder": 37
-  },
-  {
-    "group": "Property Identification",
-    "value": "None",
-    "sortOrder": 38
-  },
-  {
-    "group": "Property Identification",
-    "value": "Aluminium Frame Glass Windows",
-    "sortOrder": 39
-  },
-  {
-    "group": "Property Identification",
-    "value": "Glass Windows",
-    "sortOrder": 40
-  },
-  {
-    "group": "Property Identification",
-    "value": "Wooden Windows on wooden frame",
-    "sortOrder": 41
-  },
-  {
-    "group": "Property Identification",
-    "value": "Wooden frame only",
-    "sortOrder": 42
-  },
-  {
-    "group": "Property Identification",
-    "value": "Type of foundations",
-    "sortOrder": 43
-  },
-  {
-    "group": "Property Identification",
-    "value": "RCC Footing",
-    "sortOrder": 44
-  },
-  {
-    "group": "Property Identification",
-    "value": "Spread Foundation",
-    "sortOrder": 45
-  },
-  {
-    "group": "Property Identification",
-    "value": "Mixed Foundation",
-    "sortOrder": 46
-  },
-  {
-    "group": "Property Identification",
-    "value": "N.A.",
-    "sortOrder": 47
-  },
-  {
-    "group": "Property Identification",
-    "value": "Water Supply",
-    "sortOrder": 48
-  },
-  {
-    "group": "Property Identification",
-    "value": "Municipal",
-    "sortOrder": 49
-  },
-  {
-    "group": "Property Identification",
-    "value": "Ground water",
-    "sortOrder": 50
-  },
-  {
-    "group": "Property Identification",
-    "value": "Colony's OH Tank",
-    "sortOrder": 51
-  },
-  {
-    "group": "Property Identification",
-    "value": "Both-Ground Water & Municipal Supply",
-    "sortOrder": 52
-  },
-  {
-    "group": "Property Identification",
-    "value": "Common OH Tanks",
-    "sortOrder": 53
-  },
-  {
-    "group": "Property Identification",
-    "value": "N.A.",
-    "sortOrder": 54
-  },
-  {
-    "group": "Property Identification",
-    "value": "None",
-    "sortOrder": 55
-  },
-  {
-    "group": "Property Identification",
-    "value": "Alias",
-    "sortOrder": 56
-  },
-  {
-    "group": "Property Identification",
-    "value": "IND",
-    "sortOrder": 57
-  },
-  {
-    "group": "Property Identification",
-    "value": "ARB",
-    "sortOrder": 58
-  },
-  {
-    "group": "Property Identification",
-    "value": "Axis",
-    "sortOrder": 59
-  },
-  {
-    "group": "Property Identification",
-    "value": "BOB",
-    "sortOrder": 60
-  },
-  {
-    "group": "Property Identification",
-    "value": "BOI",
-    "sortOrder": 61
-  },
-  {
-    "group": "Property Identification",
-    "value": "BPCL",
-    "sortOrder": 62
-  },
-  {
-    "group": "Property Identification",
-    "value": "CBI",
-    "sortOrder": 63
-  },
-  {
-    "group": "Property Identification",
-    "value": "CBHFL",
-    "sortOrder": 64
-  },
-  {
-    "group": "Property Identification",
-    "value": "HPCL",
-    "sortOrder": 65
-  },
-  {
-    "group": "Property Identification",
-    "value": "CAN",
-    "sortOrder": 66
-  },
-  {
-    "group": "Property Identification",
-    "value": "OBC",
-    "sortOrder": 67
-  },
-  {
-    "group": "Property Identification",
-    "value": "PNB",
-    "sortOrder": 68
-  },
-  {
-    "group": "Property Identification",
-    "value": "SBI",
-    "sortOrder": 69
-  },
-  {
-    "group": "Property Identification",
-    "value": "SIB",
-    "sortOrder": 70
-  },
-  {
-    "group": "Property Identification",
-    "value": "UBI",
-    "sortOrder": 71
-  },
-  {
-    "group": "Property Identification",
-    "value": "UCO",
-    "sortOrder": 72
-  },
-  {
-    "group": "Property Identification",
-    "value": "For Agra",
-    "sortOrder": 73
-  },
-  {
-    "group": "Property Identification",
-    "value": "Rates",
-    "sortOrder": 74
-  },
-  {
-    "group": "Property Identification",
-    "value": "Property tax",
-    "sortOrder": 75
-  },
-  {
-    "group": "Property Identification",
-    "value": "Yes",
-    "sortOrder": 76
-  },
-  {
-    "group": "Property Identification",
-    "value": "No",
-    "sortOrder": 77
-  },
-  {
-    "group": "Property Identification",
-    "value": "Latest Receipt not available",
-    "sortOrder": 78
-  },
-  {
-    "group": "Property Identification",
-    "value": "Under Panchayat",
-    "sortOrder": 79
-  },
-  {
-    "group": "Property Identification",
-    "value": "Outside Municipal Limits",
-    "sortOrder": 80
-  },
-  {
-    "group": "Property Identification",
-    "value": "N.A.",
-    "sortOrder": 81
-  },
-  {
-    "group": "Property Identification",
-    "value": "Type of Area",
-    "sortOrder": 82
-  },
-  {
-    "group": "Property Identification",
-    "value": "Plot Area",
-    "sortOrder": 83
-  },
-  {
-    "group": "Property Identification",
-    "value": "Super Area",
-    "sortOrder": 84
-  },
-  {
-    "group": "Property Identification",
-    "value": "Builtup Area",
-    "sortOrder": 85
-  },
-  {
-    "group": "Property Identification",
-    "value": "Carpet Area",
-    "sortOrder": 86
-  },
-  {
-    "group": "Property Identification",
-    "value": "Normal",
-    "sortOrder": 87
-  },
-  {
-    "group": "Property Identification",
-    "value": "NPA",
-    "sortOrder": 88
-  },
-  {
-    "group": "Property Identification",
-    "value": "IND",
-    "sortOrder": 89
-  },
-  {
-    "group": "Property Identification",
-    "value": "Bank of Baroda",
-    "sortOrder": 90
-  },
-  {
-    "group": "Property Identification",
-    "value": "BOB",
-    "sortOrder": 91
-  },
-  {
-    "group": "Property Identification",
-    "value": "IND",
-    "sortOrder": 92
-  },
-  {
-    "group": "Property Identification",
-    "value": "ARB",
-    "sortOrder": 93
-  },
-  {
-    "group": "Property Identification",
-    "value": "Axis",
-    "sortOrder": 94
-  },
-  {
-    "group": "Property Identification",
-    "value": "BOB",
-    "sortOrder": 95
-  },
-  {
-    "group": "Property Identification",
-    "value": "BOI",
-    "sortOrder": 96
-  },
-  {
-    "group": "Property Identification",
-    "value": "BPCL",
-    "sortOrder": 97
-  },
-  {
-    "group": "Property Identification",
-    "value": "CBI",
-    "sortOrder": 98
-  },
-  {
-    "group": "Property Identification",
-    "value": "HPCL",
-    "sortOrder": 99
-  },
-  {
-    "group": "Property Identification",
-    "value": "PNB",
-    "sortOrder": 100
-  },
-  {
-    "group": "Property Identification",
-    "value": "SBI",
-    "sortOrder": 101
-  },
-  {
-    "group": "Property Identification",
-    "value": "SIB",
-    "sortOrder": 102
-  },
-  {
-    "group": "Property Identification",
-    "value": "UBI",
-    "sortOrder": 103
-  },
-  {
-    "group": "Property Identification",
-    "value": "CAN",
-    "sortOrder": 104
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Approved ADA developed colony",
-    "sortOrder": 0
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Approved UPAVP developed colony",
-    "sortOrder": 1
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Approved Apartments",
-    "sortOrder": 2
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Approved Area",
-    "sortOrder": 3
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Approved Colony layout not available",
-    "sortOrder": 4
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Colony is approved",
-    "sortOrder": 5
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Colony is not approved",
-    "sortOrder": 6
-  },
-  {
-    "group": "Approved Colony",
-    "value": "N.A.",
-    "sortOrder": 7
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Old City Area",
-    "sortOrder": 8
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Rural Area",
-    "sortOrder": 9
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Semi-Rural Area",
-    "sortOrder": 10
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Semi-Urban Area",
-    "sortOrder": 11
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Under Municipality",
-    "sortOrder": 12
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Under Panchayat",
-    "sortOrder": 13
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Locale",
-    "sortOrder": 14
-  },
-  {
-    "group": "Approved Colony",
-    "value": "City",
-    "sortOrder": 15
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Town",
-    "sortOrder": 16
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Village",
-    "sortOrder": 17
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Locality",
-    "sortOrder": 18
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Rural",
-    "sortOrder": 19
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Urban",
-    "sortOrder": 20
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Semi-Urban",
-    "sortOrder": 21
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Mixed",
-    "sortOrder": 22
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Authority",
-    "sortOrder": 23
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Municipal",
-    "sortOrder": 24
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Corporation",
-    "sortOrder": 25
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Village Panchayat",
-    "sortOrder": 26
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Nagar Panchayat",
-    "sortOrder": 27
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Wiring- Internal/ External",
-    "sortOrder": 28
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Internal",
-    "sortOrder": 29
-  },
-  {
-    "group": "Approved Colony",
-    "value": "External",
-    "sortOrder": 30
-  },
-  {
-    "group": "Approved Colony",
-    "value": "None",
-    "sortOrder": 31
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Mixed-Internal & External",
-    "sortOrder": 32
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Partitions",
-    "sortOrder": 33
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Class of Electrical Fittings-Superior/ Ordinary/ Poor",
-    "sortOrder": 34
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Superior",
-    "sortOrder": 35
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Good Quality",
-    "sortOrder": 36
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Normal",
-    "sortOrder": 37
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Ordinary",
-    "sortOrder": 38
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Average",
-    "sortOrder": 39
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Below Average",
-    "sortOrder": 40
-  },
-  {
-    "group": "Approved Colony",
-    "value": "N.A.",
-    "sortOrder": 41
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Unfinished",
-    "sortOrder": 42
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Under Construction",
-    "sortOrder": 43
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Special architectural or decorative features, if any.",
-    "sortOrder": 44
-  },
-  {
-    "group": "Approved Colony",
-    "value": "N.A.",
-    "sortOrder": 45
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Type of Water Tank",
-    "sortOrder": 46
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Plastic Tank",
-    "sortOrder": 47
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Cement Tank",
-    "sortOrder": 48
-  },
-  {
-    "group": "Approved Colony",
-    "value": "RCC Tank",
-    "sortOrder": 49
-  },
-  {
-    "group": "Approved Colony",
-    "value": "N.A.",
-    "sortOrder": 50
-  },
-  {
-    "group": "Approved Colony",
-    "value": "None",
-    "sortOrder": 51
-  },
-  {
-    "group": "Approved Colony",
-    "value": "2000 Lt",
-    "sortOrder": 52
-  },
-  {
-    "group": "Approved Colony",
-    "value": "500 Lt",
-    "sortOrder": 53
-  },
-  {
-    "group": "Approved Colony",
-    "value": "1000 Lt",
-    "sortOrder": 54
-  },
-  {
-    "group": "Approved Colony",
-    "value": "500 Lt x 2 Nos.",
-    "sortOrder": 55
-  },
-  {
-    "group": "Approved Colony",
-    "value": "700 Lt",
-    "sortOrder": 56
-  },
-  {
-    "group": "Approved Colony",
-    "value": "For Mathura",
-    "sortOrder": 57
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Rates",
-    "sortOrder": 58
-  },
-  {
-    "group": "Approved Colony",
-    "value": "List of Tehsils",
-    "sortOrder": 59
-  },
-  {
-    "group": "Approved Colony",
+    "group": "city",
     "value": "Agra",
-    "sortOrder": 60
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Aliganj",
-    "sortOrder": 61
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Amritpur",
-    "sortOrder": 62
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Auraiya",
-    "sortOrder": 63
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Bah",
-    "sortOrder": 64
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Bharthana",
-    "sortOrder": 65
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Chakar Nagar",
-    "sortOrder": 66
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Chhata",
-    "sortOrder": 67
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Dholpur",
-    "sortOrder": 68
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Dibiyapur",
-    "sortOrder": 69
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Etah",
-    "sortOrder": 70
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Etawah",
-    "sortOrder": 71
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Etmadpur",
-    "sortOrder": 72
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Farrukahbad",
-    "sortOrder": 73
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Fatehabad",
-    "sortOrder": 74
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Firozabad",
-    "sortOrder": 75
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Hathras",
-    "sortOrder": 76
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Jalesar",
-    "sortOrder": 77
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Jasrana",
-    "sortOrder": 78
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Jaswant Nagar",
-    "sortOrder": 79
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Kaimganj",
-    "sortOrder": 80
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Kasganj",
-    "sortOrder": 81
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Kheragarh",
-    "sortOrder": 82
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Khurja",
-    "sortOrder": 83
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Kiraoli",
-    "sortOrder": 84
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Maant",
-    "sortOrder": 85
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Mainpuri",
-    "sortOrder": 86
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Mahavan",
-    "sortOrder": 87
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Mathura",
-    "sortOrder": 88
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Patiyali",
-    "sortOrder": 89
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Sadabad",
-    "sortOrder": 90
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Sahawar",
-    "sortOrder": 91
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Saifai",
-    "sortOrder": 92
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Sasni",
-    "sortOrder": 93
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Shikohabad",
-    "sortOrder": 94
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Sikandrarao",
-    "sortOrder": 95
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Tundla",
-    "sortOrder": 96
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Punjab National Bank",
-    "sortOrder": 97
-  },
-  {
-    "group": "Approved Colony",
-    "value": "IND",
-    "sortOrder": 98
-  },
-  {
-    "group": "Approved Colony",
-    "value": "V.N.V Engineers",
-    "sortOrder": 99
-  },
-  {
-    "group": "Approved Colony",
-    "value": "PUNB0184200",
-    "sortOrder": 100
-  },
-  {
-    "group": "Approved Colony",
-    "value": "Kamla Nagar",
-    "sortOrder": 101
-  },
-  {
-    "group": "Approved Colony",
-    "value": "L& B",
-    "sortOrder": 102
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Allahabad Bank",
     "sortOrder": 0
   },
   {
-    "group": "Name of Banks",
-    "value": "Aryavart Bank",
-    "sortOrder": 1
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Bank of Baroda",
-    "sortOrder": 2
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Bank of India",
-    "sortOrder": 3
-  },
-  {
-    "group": "Name of Banks",
-    "value": "BPCL",
-    "sortOrder": 4
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Corporation Bank",
-    "sortOrder": 5
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Canara Bank",
-    "sortOrder": 6
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Oriental Bank of Commerce",
-    "sortOrder": 7
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Punjab National Bank",
-    "sortOrder": 8
-  },
-  {
-    "group": "Name of Banks",
-    "value": "State Bank of India",
-    "sortOrder": 9
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Union Bank of India",
-    "sortOrder": 10
-  },
-  {
-    "group": "Name of Banks",
-    "value": "United Bank of India",
-    "sortOrder": 11
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Type of report",
-    "sortOrder": 12
-  },
-  {
-    "group": "Name of Banks",
-    "value": "NPA",
-    "sortOrder": 13
-  },
-  {
-    "group": "Name of Banks",
-    "value": "New Loan",
-    "sortOrder": 14
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Revaluation",
-    "sortOrder": 15
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Prepared By",
-    "sortOrder": 16
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Bharti",
-    "sortOrder": 17
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Yash",
-    "sortOrder": 18
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Sarang",
-    "sortOrder": 19
-  },
-  {
-    "group": "Name of Banks",
-    "value": "VS",
-    "sortOrder": 20
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Ajay Sharma",
-    "sortOrder": 21
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Sarvesh",
-    "sortOrder": 22
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Yes",
-    "sortOrder": 23
-  },
-  {
-    "group": "Name of Banks",
-    "value": "No",
-    "sortOrder": 24
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Not Reqd",
-    "sortOrder": 25
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Type of locality list",
-    "sortOrder": 26
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Residential",
-    "sortOrder": 27
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Commercial",
-    "sortOrder": 28
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Mixed",
-    "sortOrder": 29
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Ownership",
-    "sortOrder": 30
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Freehold",
-    "sortOrder": 31
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Leasehold",
-    "sortOrder": 32
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Flooring",
-    "sortOrder": 33
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Kota Stone Flooring",
-    "sortOrder": 34
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Marble Flooring",
-    "sortOrder": 35
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Marble Chips Flooring",
-    "sortOrder": 36
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Ordinary IPC Flooring",
-    "sortOrder": 37
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Brick Flooring",
-    "sortOrder": 38
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Mixed- Ordinary & Marble Chips Flooring",
-    "sortOrder": 39
-  },
-  {
-    "group": "Name of Banks",
-    "value": "None",
-    "sortOrder": 40
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Tiled Flooring",
-    "sortOrder": 41
-  },
-  {
-    "group": "Name of Banks",
-    "value": "None",
-    "sortOrder": 42
-  },
-  {
-    "group": "Name of Banks",
-    "value": "4.5\"/ 9\" walls",
-    "sortOrder": 43
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Aluminium Framed Partitions",
-    "sortOrder": 44
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Wooden Partitions",
-    "sortOrder": 45
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Sanitary Installations-Ordinary/ Superior",
-    "sortOrder": 46
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Superior",
-    "sortOrder": 47
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Good Quality",
-    "sortOrder": 48
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Normal",
-    "sortOrder": 49
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Ordinary",
-    "sortOrder": 50
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Average",
-    "sortOrder": 51
-  },
-  {
-    "group": "Name of Banks",
-    "value": "N.A.",
-    "sortOrder": 52
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Roofing/ Terracing",
-    "sortOrder": 53
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Mud Phuska",
-    "sortOrder": 54
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Brick Bat Coba",
-    "sortOrder": 55
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Plastered",
-    "sortOrder": 56
-  },
-  {
-    "group": "Name of Banks",
-    "value": "N.A.",
-    "sortOrder": 57
-  },
-  {
-    "group": "Name of Banks",
-    "value": "China Mosaic Terracing",
-    "sortOrder": 58
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Marble Chips Terracing",
-    "sortOrder": 59
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Tiled Terracing",
-    "sortOrder": 60
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Compond Wall",
-    "sortOrder": 61
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Plastered Painted Wall",
-    "sortOrder": 62
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Unplastered Brick Wall",
-    "sortOrder": 63
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Stone Masonary",
-    "sortOrder": 64
-  },
-  {
-    "group": "Name of Banks",
-    "value": "None",
-    "sortOrder": 65
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Plastered Painted wall with Grill",
-    "sortOrder": 66
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Tiled Brick wall",
-    "sortOrder": 67
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Plastered Limewashed Wall",
-    "sortOrder": 68
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Compound wall",
-    "sortOrder": 69
-  },
-  {
-    "group": "Name of Banks",
-    "value": "4 ft high plastered painted wall",
-    "sortOrder": 70
-  },
-  {
-    "group": "Name of Banks",
-    "value": "5 ft high plastered painted wall",
-    "sortOrder": 71
-  },
-  {
-    "group": "Name of Banks",
-    "value": "5 ft high tiled brick wall",
-    "sortOrder": 72
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Common Compound wall of Complex",
-    "sortOrder": 73
-  },
-  {
-    "group": "Name of Banks",
-    "value": "None",
-    "sortOrder": 74
-  },
-  {
-    "group": "Name of Banks",
-    "value": "5 ft high unplastered wall",
-    "sortOrder": 75
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Type of road",
-    "sortOrder": 76
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Bitumen Road",
-    "sortOrder": 77
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Interlocking tile road",
-    "sortOrder": 78
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Kharanja",
-    "sortOrder": 79
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Concrete Road",
-    "sortOrder": 80
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Unpaved Road",
-    "sortOrder": 81
-  },
-  {
-    "group": "Name of Banks",
-    "value": "For Firozabad",
-    "sortOrder": 82
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Rates",
-    "sortOrder": 83
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Awas Vikas Colony",
-    "sortOrder": 84
-  },
-  {
-    "group": "Name of Banks",
-    "value": "ADA Colony",
-    "sortOrder": 85
-  },
-  {
-    "group": "Name of Banks",
-    "value": "N.A.",
-    "sortOrder": 86
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Value in extra items",
-    "sortOrder": 87
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Considered in covered area rates",
-    "sortOrder": 88
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Considered in Composite area rates",
-    "sortOrder": 89
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Nil",
-    "sortOrder": 90
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Bank",
-    "sortOrder": 91
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Canara Bank",
-    "sortOrder": 92
-  },
-  {
-    "group": "Name of Banks",
-    "value": "CAN",
-    "sortOrder": 93
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Shivam Verma",
-    "sortOrder": 94
-  },
-  {
-    "group": "Name of Banks",
-    "value": "CNRB0001469",
-    "sortOrder": 95
-  },
-  {
-    "group": "Name of Banks",
-    "value": "Kamla Nagar",
-    "sortOrder": 96
-  },
-  {
-    "group": "Name of Banks",
-    "value": "CRM",
-    "sortOrder": 97
-  },
-  {
-    "group": "Name of Banks",
-    "value": "-180000",
-    "sortOrder": 98
-  },
-  {
-    "group": "Name of Banks",
-    "value": "-180000",
-    "sortOrder": 99
-  },
-  {
-    "group": "Name of Banks",
-    "value": "-180000",
-    "sortOrder": 100
-  },
-  {
-    "group": "Name of Banks",
-    "value": "#REF!",
-    "sortOrder": 101
-  },
-  {
-    "group": "Name of Banks",
-    "value": "#REF!",
-    "sortOrder": 102
-  },
-  {
-    "group": "Name of Banks",
-    "value": "#REF!",
-    "sortOrder": 103
-  },
-  {
-    "group": "Name of Banks",
-    "value": "-180000",
-    "sortOrder": 104
-  },
-  {
-    "group": "Name of Banks",
-    "value": "#REF!",
-    "sortOrder": 105
-  },
-  {
-    "group": "Name of Banks",
-    "value": "-180000",
-    "sortOrder": 106
-  },
-  {
-    "group": "Name of Banks",
-    "value": "#REF!",
-    "sortOrder": 107
-  },
-  {
-    "group": "Name of Banks",
-    "value": "#REF!",
-    "sortOrder": 108
-  },
-  {
-    "group": "Alias",
-    "value": "ALB",
-    "sortOrder": 0
-  },
-  {
-    "group": "Alias",
-    "value": "ARB",
-    "sortOrder": 1
-  },
-  {
-    "group": "Alias",
-    "value": "BOB",
-    "sortOrder": 2
-  },
-  {
-    "group": "Alias",
-    "value": "BOI",
-    "sortOrder": 3
-  },
-  {
-    "group": "Alias",
-    "value": "Corp",
-    "sortOrder": 4
-  },
-  {
-    "group": "Alias",
-    "value": "IIB",
-    "sortOrder": 5
-  },
-  {
-    "group": "Alias",
-    "value": "CAN",
-    "sortOrder": 6
-  },
-  {
-    "group": "Alias",
-    "value": "PNB",
-    "sortOrder": 7
-  },
-  {
-    "group": "Alias",
-    "value": "SBI",
-    "sortOrder": 8
-  },
-  {
-    "group": "Alias",
-    "value": "UBI",
-    "sortOrder": 9
-  },
-  {
-    "group": "Alias",
-    "value": "UTBI",
-    "sortOrder": 10
-  },
-  {
-    "group": "Alias",
-    "value": "Visited By",
-    "sortOrder": 11
-  },
-  {
-    "group": "Alias",
-    "value": "Sarvesh",
-    "sortOrder": 12
-  },
-  {
-    "group": "Alias",
-    "value": "Deependra",
-    "sortOrder": 13
-  },
-  {
-    "group": "Alias",
-    "value": "Ajay",
-    "sortOrder": 14
-  },
-  {
-    "group": "Alias",
-    "value": "Sanjeev",
-    "sortOrder": 15
-  },
-  {
-    "group": "Alias",
-    "value": "Ravindra Mpri",
-    "sortOrder": 16
-  },
-  {
-    "group": "Alias",
-    "value": "VS",
-    "sortOrder": 17
-  },
-  {
-    "group": "Alias",
-    "value": "Veenesh",
-    "sortOrder": 18
-  },
-  {
-    "group": "Alias",
-    "value": "Karunesh",
-    "sortOrder": 19
-  },
-  {
-    "group": "Alias",
-    "value": "Other",
-    "sortOrder": 20
-  },
-  {
-    "group": "Alias",
-    "value": "Locality List",
-    "sortOrder": 21
-  },
-  {
-    "group": "Alias",
-    "value": "Middle Class",
-    "sortOrder": 22
-  },
-  {
-    "group": "Alias",
-    "value": "Upper Class & Upper Middle Class",
-    "sortOrder": 23
-  },
-  {
-    "group": "Alias",
-    "value": "Lower Class",
-    "sortOrder": 24
-  },
-  {
-    "group": "Alias",
-    "value": "Upper Class",
-    "sortOrder": 25
-  },
-  {
-    "group": "Alias",
-    "value": "Mixed Locality",
-    "sortOrder": 26
-  },
-  {
-    "group": "Alias",
-    "value": "Appearance",
-    "sortOrder": 27
-  },
-  {
-    "group": "Alias",
-    "value": "Common",
-    "sortOrder": 28
-  },
-  {
-    "group": "Alias",
-    "value": "Attractive",
-    "sortOrder": 29
-  },
-  {
-    "group": "Alias",
-    "value": "Aesthetic",
-    "sortOrder": 30
-  },
-  {
-    "group": "Alias",
-    "value": "Ordinary",
-    "sortOrder": 31
-  },
-  {
-    "group": "Alias",
-    "value": "Average",
-    "sortOrder": 32
-  },
-  {
-    "group": "Alias",
-    "value": "Ward Hariparvat (Sub-registrar-I)",
-    "sortOrder": 33
-  },
-  {
-    "group": "Alias",
-    "value": "Ward Lohamandi (Sub-registrar-II)",
-    "sortOrder": 34
-  },
-  {
-    "group": "Alias",
-    "value": "Ward Tajganj (Sub-registrar-III)",
-    "sortOrder": 35
-  },
-  {
-    "group": "Alias",
-    "value": "Ward Rakabganj (Sub-registrar-IV)",
-    "sortOrder": 36
-  },
-  {
-    "group": "Alias",
-    "value": "Ward Chhatta (Sub-registrar-V)",
-    "sortOrder": 37
-  },
-  {
-    "group": "Alias",
-    "value": "No. of storeys",
-    "sortOrder": 38
-  },
-  {
-    "group": "Alias",
-    "value": "N.A.",
-    "sortOrder": 39
-  },
-  {
-    "group": "Alias",
-    "value": "Vacant Plot",
-    "sortOrder": 40
-  },
-  {
-    "group": "Alias",
-    "value": "Single",
-    "sortOrder": 41
-  },
-  {
-    "group": "Alias",
-    "value": "Two",
-    "sortOrder": 42
-  },
-  {
-    "group": "Alias",
-    "value": "Three",
-    "sortOrder": 43
-  },
-  {
-    "group": "Alias",
-    "value": "Four",
-    "sortOrder": 44
-  },
-  {
-    "group": "Alias",
-    "value": "Five",
-    "sortOrder": 45
-  },
-  {
-    "group": "Alias",
-    "value": "Six",
-    "sortOrder": 46
-  },
-  {
-    "group": "Alias",
-    "value": "G+2",
-    "sortOrder": 47
-  },
-  {
-    "group": "Alias",
-    "value": "G+3",
-    "sortOrder": 48
-  },
-  {
-    "group": "Alias",
-    "value": "Stilt+7",
-    "sortOrder": 49
-  },
-  {
-    "group": "Alias",
-    "value": "Stilt+8",
-    "sortOrder": 50
-  },
-  {
-    "group": "Alias",
-    "value": "Stilt+9",
-    "sortOrder": 51
-  },
-  {
-    "group": "Alias",
-    "value": "Stilt+10",
-    "sortOrder": 52
-  },
-  {
-    "group": "Alias",
-    "value": "Stilt+11",
-    "sortOrder": 53
-  },
-  {
-    "group": "Alias",
-    "value": "Stilt+12",
-    "sortOrder": 54
-  },
-  {
-    "group": "Alias",
-    "value": "Reason for mismatch of boundary",
-    "sortOrder": 55
-  },
-  {
-    "group": "Alias",
-    "value": "N.A.",
-    "sortOrder": 56
-  },
-  {
-    "group": "Alias",
-    "value": "Neighbours have changed since purchase, road side matching",
-    "sortOrder": 57
-  },
-  {
-    "group": "Alias",
-    "value": "North wrongly considered in deed",
-    "sortOrder": 58
-  },
-  {
-    "group": "Alias",
-    "value": "Width",
-    "sortOrder": 59
-  },
-  {
-    "group": "Alias",
-    "value": "Less than 20ft wide",
-    "sortOrder": 60
-  },
-  {
-    "group": "Alias",
-    "value": "More than 20ft wide",
-    "sortOrder": 61
-  },
-  {
-    "group": "Alias",
-    "value": "9m wide",
-    "sortOrder": 62
-  },
-  {
-    "group": "Alias",
-    "value": "100ft Wide",
-    "sortOrder": 63
-  },
-  {
-    "group": "Alias",
-    "value": "30m wide",
-    "sortOrder": 64
-  },
-  {
-    "group": "Alias",
-    "value": "12m wide",
-    "sortOrder": 65
-  },
-  {
-    "group": "Alias",
-    "value": "Less than 10ft wide",
-    "sortOrder": 66
-  },
-  {
-    "group": "Alias",
-    "value": "Less than 5ft wide",
-    "sortOrder": 67
-  },
-  {
-    "group": "Alias",
-    "value": "100ft Wide",
-    "sortOrder": 68
-  },
-  {
-    "group": "Alias",
-    "value": "Cities",
-    "sortOrder": 69
-  },
-  {
-    "group": "Alias",
-    "value": "Agra",
-    "sortOrder": 70
-  },
-  {
-    "group": "Alias",
+    "group": "city",
     "value": "Ajhai",
-    "sortOrder": 71
-  },
-  {
-    "group": "Alias",
-    "value": "Etah",
-    "sortOrder": 72
-  },
-  {
-    "group": "Alias",
-    "value": "Etawah",
-    "sortOrder": 73
-  },
-  {
-    "group": "Alias",
-    "value": "Firozabad",
-    "sortOrder": 74
-  },
-  {
-    "group": "Alias",
-    "value": "Hathras",
-    "sortOrder": 75
-  },
-  {
-    "group": "Alias",
-    "value": "Karhal",
-    "sortOrder": 76
-  },
-  {
-    "group": "Alias",
-    "value": "Kasganj",
-    "sortOrder": 77
-  },
-  {
-    "group": "Alias",
-    "value": "Kosi",
-    "sortOrder": 78
-  },
-  {
-    "group": "Alias",
-    "value": "Mainpuri",
-    "sortOrder": 79
-  },
-  {
-    "group": "Alias",
-    "value": "Mathura",
-    "sortOrder": 80
-  },
-  {
-    "group": "Alias",
-    "value": "Sadabad",
-    "sortOrder": 81
-  },
-  {
-    "group": "Alias",
-    "value": "Shikohabad",
-    "sortOrder": 82
-  },
-  {
-    "group": "Alias",
-    "value": "Sirsaganj",
-    "sortOrder": 83
-  },
-  {
-    "group": "Alias",
-    "value": "Tundla",
-    "sortOrder": 84
-  },
-  {
-    "group": "Alias",
-    "value": "Indian Bank (Allahabad Bank)",
-    "sortOrder": 85
-  },
-  {
-    "group": "Alias",
-    "value": "IND",
-    "sortOrder": 86
-  },
-  {
-    "group": "Alias",
-    "value": "V.N.V Engineers",
-    "sortOrder": 87
-  },
-  {
-    "group": "Alias",
-    "value": "IDIB000N582",
-    "sortOrder": 88
-  },
-  {
-    "group": "Alias",
-    "value": "New Agra",
-    "sortOrder": 89
-  },
-  {
-    "group": "Approved Construction",
-    "value": "Yes, with minor variations",
-    "sortOrder": 0
-  },
-  {
-    "group": "Approved Construction",
-    "value": "N.A.",
     "sortOrder": 1
   },
   {
-    "group": "Approved Construction",
-    "value": "No",
+    "group": "city",
+    "value": "Etah",
     "sortOrder": 2
   },
   {
-    "group": "Approved Construction",
-    "value": "House has been fully covered",
+    "group": "city",
+    "value": "Etawah",
     "sortOrder": 3
   },
   {
-    "group": "Approved Construction",
-    "value": "Within permissible limits",
+    "group": "city",
+    "value": "Firozabad",
     "sortOrder": 4
   },
   {
-    "group": "Approved Construction",
-    "value": "Yes, with variations",
+    "group": "city",
+    "value": "Hathras",
     "sortOrder": 5
   },
   {
-    "group": "Approved Construction",
-    "value": "Developed",
+    "group": "city",
+    "value": "Karhal",
     "sortOrder": 6
   },
   {
-    "group": "Approved Construction",
-    "value": "New Developing",
+    "group": "city",
+    "value": "Kasganj",
     "sortOrder": 7
   },
   {
-    "group": "Approved Construction",
-    "value": "Use of Property",
+    "group": "city",
+    "value": "Kosi",
     "sortOrder": 8
   },
   {
-    "group": "Approved Construction",
-    "value": "Residential House",
+    "group": "city",
+    "value": "Mainpuri",
     "sortOrder": 9
   },
   {
-    "group": "Approved Construction",
-    "value": "Residential Flat",
+    "group": "city",
+    "value": "Mathura",
     "sortOrder": 10
   },
   {
-    "group": "Approved Construction",
-    "value": "Commercial Property",
+    "group": "city",
+    "value": "Sadabad",
     "sortOrder": 11
   },
   {
-    "group": "Approved Construction",
-    "value": "Being used as Industry",
+    "group": "city",
+    "value": "Shikohabad",
     "sortOrder": 12
   },
   {
-    "group": "Approved Construction",
-    "value": "Agricultural Land",
+    "group": "city",
+    "value": "Sirsaganj",
     "sortOrder": 13
   },
   {
-    "group": "Approved Construction",
-    "value": "Institutional Usage",
+    "group": "city",
+    "value": "Tundla",
     "sortOrder": 14
   },
   {
-    "group": "Approved Construction",
-    "value": "Mixed-residential & commercial",
-    "sortOrder": 15
-  },
-  {
-    "group": "Approved Construction",
-    "value": "Vacant Plot",
-    "sortOrder": 16
-  },
-  {
-    "group": "Approved Construction",
-    "value": "N.A.",
-    "sortOrder": 17
-  },
-  {
-    "group": "Approved Construction",
-    "value": "Residence under construction",
-    "sortOrder": 18
-  },
-  {
-    "group": "Approved Construction",
-    "value": "Residential Flat under construction",
-    "sortOrder": 19
-  },
-  {
-    "group": "Approved Construction",
-    "value": "Restrictive Covenant List",
-    "sortOrder": 20
-  },
-  {
-    "group": "Approved Construction",
-    "value": "N.A.",
-    "sortOrder": 21
-  },
-  {
-    "group": "Approved Construction",
-    "value": "Only for cloth shops",
-    "sortOrder": 22
-  },
-  {
-    "group": "Approved Construction",
-    "value": "No major construction activity allowed as per SC orders due to proximity to Taj Mahal",
-    "sortOrder": 23
-  },
-  {
-    "group": "Approved Construction",
-    "value": "Only residential",
-    "sortOrder": 24
-  },
-  {
-    "group": "Approved Construction",
-    "value": "Only Commercial",
-    "sortOrder": 25
-  },
-  {
-    "group": "Approved Construction",
-    "value": "Only Industrial",
-    "sortOrder": 26
-  },
-  {
-    "group": "Approved Construction",
-    "value": "Only Export Oriented Units",
-    "sortOrder": 27
-  },
-  {
-    "group": "Approved Construction",
-    "value": "Only for shoe shops",
-    "sortOrder": 28
-  },
-  {
-    "group": "Approved Construction",
-    "value": "Branches",
-    "sortOrder": 29
-  },
-  {
-    "group": "Approved Construction",
-    "value": "RACPC, Chhipitola, Agra",
-    "sortOrder": 30
-  },
-  {
-    "group": "Approved Construction",
-    "value": "Region",
-    "sortOrder": 31
-  },
-  {
-    "group": "Approved Construction",
-    "value": "Agra",
-    "sortOrder": 32
-  },
-  {
-    "group": "Approved Construction",
-    "value": "Delhi",
-    "sortOrder": 33
-  },
-  {
-    "group": "Approved Construction",
-    "value": "Floor",
-    "sortOrder": 34
-  },
-  {
-    "group": "Approved Construction",
-    "value": "Individual House",
-    "sortOrder": 35
-  },
-  {
-    "group": "Approved Construction",
-    "value": "Individual Property",
-    "sortOrder": 36
-  },
-  {
-    "group": "Approved Construction",
-    "value": "Vacant Plot",
-    "sortOrder": 37
-  },
-  {
-    "group": "Approved Construction",
-    "value": "N.A.",
-    "sortOrder": 38
-  },
-  {
-    "group": "Approved Construction",
-    "value": "Ground Floor",
-    "sortOrder": 39
-  },
-  {
-    "group": "Approved Construction",
-    "value": "1st Floor",
-    "sortOrder": 40
-  },
-  {
-    "group": "Approved Construction",
-    "value": "2nd Floor",
-    "sortOrder": 41
-  },
-  {
-    "group": "Approved Construction",
-    "value": "3rd Floor",
-    "sortOrder": 42
-  },
-  {
-    "group": "Approved Construction",
-    "value": "4th Floor",
-    "sortOrder": 43
-  },
-  {
-    "group": "Approved Construction",
-    "value": "5th Floor",
-    "sortOrder": 44
-  },
-  {
-    "group": "Approved Construction",
-    "value": "6th Floor",
-    "sortOrder": 45
-  },
-  {
-    "group": "Approved Construction",
-    "value": "7th Floor",
-    "sortOrder": 46
-  },
-  {
-    "group": "Approved Construction",
-    "value": "8th Floor",
-    "sortOrder": 47
-  },
-  {
-    "group": "Approved Construction",
-    "value": "9th Floor",
-    "sortOrder": 48
-  },
-  {
-    "group": "Approved Construction",
-    "value": "10th Floor",
-    "sortOrder": 49
-  },
-  {
-    "group": "Approved Construction",
-    "value": "11th Floor",
-    "sortOrder": 50
-  },
-  {
-    "group": "Approved Construction",
-    "value": "12th Floor",
-    "sortOrder": 51
-  },
-  {
-    "group": "Approved Construction",
-    "value": "Distances",
-    "sortOrder": 52
-  },
-  {
-    "group": "Approved Construction",
-    "value": "N.A.",
-    "sortOrder": 53
-  },
-  {
-    "group": "Approved Construction",
-    "value": "1 Km",
-    "sortOrder": 54
-  },
-  {
-    "group": "Approved Construction",
-    "value": "1-2 km",
-    "sortOrder": 55
-  },
-  {
-    "group": "Approved Construction",
-    "value": "2-3 Km",
-    "sortOrder": 56
-  },
-  {
-    "group": "Approved Construction",
-    "value": "3-4 Km",
-    "sortOrder": 57
-  },
-  {
-    "group": "Approved Construction",
-    "value": "4-5 Km",
-    "sortOrder": 58
-  },
-  {
-    "group": "Approved Construction",
-    "value": "5-6 km",
-    "sortOrder": 59
-  },
-  {
-    "group": "Approved Construction",
-    "value": "6-7 Km",
-    "sortOrder": 60
-  },
-  {
-    "group": "Approved Construction",
-    "value": "7-8 Km",
-    "sortOrder": 61
-  },
-  {
-    "group": "Approved Construction",
-    "value": "8-9 km",
-    "sortOrder": 62
-  },
-  {
-    "group": "Approved Construction",
-    "value": "9-10 Km",
-    "sortOrder": 63
-  },
-  {
-    "group": "Approved Construction",
-    "value": "Level",
-    "sortOrder": 64
-  },
-  {
-    "group": "Approved Construction",
-    "value": "High",
-    "sortOrder": 65
-  },
-  {
-    "group": "Approved Construction",
-    "value": "Below Road Level",
-    "sortOrder": 66
-  },
-  {
-    "group": "Approved Construction",
-    "value": "In level with road",
-    "sortOrder": 67
-  },
-  {
-    "group": "Approved Construction",
-    "value": "Retail",
-    "sortOrder": 68
-  },
-  {
-    "group": "Approved Construction",
-    "value": "Other Loan",
-    "sortOrder": 69
-  },
-  {
-    "group": "Approved Construction",
-    "value": "Yes",
-    "sortOrder": 70
-  },
-  {
-    "group": "Approved Construction",
-    "value": "No",
-    "sortOrder": 71
-  },
-  {
-    "group": "Approved Construction",
-    "value": ": Considered in Covered Area Rates",
-    "sortOrder": 72
-  },
-  {
-    "group": "Approved Construction",
-    "value": ": Considered in Construction Value",
-    "sortOrder": 73
-  },
-  {
-    "group": "Approved Construction",
-    "value": ": None",
-    "sortOrder": 74
-  },
-  {
-    "group": "Approved Construction",
-    "value": "Punjab National Bank",
-    "sortOrder": 75
-  },
-  {
-    "group": "Unit",
+    "group": "unitOfDimensions",
     "value": "m",
     "sortOrder": 0
   },
   {
-    "group": "Unit",
+    "group": "unitOfDimensions",
     "value": "ft",
     "sortOrder": 1
   },
   {
-    "group": "Unit",
-    "value": "Sq.m",
-    "sortOrder": 2
-  },
-  {
-    "group": "Unit",
-    "value": "Ha",
-    "sortOrder": 3
-  },
-  {
-    "group": "Unit",
-    "value": "Type of plot",
-    "sortOrder": 4
-  },
-  {
-    "group": "Unit",
-    "value": "Flat",
-    "sortOrder": 5
-  },
-  {
-    "group": "Unit",
-    "value": "Intermittent Plot",
-    "sortOrder": 6
-  },
-  {
-    "group": "Unit",
-    "value": "2 Side Road Facing Plot",
-    "sortOrder": 7
-  },
-  {
-    "group": "Unit",
-    "value": "Park Facing",
-    "sortOrder": 8
-  },
-  {
-    "group": "Unit",
-    "value": "Park & 2 Side Road Facing Plot",
-    "sortOrder": 9
-  },
-  {
-    "group": "Unit",
-    "value": "Method",
-    "sortOrder": 10
-  },
-  {
-    "group": "Unit",
+    "group": "methodOfValuation",
     "value": "Land & Building",
-    "sortOrder": 11
+    "sortOrder": 0
   },
   {
-    "group": "Unit",
+    "group": "methodOfValuation",
     "value": "CRM",
-    "sortOrder": 12
+    "sortOrder": 1
   },
   {
-    "group": "Unit",
+    "group": "methodOfValuation",
     "value": "Plot",
-    "sortOrder": 13
-  },
-  {
-    "group": "Unit",
-    "value": "Assets Sold",
-    "sortOrder": 14
-  },
-  {
-    "group": "Unit",
-    "value": "Land Only",
-    "sortOrder": 15
-  },
-  {
-    "group": "Unit",
-    "value": "Land & Building",
-    "sortOrder": 16
-  },
-  {
-    "group": "Unit",
-    "value": "Flat",
-    "sortOrder": 17
-  },
-  {
-    "group": "Unit",
-    "value": "Shop",
-    "sortOrder": 18
-  },
-  {
-    "group": "Unit",
-    "value": "Available",
-    "sortOrder": 19
-  },
-  {
-    "group": "Unit",
-    "value": "Land Locked",
-    "sortOrder": 20
-  },
-  {
-    "group": "Development",
-    "value": "Developed Area",
-    "sortOrder": 0
-  },
-  {
-    "group": "Development",
-    "value": "Under Development",
-    "sortOrder": 1
-  },
-  {
-    "group": "Development",
-    "value": "Undeveloped",
     "sortOrder": 2
   },
   {
-    "group": "Development",
-    "value": "Rural Area",
-    "sortOrder": 3
-  },
-  {
-    "group": "Development",
-    "value": "Shape of Plot",
-    "sortOrder": 4
-  },
-  {
-    "group": "Development",
-    "value": "Rectangular Shaped",
-    "sortOrder": 5
-  },
-  {
-    "group": "Development",
-    "value": "Square Shaped",
-    "sortOrder": 6
-  },
-  {
-    "group": "Development",
-    "value": "Almost rectangular shape",
-    "sortOrder": 7
-  },
-  {
-    "group": "Development",
-    "value": "Trapezoidal Shape",
-    "sortOrder": 8
-  },
-  {
-    "group": "Development",
-    "value": "Irregular Shaped",
-    "sortOrder": 9
-  },
-  {
-    "group": "Development",
-    "value": "Triangular Shaped",
-    "sortOrder": 10
-  },
-  {
-    "group": "Development",
-    "value": "Nature & Extent of Violations",
-    "sortOrder": 11
-  },
-  {
-    "group": "Development",
-    "value": "House has been fully covered",
-    "sortOrder": 12
-  },
-  {
-    "group": "Development",
-    "value": "Covered area is more than approved plan",
-    "sortOrder": 13
-  },
-  {
-    "group": "Development",
-    "value": "Approved as individual residence but developed as G+2 Floors",
-    "sortOrder": 14
-  },
-  {
-    "group": "Development",
-    "value": "Approved as individual residence but developed as Flats",
-    "sortOrder": 15
-  },
-  {
-    "group": "Development",
-    "value": "N.A.",
-    "sortOrder": 16
-  },
-  {
-    "group": "Type of Property",
-    "value": "Residential House",
+    "group": "receivedThrough",
+    "value": "Thru Bank Revaluation Case",
     "sortOrder": 0
   },
   {
-    "group": "Type of Property",
-    "value": "Industrial Building",
+    "group": "receivedThrough",
+    "value": "Thru Bank New Case",
     "sortOrder": 1
   },
   {
-    "group": "Type of Property",
-    "value": "Individual Shop",
+    "group": "receivedThrough",
+    "value": "BANK NPA Account",
     "sortOrder": 2
   },
   {
-    "group": "Type of Property",
-    "value": "Flat in Multistoreyed Apartment",
+    "group": "receivedThrough",
+    "value": "Direct fm Party",
     "sortOrder": 3
   },
   {
-    "group": "Type of Property",
-    "value": "Independent Floor in G+2 Building",
-    "sortOrder": 4
-  },
-  {
-    "group": "Type of Property",
-    "value": "Independent Floor in G+1 Building",
-    "sortOrder": 5
-  },
-  {
-    "group": "Type of Property",
-    "value": "Vacant Plot",
-    "sortOrder": 6
-  },
-  {
-    "group": "Type of Property",
-    "value": "Shop in a Complex",
-    "sortOrder": 7
-  },
-  {
-    "group": "Type of Property",
-    "value": "Flat in residential cum Commercial Complex",
-    "sortOrder": 8
-  },
-  {
-    "group": "Type of Property",
-    "value": "Shop in residential cum Commercial Complex",
-    "sortOrder": 9
-  },
-  {
-    "group": "Type of Property",
-    "value": "Office",
-    "sortOrder": 10
-  },
-  {
-    "group": "Type of Property",
-    "value": "Identifying property",
-    "sortOrder": 11
-  },
-  {
-    "group": "Type of Property",
-    "value": "By matching electricity bill & meter on site",
-    "sortOrder": 12
-  },
-  {
-    "group": "Type of Property",
-    "value": "By matching address",
-    "sortOrder": 13
-  },
-  {
-    "group": "Type of Property",
-    "value": "By local enquiry",
-    "sortOrder": 14
-  },
-  {
-    "group": "Type of Property",
-    "value": "By Layout Plan of Colony",
-    "sortOrder": 15
-  },
-  {
-    "group": "Type of Property",
-    "value": "By matching boundaries & dimensions",
-    "sortOrder": 16
-  },
-  {
-    "group": "Development Authority",
-    "value": "A.D.A.",
+    "group": "ownershipType",
+    "value": "Single Ownership",
     "sortOrder": 0
   },
   {
-    "group": "Development Authority",
-    "value": "UP Awas Vikas Parishad",
+    "group": "ownershipType",
+    "value": "Co-ownership",
     "sortOrder": 1
   },
   {
-    "group": "Development Authority",
-    "value": "M.V.D.A.",
+    "group": "ownershipType",
+    "value": "Joint Ownership",
     "sortOrder": 2
   },
   {
-    "group": "Development Authority",
-    "value": "F.S.D.A.",
+    "group": "ownershipType",
+    "value": "Company Ownership",
     "sortOrder": 3
   },
   {
-    "group": "Development Authority",
-    "value": "SDM Office",
+    "group": "ownershipType",
+    "value": "Society's Ownership",
     "sortOrder": 4
   },
   {
-    "group": "Development Authority",
-    "value": "Old City Area",
+    "group": "ownershipType",
+    "value": "Institutional Ownership",
     "sortOrder": 5
   },
   {
-    "group": "Development Authority",
-    "value": "UPSIDC",
+    "group": "ownershipType",
+    "value": "Firm's Ownership",
     "sortOrder": 6
   },
   {
-    "group": "Development Authority",
-    "value": "N.A.",
-    "sortOrder": 7
-  },
-  {
-    "group": "Development Authority",
-    "value": "Status of Construction",
-    "sortOrder": 8
-  },
-  {
-    "group": "Development Authority",
-    "value": "Complete",
-    "sortOrder": 9
-  },
-  {
-    "group": "Development Authority",
-    "value": "Under Construction",
-    "sortOrder": 10
-  },
-  {
-    "group": "Development Authority",
-    "value": "Under Finishing",
-    "sortOrder": 11
-  },
-  {
-    "group": "Development Authority",
-    "value": "Incomplete",
-    "sortOrder": 12
-  },
-  {
-    "group": "Type of Property (L)",
+    "group": "propertyType",
     "value": "Flat",
     "sortOrder": 0
   },
   {
-    "group": "Type of Property (L)",
+    "group": "propertyType",
     "value": "Shop",
     "sortOrder": 1
   },
   {
-    "group": "Type of Property (L)",
+    "group": "propertyType",
     "value": "House",
     "sortOrder": 2
   },
   {
-    "group": "Type of Property (L)",
+    "group": "propertyType",
     "value": "Factory",
     "sortOrder": 3
   },
   {
-    "group": "Type of Property (L)",
+    "group": "propertyType",
     "value": "Cold Store",
     "sortOrder": 4
   },
   {
-    "group": "Type of Property (L)",
+    "group": "propertyType",
     "value": "Open Land",
     "sortOrder": 5
   },
   {
-    "group": "Type of Property (L)",
+    "group": "propertyType",
     "value": "Petrol Pump",
     "sortOrder": 6
   },
   {
-    "group": "Type of Property (L)",
+    "group": "propertyType",
     "value": "Marriage Home",
     "sortOrder": 7
   },
   {
-    "group": "Type of Property (L)",
+    "group": "propertyType",
     "value": "Workshop",
     "sortOrder": 8
   },
   {
-    "group": "U/g tnks",
+    "group": "assetsSoldAsPerDeed",
+    "value": "Land Only",
+    "sortOrder": 0
+  },
+  {
+    "group": "assetsSoldAsPerDeed",
+    "value": "Land & Building",
+    "sortOrder": 1
+  },
+  {
+    "group": "assetsSoldAsPerDeed",
+    "value": "Flat",
+    "sortOrder": 2
+  },
+  {
+    "group": "assetsSoldAsPerDeed",
+    "value": "Shop",
+    "sortOrder": 3
+  },
+  {
+    "group": "tenure",
+    "value": "Freehold",
+    "sortOrder": 0
+  },
+  {
+    "group": "tenure",
+    "value": "Leasehold",
+    "sortOrder": 1
+  },
+  {
+    "group": "sharesDivided",
+    "value": "Considered equal shares as division is not mentioned in the deed",
+    "sortOrder": 0
+  },
+  {
+    "group": "sharesDivided",
+    "value": "N.A.",
+    "sortOrder": 1
+  },
+  {
+    "group": "tehsil",
+    "value": "Agra",
+    "sortOrder": 0
+  },
+  {
+    "group": "tehsil",
+    "value": "Aliganj",
+    "sortOrder": 1
+  },
+  {
+    "group": "tehsil",
+    "value": "Aligarh",
+    "sortOrder": 2
+  },
+  {
+    "group": "tehsil",
+    "value": "Atrauli",
+    "sortOrder": 3
+  },
+  {
+    "group": "tehsil",
+    "value": "Auraiya",
+    "sortOrder": 4
+  },
+  {
+    "group": "tehsil",
+    "value": "Bah",
+    "sortOrder": 5
+  },
+  {
+    "group": "tehsil",
+    "value": "Bakshi Ka Talab",
+    "sortOrder": 6
+  },
+  {
+    "group": "tehsil",
+    "value": "Bharthna",
+    "sortOrder": 7
+  },
+  {
+    "group": "tehsil",
+    "value": "Bhogaon",
+    "sortOrder": 8
+  },
+  {
+    "group": "tehsil",
+    "value": "Bidhuna",
+    "sortOrder": 9
+  },
+  {
+    "group": "tehsil",
+    "value": "Chhata",
+    "sortOrder": 10
+  },
+  {
+    "group": "tehsil",
+    "value": "Dadri",
+    "sortOrder": 11
+  },
+  {
+    "group": "tehsil",
+    "value": "Dholpur",
+    "sortOrder": 12
+  },
+  {
+    "group": "tehsil",
+    "value": "Etah",
+    "sortOrder": 13
+  },
+  {
+    "group": "tehsil",
+    "value": "Etawah",
+    "sortOrder": 14
+  },
+  {
+    "group": "tehsil",
+    "value": "Etmadpur",
+    "sortOrder": 15
+  },
+  {
+    "group": "tehsil",
+    "value": "Farukkhabad",
+    "sortOrder": 16
+  },
+  {
+    "group": "tehsil",
+    "value": "Fatehabad",
+    "sortOrder": 17
+  },
+  {
+    "group": "tehsil",
+    "value": "Firozabad",
+    "sortOrder": 18
+  },
+  {
+    "group": "tehsil",
+    "value": "Gabhana",
+    "sortOrder": 19
+  },
+  {
+    "group": "tehsil",
+    "value": "Greater Noida",
+    "sortOrder": 20
+  },
+  {
+    "group": "tehsil",
+    "value": "Hathras",
+    "sortOrder": 21
+  },
+  {
+    "group": "tehsil",
+    "value": "Iglas",
+    "sortOrder": 22
+  },
+  {
+    "group": "tehsil",
+    "value": "Jalesar",
+    "sortOrder": 23
+  },
+  {
+    "group": "tehsil",
+    "value": "Jasrana",
+    "sortOrder": 24
+  },
+  {
+    "group": "tehsil",
+    "value": "Jaswant Nagar",
+    "sortOrder": 25
+  },
+  {
+    "group": "tehsil",
+    "value": "Jewar",
+    "sortOrder": 26
+  },
+  {
+    "group": "tehsil",
+    "value": "Jhansi",
+    "sortOrder": 27
+  },
+  {
+    "group": "tehsil",
+    "value": "Karhal",
+    "sortOrder": 28
+  },
+  {
+    "group": "tehsil",
+    "value": "Kasganj",
+    "sortOrder": 29
+  },
+  {
+    "group": "tehsil",
+    "value": "Kayamganj",
+    "sortOrder": 30
+  },
+  {
+    "group": "tehsil",
+    "value": "Khair",
+    "sortOrder": 31
+  },
+  {
+    "group": "tehsil",
+    "value": "Kheragarh",
+    "sortOrder": 32
+  },
+  {
+    "group": "tehsil",
+    "value": "Khurja",
+    "sortOrder": 33
+  },
+  {
+    "group": "tehsil",
+    "value": "Kiraoli",
+    "sortOrder": 34
+  },
+  {
+    "group": "tehsil",
+    "value": "Lucknow",
+    "sortOrder": 35
+  },
+  {
+    "group": "tehsil",
+    "value": "Maant",
+    "sortOrder": 36
+  },
+  {
+    "group": "tehsil",
+    "value": "Mahavan",
+    "sortOrder": 37
+  },
+  {
+    "group": "tehsil",
+    "value": "Mahilabad",
+    "sortOrder": 38
+  },
+  {
+    "group": "tehsil",
+    "value": "Mainpuri",
+    "sortOrder": 39
+  },
+  {
+    "group": "tehsil",
+    "value": "Mathura 1",
+    "sortOrder": 40
+  },
+  {
+    "group": "tehsil",
+    "value": "Mathura 2",
+    "sortOrder": 41
+  },
+  {
+    "group": "tehsil",
+    "value": "Mohanlal Ganj",
+    "sortOrder": 42
+  },
+  {
+    "group": "tehsil",
+    "value": "Noida",
+    "sortOrder": 43
+  },
+  {
+    "group": "tehsil",
+    "value": "Patiyali",
+    "sortOrder": 44
+  },
+  {
+    "group": "tehsil",
+    "value": "Sadabad",
+    "sortOrder": 45
+  },
+  {
+    "group": "tehsil",
+    "value": "Sahawar",
+    "sortOrder": 46
+  },
+  {
+    "group": "tehsil",
+    "value": "Saifai",
+    "sortOrder": 47
+  },
+  {
+    "group": "tehsil",
+    "value": "Sasni",
+    "sortOrder": 48
+  },
+  {
+    "group": "tehsil",
+    "value": "Shikohabad",
+    "sortOrder": 49
+  },
+  {
+    "group": "tehsil",
+    "value": "Sikandra Rao",
+    "sortOrder": 50
+  },
+  {
+    "group": "tehsil",
+    "value": "Tundla",
+    "sortOrder": 51
+  },
+  {
+    "group": "unitOfArea",
+    "value": "Sq.m",
+    "sortOrder": 0
+  },
+  {
+    "group": "unitOfArea",
+    "value": "Ha",
+    "sortOrder": 1
+  },
+  {
+    "group": "boundariesMatching",
     "value": "Yes",
     "sortOrder": 0
   },
   {
-    "group": "U/g tnks",
+    "group": "boundariesMatching",
     "value": "No",
     "sortOrder": 1
   },
   {
-    "group": "U/g tnks",
-    "value": "None",
-    "sortOrder": 2
-  },
-  {
-    "group": "Branches",
-    "value": "Achnera",
+    "group": "plotDemarcated",
+    "value": "Yes",
     "sortOrder": 0
   },
   {
-    "group": "Branches",
-    "value": "ADA, Jaipur House",
+    "group": "plotDemarcated",
+    "value": "No",
     "sortOrder": 1
   },
   {
-    "group": "Branches",
-    "value": "ADB Etah",
+    "group": "boundaryMismatchReason",
+    "value": "N.A.",
+    "sortOrder": 0
+  },
+  {
+    "group": "boundaryMismatchReason",
+    "value": "Neighbours have changed since purchase, road side matching",
+    "sortOrder": 1
+  },
+  {
+    "group": "boundaryMismatchReason",
+    "value": "North wrongly considered in deed",
     "sortOrder": 2
   },
   {
-    "group": "Branches",
-    "value": "ADB Kasganj",
-    "sortOrder": 3
-  },
-  {
-    "group": "Branches",
-    "value": "ADB, Sadabad",
-    "sortOrder": 4
-  },
-  {
-    "group": "Branches",
-    "value": "ADB, Tundla",
-    "sortOrder": 5
-  },
-  {
-    "group": "Branches",
-    "value": "Agra",
-    "sortOrder": 6
-  },
-  {
-    "group": "Branches",
-    "value": "Agra Road, Firozabad",
-    "sortOrder": 7
-  },
-  {
-    "group": "Branches",
-    "value": "Agra Road, Mainpuri",
-    "sortOrder": 8
-  },
-  {
-    "group": "Branches",
-    "value": "Akola",
-    "sortOrder": 9
-  },
-  {
-    "group": "Branches",
-    "value": "Aliganj",
-    "sortOrder": 10
-  },
-  {
-    "group": "Branches",
-    "value": "Aligarh",
-    "sortOrder": 11
-  },
-  {
-    "group": "Branches",
-    "value": "Anjhai",
-    "sortOrder": 12
-  },
-  {
-    "group": "Branches",
-    "value": "Araon",
-    "sortOrder": 13
-  },
-  {
-    "group": "Branches",
-    "value": "ARMB Allahabad",
-    "sortOrder": 14
-  },
-  {
-    "group": "Branches",
-    "value": "ARMB Lucknow",
-    "sortOrder": 15
-  },
-  {
-    "group": "Branches",
-    "value": "Artoni",
-    "sortOrder": 16
-  },
-  {
-    "group": "Branches",
-    "value": "Astikan",
-    "sortOrder": 17
-  },
-  {
-    "group": "Branches",
-    "value": "Astikan, Faizabad",
-    "sortOrder": 18
-  },
-  {
-    "group": "Branches",
-    "value": "Audenya Padaria, Mainpuri",
-    "sortOrder": 19
-  },
-  {
-    "group": "Branches",
-    "value": "Auraiya",
-    "sortOrder": 20
-  },
-  {
-    "group": "Branches",
-    "value": "Badi, Dholpur",
-    "sortOrder": 21
-  },
-  {
-    "group": "Branches",
-    "value": "Bah",
-    "sortOrder": 22
-  },
-  {
-    "group": "Branches",
-    "value": "Bakalpur, Mathura",
-    "sortOrder": 23
-  },
-  {
-    "group": "Branches",
-    "value": "Bakewar",
-    "sortOrder": 24
-  },
-  {
-    "group": "Branches",
-    "value": "Balkeshwar",
-    "sortOrder": 25
-  },
-  {
-    "group": "Branches",
-    "value": "Barhan",
-    "sortOrder": 26
-  },
-  {
-    "group": "Branches",
-    "value": "Barnahal",
-    "sortOrder": 27
-  },
-  {
-    "group": "Branches",
-    "value": "Barpur",
-    "sortOrder": 28
-  },
-  {
-    "group": "Branches",
-    "value": "Barsana",
-    "sortOrder": 29
-  },
-  {
-    "group": "Branches",
-    "value": "Basedi",
-    "sortOrder": 30
-  },
-  {
-    "group": "Branches",
-    "value": "Belanganj",
-    "sortOrder": 31
-  },
-  {
-    "group": "Branches",
-    "value": "Bewar",
-    "sortOrder": 32
-  },
-  {
-    "group": "Branches",
-    "value": "Bhadoi",
-    "sortOrder": 33
-  },
-  {
-    "group": "Branches",
-    "value": "Bhadrauli",
-    "sortOrder": 34
-  },
-  {
-    "group": "Branches",
-    "value": "Bhagya Nagar",
-    "sortOrder": 35
-  },
-  {
-    "group": "Branches",
-    "value": "Bharatpur",
-    "sortOrder": 36
-  },
-  {
-    "group": "Branches",
-    "value": "Bhogaon",
-    "sortOrder": 37
-  },
-  {
-    "group": "Branches",
-    "value": "Bhooteshwar",
-    "sortOrder": 38
-  },
-  {
-    "group": "Branches",
-    "value": "Bichpuri",
-    "sortOrder": 39
-  },
-  {
-    "group": "Branches",
-    "value": "Bikaner",
-    "sortOrder": 40
-  },
-  {
-    "group": "Branches",
-    "value": "Bisawar",
-    "sortOrder": 41
-  },
-  {
-    "group": "Branches",
-    "value": "Bodla",
-    "sortOrder": 42
-  },
-  {
-    "group": "Branches",
-    "value": "Chennai",
-    "sortOrder": 43
-  },
-  {
-    "group": "Branches",
-    "value": "Chhili Int Road",
-    "sortOrder": 44
-  },
-  {
-    "group": "Branches",
-    "value": "City Branch, Dholpur",
-    "sortOrder": 45
-  },
-  {
-    "group": "Branches",
-    "value": "City Branch, Etah",
-    "sortOrder": 46
-  },
-  {
-    "group": "Branches",
-    "value": "Civil Lines",
-    "sortOrder": 47
-  },
-  {
-    "group": "Branches",
-    "value": "Clarks Shiraz",
-    "sortOrder": 48
-  },
-  {
-    "group": "Branches",
-    "value": "CLPC, Buland Shehar",
-    "sortOrder": 49
-  },
-  {
-    "group": "Branches",
-    "value": "CLPC, Sanjay Place",
-    "sortOrder": 50
-  },
-  {
-    "group": "Branches",
-    "value": "Clubghar, Mainpuri",
-    "sortOrder": 51
-  },
-  {
-    "group": "Branches",
-    "value": "Cluster, Sanjay Place",
-    "sortOrder": 52
-  },
-  {
-    "group": "Branches",
-    "value": "Collectrate, Dholpur",
-    "sortOrder": 53
-  },
-  {
-    "group": "Branches",
-    "value": "Court Road, Etawah",
-    "sortOrder": 54
-  },
-  {
-    "group": "Branches",
-    "value": "CRBB Kamla Nagar",
-    "sortOrder": 55
-  },
-  {
-    "group": "Branches",
-    "value": "Dabrai",
-    "sortOrder": 56
-  },
-  {
-    "group": "Branches",
-    "value": "Daresi",
-    "sortOrder": 57
-  },
-  {
-    "group": "Branches",
-    "value": "Daryabganj, Kasganj",
-    "sortOrder": 58
-  },
-  {
-    "group": "Branches",
-    "value": "Dayalbagh",
-    "sortOrder": 59
-  },
-  {
-    "group": "Branches",
-    "value": "Dehradun",
-    "sortOrder": 60
-  },
-  {
-    "group": "Branches",
-    "value": "Delhi",
-    "sortOrder": 61
-  },
-  {
-    "group": "Branches",
-    "value": "Delhi Gate",
-    "sortOrder": 62
-  },
-  {
-    "group": "Branches",
-    "value": "Dhanoli",
-    "sortOrder": 63
-  },
-  {
-    "group": "Branches",
-    "value": "Dhaulipyau, Mathura",
-    "sortOrder": 64
-  },
-  {
-    "group": "Branches",
-    "value": "Dholpur",
-    "sortOrder": 65
-  },
-  {
-    "group": "Branches",
-    "value": "Dhoolkot",
-    "sortOrder": 66
-  },
-  {
-    "group": "Branches",
-    "value": "Dibiapur",
-    "sortOrder": 67
-  },
-  {
-    "group": "Branches",
-    "value": "EKA",
-    "sortOrder": 68
-  },
-  {
-    "group": "Branches",
-    "value": "Etah",
-    "sortOrder": 69
-  },
-  {
-    "group": "Branches",
-    "value": "Etawah",
-    "sortOrder": 70
-  },
-  {
-    "group": "Branches",
-    "value": "Etmadpur",
-    "sortOrder": 71
-  },
-  {
-    "group": "Branches",
-    "value": "Farah",
-    "sortOrder": 72
-  },
-  {
-    "group": "Branches",
-    "value": "Faridabad",
-    "sortOrder": 73
-  },
-  {
-    "group": "Branches",
-    "value": "Farrukhabad",
-    "sortOrder": 74
-  },
-  {
-    "group": "Branches",
-    "value": "Fatehabad",
-    "sortOrder": 75
-  },
-  {
-    "group": "Branches",
-    "value": "Fatehabad Road",
-    "sortOrder": 76
-  },
-  {
-    "group": "Branches",
-    "value": "Fatehgarh",
-    "sortOrder": 77
-  },
-  {
-    "group": "Branches",
-    "value": "Fatehpur Sikri",
-    "sortOrder": 78
-  },
-  {
-    "group": "Branches",
-    "value": "Firozabad",
-    "sortOrder": 79
-  },
-  {
-    "group": "Branches",
-    "value": "Freeganj",
-    "sortOrder": 80
-  },
-  {
-    "group": "Branches",
-    "value": "Gadumrao",
-    "sortOrder": 81
-  },
-  {
-    "group": "Branches",
-    "value": "Gandhi Nagar",
-    "sortOrder": 82
-  },
-  {
-    "group": "Branches",
-    "value": "Ganj Dundwara",
-    "sortOrder": 83
-  },
-  {
-    "group": "Branches",
-    "value": "Ghiror",
-    "sortOrder": 84
-  },
-  {
-    "group": "Branches",
-    "value": "Goverdhan",
-    "sortOrder": 85
-  },
-  {
-    "group": "Branches",
-    "value": "Goverdhan Chowk Mathura",
-    "sortOrder": 86
-  },
-  {
-    "group": "Branches",
-    "value": "Goverdhan Road Mathura",
-    "sortOrder": 87
-  },
-  {
-    "group": "Branches",
-    "value": "Gwalior Road",
-    "sortOrder": 88
-  },
-  {
-    "group": "Branches",
-    "value": "Hathras",
-    "sortOrder": 89
-  },
-  {
-    "group": "Branches",
-    "value": "Hing Ki Mandi",
-    "sortOrder": 90
-  },
-  {
-    "group": "Branches",
-    "value": "HLST, Sanjay Place",
-    "sortOrder": 91
-  },
-  {
-    "group": "Branches",
-    "value": "IBB, Sanjay Place",
-    "sortOrder": 92
-  },
-  {
-    "group": "Branches",
-    "value": "Industrial Branch, Mathura",
-    "sortOrder": 93
-  },
-  {
-    "group": "Branches",
-    "value": "Jagner",
-    "sortOrder": 94
-  },
-  {
-    "group": "Branches",
-    "value": "Jaipur",
-    "sortOrder": 95
-  },
-  {
-    "group": "Branches",
-    "value": "Jaipur House",
-    "sortOrder": 96
-  },
-  {
-    "group": "Branches",
-    "value": "Jalesar",
-    "sortOrder": 97
-  },
-  {
-    "group": "Branches",
-    "value": "Jasrana",
-    "sortOrder": 98
-  },
-  {
-    "group": "Branches",
-    "value": "Jeoni Mandi",
-    "sortOrder": 99
-  },
-  {
-    "group": "Branches",
-    "value": "Jhansi",
-    "sortOrder": 100
-  },
-  {
-    "group": "Branches",
-    "value": "Jhapra, Jasrana",
-    "sortOrder": 101
-  },
-  {
-    "group": "Branches",
-    "value": "Johri Bazar",
-    "sortOrder": 102
-  },
-  {
-    "group": "Branches",
-    "value": "Jyonti, Mainpuri",
-    "sortOrder": 103
-  },
-  {
-    "group": "Branches",
-    "value": "Kagarol",
-    "sortOrder": 104
-  },
-  {
-    "group": "Branches",
-    "value": "Kailashpuri",
-    "sortOrder": 105
-  },
-  {
-    "group": "Branches",
-    "value": "Kalal Kheria",
-    "sortOrder": 106
-  },
-  {
-    "group": "Branches",
-    "value": "Kalindi Vihar",
-    "sortOrder": 107
-  },
-  {
-    "group": "Branches",
-    "value": "Kamalganj",
-    "sortOrder": 108
-  },
-  {
-    "group": "Branches",
-    "value": "Kamla Nagar",
-    "sortOrder": 109
-  },
-  {
-    "group": "Branches",
-    "value": "Karhal",
-    "sortOrder": 110
-  },
-  {
-    "group": "Branches",
-    "value": "Kasganj",
-    "sortOrder": 111
-  },
-  {
-    "group": "Branches",
-    "value": "Kayamganj",
-    "sortOrder": 112
-  },
-  {
-    "group": "Branches",
-    "value": "Khanda",
-    "sortOrder": 113
-  },
-  {
-    "group": "Branches",
-    "value": "Khandari",
-    "sortOrder": 114
-  },
-  {
-    "group": "Branches",
-    "value": "Khandoli",
-    "sortOrder": 115
-  },
-  {
-    "group": "Branches",
-    "value": "Kheragarh",
-    "sortOrder": 116
-  },
-  {
-    "group": "Branches",
-    "value": "Kheria Mod",
-    "sortOrder": 117
-  },
-  {
-    "group": "Branches",
-    "value": "khurja",
-    "sortOrder": 118
-  },
-  {
-    "group": "Branches",
-    "value": "Kirawali",
-    "sortOrder": 119
-  },
-  {
-    "group": "Branches",
-    "value": "Kisni",
-    "sortOrder": 120
-  },
-  {
-    "group": "Branches",
-    "value": "Kosi",
-    "sortOrder": 121
-  },
-  {
-    "group": "Branches",
-    "value": "Kotla Road, Firozabad",
-    "sortOrder": 122
-  },
-  {
-    "group": "Branches",
-    "value": "Krishna Nagar, Mathura",
-    "sortOrder": 123
-  },
-  {
-    "group": "Branches",
-    "value": "Kuberpur",
-    "sortOrder": 124
-  },
-  {
-    "group": "Branches",
-    "value": "KUMS",
-    "sortOrder": 125
-  },
-  {
-    "group": "Branches",
-    "value": "Kurawali",
-    "sortOrder": 126
-  },
-  {
-    "group": "Branches",
-    "value": "Kusumra",
-    "sortOrder": 127
-  },
-  {
-    "group": "Branches",
-    "value": "Lakhna, Etawah",
-    "sortOrder": 128
-  },
-  {
-    "group": "Branches",
-    "value": "Lawyers Colony",
-    "sortOrder": 129
-  },
-  {
-    "group": "Branches",
-    "value": "Lohamandi",
-    "sortOrder": 130
-  },
-  {
-    "group": "Branches",
-    "value": "Lucknow",
-    "sortOrder": 131
-  },
-  {
-    "group": "Branches",
-    "value": "M. G. Road",
-    "sortOrder": 132
-  },
-  {
-    "group": "Branches",
-    "value": "M.C.B. Sikandra",
-    "sortOrder": 133
-  },
-  {
-    "group": "Branches",
-    "value": "Madhu Nagar",
-    "sortOrder": 134
-  },
-  {
-    "group": "Branches",
-    "value": "Maholi",
-    "sortOrder": 135
-  },
-  {
-    "group": "Branches",
-    "value": "Main Branch Jhansi",
-    "sortOrder": 136
-  },
-  {
-    "group": "Branches",
-    "value": "Main Branch, Agra",
-    "sortOrder": 137
-  },
-  {
-    "group": "Branches",
-    "value": "Main Branch, Firozabad",
-    "sortOrder": 138
-  },
-  {
-    "group": "Branches",
-    "value": "Main Branch, Sadabad",
-    "sortOrder": 139
-  },
-  {
-    "group": "Branches",
-    "value": "Mainpuri",
-    "sortOrder": 140
-  },
-  {
-    "group": "Branches",
-    "value": "Malpura",
-    "sortOrder": 141
-  },
-  {
-    "group": "Branches",
-    "value": "Mandi Branch, Tundla",
-    "sortOrder": 142
-  },
-  {
-    "group": "Branches",
-    "value": "Mandi Dharamdas, Mainpuri",
-    "sortOrder": 143
-  },
-  {
-    "group": "Branches",
-    "value": "Mandi Mainpuri",
-    "sortOrder": 144
-  },
-  {
-    "group": "Branches",
-    "value": "Mania, Dholpur",
-    "sortOrder": 145
-  },
-  {
-    "group": "Branches",
-    "value": "Marera",
-    "sortOrder": 146
-  },
-  {
-    "group": "Branches",
-    "value": "Maruti Estate",
-    "sortOrder": 147
-  },
-  {
-    "group": "Branches",
-    "value": "Mathura",
-    "sortOrder": 148
-  },
-  {
-    "group": "Branches",
-    "value": "Mathura Chhatikara",
-    "sortOrder": 149
-  },
-  {
-    "group": "Branches",
-    "value": "Merrut",
-    "sortOrder": 150
-  },
-  {
-    "group": "Branches",
-    "value": "Midhakur",
-    "sortOrder": 151
-  },
-  {
-    "group": "Branches",
-    "value": "Mohalla Ganj, Firozabad",
-    "sortOrder": 152
-  },
-  {
-    "group": "Branches",
-    "value": "Mohanpura, Distt. Kasganj",
-    "sortOrder": 153
-  },
-  {
-    "group": "Branches",
-    "value": "Mursan Gate, Hathras",
-    "sortOrder": 154
-  },
-  {
-    "group": "Branches",
-    "value": "N.B.",
-    "sortOrder": 155
-  },
-  {
-    "group": "Branches",
-    "value": "Nauner",
-    "sortOrder": 156
-  },
-  {
-    "group": "Branches",
-    "value": "Nehru Nagar",
-    "sortOrder": 157
-  },
-  {
-    "group": "Branches",
-    "value": "New Agra",
-    "sortOrder": 158
-  },
-  {
-    "group": "Branches",
-    "value": "Nidholi Kalan, Etah",
-    "sortOrder": 159
-  },
-  {
-    "group": "Branches",
-    "value": "Noor Nagar",
-    "sortOrder": 160
-  },
-  {
-    "group": "Branches",
-    "value": "Nunhai",
-    "sortOrder": 161
-  },
-  {
-    "group": "Branches",
-    "value": "Pachokra",
-    "sortOrder": 162
-  },
-  {
-    "group": "Branches",
-    "value": "Parham Shikohabad",
-    "sortOrder": 163
-  },
-  {
-    "group": "Branches",
-    "value": "Paschimpuri",
-    "sortOrder": 164
-  },
-  {
-    "group": "Branches",
-    "value": "Patiyala",
-    "sortOrder": 165
-  },
-  {
-    "group": "Branches",
-    "value": "Patiyala, Firozabad",
-    "sortOrder": 166
-  },
-  {
-    "group": "Branches",
-    "value": "Patiyali",
-    "sortOrder": 167
-  },
-  {
-    "group": "Branches",
-    "value": "Patyali",
-    "sortOrder": 168
-  },
-  {
-    "group": "Branches",
-    "value": "Pinahat",
-    "sortOrder": 169
-  },
-  {
-    "group": "Branches",
-    "value": "Prakshi Enclave",
-    "sortOrder": 170
-  },
-  {
-    "group": "Branches",
-    "value": "Purdilnagar",
-    "sortOrder": 171
-  },
-  {
-    "group": "Branches",
-    "value": "R.O. Bharatpur",
-    "sortOrder": 172
-  },
-  {
-    "group": "Branches",
-    "value": "RACPC, Chhipitola",
-    "sortOrder": 173
-  },
-  {
-    "group": "Branches",
-    "value": "RACPC, Jodhpur",
-    "sortOrder": 174
-  },
-  {
-    "group": "Branches",
-    "value": "R.A.M, M.G. Road",
-    "sortOrder": 175
-  },
-  {
-    "group": "Branches",
-    "value": "Radha Raman Road, Mainpuri",
-    "sortOrder": 176
-  },
-  {
-    "group": "Branches",
-    "value": "Raja Ki Mandi",
-    "sortOrder": 177
-  },
-  {
-    "group": "Branches",
-    "value": "Rajpur Chungi",
-    "sortOrder": 178
-  },
-  {
-    "group": "Branches",
-    "value": "Ram Nagar, Firozabad",
-    "sortOrder": 179
-  },
-  {
-    "group": "Branches",
-    "value": "Rambagh",
-    "sortOrder": 180
-  },
-  {
-    "group": "Branches",
-    "value": "Ramghat Road, Aligarh",
-    "sortOrder": 181
-  },
-  {
-    "group": "Branches",
-    "value": "Rani Wala Ghera Firozabad",
-    "sortOrder": 182
-  },
-  {
-    "group": "Branches",
-    "value": "RAPC, M. G. Road",
-    "sortOrder": 183
-  },
-  {
-    "group": "Branches",
-    "value": "RASMECCC, Mathura",
-    "sortOrder": 184
-  },
-  {
-    "group": "Branches",
-    "value": "Raya",
-    "sortOrder": 185
-  },
-  {
-    "group": "Branches",
-    "value": "Rohini, Delhi",
-    "sortOrder": 186
-  },
-  {
-    "group": "Branches",
-    "value": "Rohta",
-    "sortOrder": 187
-  },
-  {
-    "group": "Branches",
-    "value": "S.S.I Firozabad",
-    "sortOrder": 188
-  },
-  {
-    "group": "Branches",
-    "value": "SASTRA",
-    "sortOrder": 189
-  },
-  {
-    "group": "Branches",
-    "value": "Sadabad Gate, Hathras",
-    "sortOrder": 190
-  },
-  {
-    "group": "Branches",
-    "value": "Sadar",
-    "sortOrder": 191
-  },
-  {
-    "group": "Branches",
-    "value": "Sadar, Mainpuri",
-    "sortOrder": 192
-  },
-  {
-    "group": "Branches",
-    "value": "Saharanpur",
-    "sortOrder": 193
-  },
-  {
-    "group": "Branches",
-    "value": "Sahawar",
-    "sortOrder": 194
-  },
-  {
-    "group": "Branches",
-    "value": "Saifai",
-    "sortOrder": 195
-  },
-  {
-    "group": "Branches",
-    "value": "Saipau",
-    "sortOrder": 196
-  },
-  {
-    "group": "Branches",
-    "value": "Saiyan",
-    "sortOrder": 197
-  },
-  {
-    "group": "Branches",
-    "value": "Saket",
-    "sortOrder": 198
-  },
-  {
-    "group": "Branches",
-    "value": "Sanjay Place",
-    "sortOrder": 199
-  },
-  {
-    "group": "Branches",
-    "value": "Saray Aghat",
-    "sortOrder": 200
-  },
-  {
-    "group": "Branches",
-    "value": "SARB, Aligarh",
-    "sortOrder": 201
-  },
-  {
-    "group": "Branches",
-    "value": "SARB, Kanpur",
-    "sortOrder": 202
-  },
-  {
-    "group": "Branches",
-    "value": "SARB, M. G. Road",
-    "sortOrder": 203
-  },
-  {
-    "group": "Branches",
-    "value": "SARB, Sanjay Place",
-    "sortOrder": 204
-  },
-  {
-    "group": "Branches",
-    "value": "Sarmathura",
-    "sortOrder": 205
-  },
-  {
-    "group": "Branches",
-    "value": "Sasni Gate, Aligarh",
-    "sortOrder": 206
-  },
-  {
-    "group": "Branches",
-    "value": "Shaheed Nagar",
-    "sortOrder": 207
-  },
-  {
-    "group": "Branches",
-    "value": "Shahganj",
-    "sortOrder": 208
-  },
-  {
-    "group": "Branches",
-    "value": "Shamshabad",
-    "sortOrder": 209
-  },
-  {
-    "group": "Branches",
-    "value": "Shamshabad Road",
-    "sortOrder": 210
-  },
-  {
-    "group": "Branches",
-    "value": "Shanganj",
-    "sortOrder": 211
-  },
-  {
-    "group": "Branches",
-    "value": "Shastripuram",
-    "sortOrder": 212
-  },
-  {
-    "group": "Branches",
-    "value": "Shehzadi Mandi",
-    "sortOrder": 213
-  },
-  {
-    "group": "Branches",
-    "value": "Shikohabad",
-    "sortOrder": 214
-  },
-  {
-    "group": "Branches",
-    "value": "Sidhpura",
-    "sortOrder": 215
-  },
-  {
-    "group": "Branches",
-    "value": "Sikandra",
-    "sortOrder": 216
-  },
-  {
-    "group": "Branches",
-    "value": "Sikandra Rao",
-    "sortOrder": 217
-  },
-  {
-    "group": "Branches",
-    "value": "Sirsaganj",
-    "sortOrder": 218
-  },
-  {
-    "group": "Branches",
-    "value": "SME, Chhipitola",
-    "sortOrder": 219
-  },
-  {
-    "group": "Branches",
-    "value": "SME, Mathura",
-    "sortOrder": 220
-  },
-  {
-    "group": "Branches",
-    "value": "SME, Sanjay Place",
-    "sortOrder": 221
-  },
-  {
-    "group": "Branches",
-    "value": "SMS, Sanjay Place",
-    "sortOrder": 222
-  },
-  {
-    "group": "Branches",
-    "value": "Soron",
-    "sortOrder": 223
-  },
-  {
-    "group": "Branches",
-    "value": "Surera",
-    "sortOrder": 224
-  },
-  {
-    "group": "Branches",
-    "value": "Surya Nagar",
-    "sortOrder": 225
-  },
-  {
-    "group": "Branches",
-    "value": "Tajganj",
-    "sortOrder": 226
-  },
-  {
-    "group": "Branches",
-    "value": "Tala Nagari, Aligarh",
-    "sortOrder": 227
-  },
-  {
-    "group": "Branches",
-    "value": "Tehra",
-    "sortOrder": 228
-  },
-  {
-    "group": "Branches",
-    "value": "Tehu, Etmadpur",
-    "sortOrder": 229
-  },
-  {
-    "group": "Branches",
-    "value": "Town Branch, Hathras",
-    "sortOrder": 230
-  },
-  {
-    "group": "Branches",
-    "value": "Town, Firozabad",
-    "sortOrder": 231
-  },
-  {
-    "group": "Branches",
-    "value": "Trans Yamuna",
-    "sortOrder": 232
-  },
-  {
-    "group": "Branches",
-    "value": "Tundla",
-    "sortOrder": 233
-  },
-  {
-    "group": "Branches",
-    "value": "Tundla Junction",
-    "sortOrder": 234
-  },
-  {
-    "group": "Branches",
-    "value": "RAH, Nehru Nagar",
-    "sortOrder": 235
-  },
-  {
-    "group": "Branches",
-    "value": "RLP, Sanjay Place",
-    "sortOrder": 236
-  },
-  {
-    "group": "Branches",
-    "value": "University",
-    "sortOrder": 237
-  },
-  {
-    "group": "Branches",
-    "value": "Vijay Nagar",
-    "sortOrder": 238
-  },
-  {
-    "group": "Branches",
-    "value": "Vrindavan, Mathura",
-    "sortOrder": 239
-  },
-  {
-    "group": "Branches",
-    "value": "Zonal office",
-    "sortOrder": 240
-  },
-  {
-    "group": "Ownership",
+    "group": "ownershipVerified",
     "value": "Same owner as per FE",
     "sortOrder": 0
   },
   {
-    "group": "Ownership",
+    "group": "ownershipVerified",
     "value": "No remarks by FE",
     "sortOrder": 1
   },
   {
-    "group": "Ownership",
+    "group": "ownershipVerified",
     "value": "Owner's Changed",
     "sortOrder": 2
   },
   {
-    "group": "Ownership",
-    "value": "Tenants Occpancy",
+    "group": "areaUnderConsideration",
+    "value": "Plot Area",
+    "sortOrder": 0
+  },
+  {
+    "group": "areaUnderConsideration",
+    "value": "Super Area",
+    "sortOrder": 1
+  },
+  {
+    "group": "areaUnderConsideration",
+    "value": "Builtup Area",
+    "sortOrder": 2
+  },
+  {
+    "group": "areaUnderConsideration",
+    "value": "Carpet Area",
     "sortOrder": 3
   },
   {
-    "group": "Ownership",
-    "value": "N.A.",
-    "sortOrder": 4
-  },
-  {
-    "group": "Ownership",
-    "value": "Less than 1 Years as reported",
-    "sortOrder": 5
-  },
-  {
-    "group": "Ownership",
-    "value": "Approx. 2 Years as reported",
-    "sortOrder": 6
-  },
-  {
-    "group": "Ownership",
-    "value": "More than 3 Years as reported",
-    "sortOrder": 7
-  },
-  {
-    "group": "Ownership",
-    "value": "More than 5 Years as reported",
-    "sortOrder": 8
-  },
-  {
-    "group": "Ownership",
-    "value": "Rented for a very long time",
-    "sortOrder": 9
-  },
-  {
-    "group": "Type of Flat",
+    "group": "flatType",
     "value": "Studio Flat",
     "sortOrder": 0
   },
   {
-    "group": "Type of Flat",
+    "group": "flatType",
     "value": "1 BHK",
     "sortOrder": 1
   },
   {
-    "group": "Type of Flat",
+    "group": "flatType",
     "value": "2 BHK",
     "sortOrder": 2
   },
   {
-    "group": "Type of Flat",
+    "group": "flatType",
     "value": "3 BHK",
     "sortOrder": 3
   },
   {
-    "group": "Type of Flat",
+    "group": "flatType",
     "value": "4 BHK",
     "sortOrder": 4
   },
   {
-    "group": "Type of Flat",
+    "group": "flatType",
     "value": "5 BHK",
     "sortOrder": 5
   },
   {
-    "group": "Surrounding Areas",
-    "value": "Property is situated in a residential colony having residential development in the vicinity",
+    "group": "floorSituated",
+    "value": "Individual House",
     "sortOrder": 0
   },
   {
-    "group": "Surrounding Areas",
-    "value": "Mainly residential development in the vicinity with some commercial activities",
+    "group": "floorSituated",
+    "value": "Individual Property",
     "sortOrder": 1
   },
   {
-    "group": "Surrounding Areas",
-    "value": "Property is situated in a rural locality having mainly open agricultural lands in the vicinity",
+    "group": "floorSituated",
+    "value": "Vacant Plot",
     "sortOrder": 2
   },
   {
-    "group": "Surrounding Areas",
-    "value": "Property is situated in a commercial locality having mainly shops/ institutional areas in the vicinity",
+    "group": "floorSituated",
+    "value": "N.A.",
     "sortOrder": 3
   },
   {
-    "group": "Surrounding Areas",
-    "value": "Property is situated in an Industrial area having Industries in the vicinity and some residential & commercial development in a radius of 1-2 Kms",
+    "group": "floorSituated",
+    "value": "Ground Floor",
     "sortOrder": 4
   },
   {
-    "group": "Surrounding Areas",
-    "value": "Considered equal shares as division is not mentioned in the deed",
+    "group": "floorSituated",
+    "value": "1st Floor",
     "sortOrder": 5
   },
   {
-    "group": "Surrounding Areas",
+    "group": "floorSituated",
+    "value": "2nd Floor",
+    "sortOrder": 6
+  },
+  {
+    "group": "floorSituated",
+    "value": "3rd Floor",
+    "sortOrder": 7
+  },
+  {
+    "group": "floorSituated",
+    "value": "4th Floor",
+    "sortOrder": 8
+  },
+  {
+    "group": "floorSituated",
+    "value": "5th Floor",
+    "sortOrder": 9
+  },
+  {
+    "group": "floorSituated",
+    "value": "6th Floor",
+    "sortOrder": 10
+  },
+  {
+    "group": "floorSituated",
+    "value": "7th Floor",
+    "sortOrder": 11
+  },
+  {
+    "group": "floorSituated",
+    "value": "8th Floor",
+    "sortOrder": 12
+  },
+  {
+    "group": "floorSituated",
+    "value": "9th Floor",
+    "sortOrder": 13
+  },
+  {
+    "group": "floorSituated",
+    "value": "10th Floor",
+    "sortOrder": 14
+  },
+  {
+    "group": "floorSituated",
+    "value": "11th Floor",
+    "sortOrder": 15
+  },
+  {
+    "group": "floorSituated",
+    "value": "12th Floor",
+    "sortOrder": 16
+  },
+  {
+    "group": "totalFloors",
+    "value": "N.A.",
+    "sortOrder": 0
+  },
+  {
+    "group": "totalFloors",
+    "value": "Vacant Plot",
+    "sortOrder": 1
+  },
+  {
+    "group": "totalFloors",
+    "value": "Single",
+    "sortOrder": 2
+  },
+  {
+    "group": "totalFloors",
+    "value": "Two",
+    "sortOrder": 3
+  },
+  {
+    "group": "totalFloors",
+    "value": "Three",
+    "sortOrder": 4
+  },
+  {
+    "group": "totalFloors",
+    "value": "Four",
+    "sortOrder": 5
+  },
+  {
+    "group": "totalFloors",
+    "value": "Five",
+    "sortOrder": 6
+  },
+  {
+    "group": "totalFloors",
+    "value": "Six",
+    "sortOrder": 7
+  },
+  {
+    "group": "totalFloors",
+    "value": "G+2",
+    "sortOrder": 8
+  },
+  {
+    "group": "totalFloors",
+    "value": "G+3",
+    "sortOrder": 9
+  },
+  {
+    "group": "totalFloors",
+    "value": "Stilt+7",
+    "sortOrder": 10
+  },
+  {
+    "group": "totalFloors",
+    "value": "Stilt+8",
+    "sortOrder": 11
+  },
+  {
+    "group": "totalFloors",
+    "value": "Stilt+9",
+    "sortOrder": 12
+  },
+  {
+    "group": "totalFloors",
+    "value": "Stilt+10",
+    "sortOrder": 13
+  },
+  {
+    "group": "totalFloors",
+    "value": "Stilt+11",
+    "sortOrder": 14
+  },
+  {
+    "group": "totalFloors",
+    "value": "Stilt+12",
+    "sortOrder": 15
+  },
+  {
+    "group": "bank",
+    "value": "Indian Bank",
+    "sortOrder": 0
+  },
+  {
+    "group": "bank",
+    "value": "Aryavart Bank",
+    "sortOrder": 1
+  },
+  {
+    "group": "bank",
+    "value": "Axis Bank",
+    "sortOrder": 2
+  },
+  {
+    "group": "bank",
+    "value": "Bank of Baroda",
+    "sortOrder": 3
+  },
+  {
+    "group": "bank",
+    "value": "Bank of India",
+    "sortOrder": 4
+  },
+  {
+    "group": "bank",
+    "value": "Bharat Petroleum Corporation Limited",
+    "sortOrder": 5
+  },
+  {
+    "group": "bank",
+    "value": "Central Bank of India",
+    "sortOrder": 6
+  },
+  {
+    "group": "bank",
+    "value": "Cent Bank Home Finance Limited",
+    "sortOrder": 7
+  },
+  {
+    "group": "bank",
+    "value": "Hindustan Petroleum Corporation Ltd",
+    "sortOrder": 8
+  },
+  {
+    "group": "bank",
+    "value": "Canara Bank",
+    "sortOrder": 9
+  },
+  {
+    "group": "bank",
+    "value": "Oriental Bank of Commerce",
+    "sortOrder": 10
+  },
+  {
+    "group": "bank",
+    "value": "Punjab National Bank",
+    "sortOrder": 11
+  },
+  {
+    "group": "bank",
+    "value": "State Bank of India",
+    "sortOrder": 12
+  },
+  {
+    "group": "bank",
+    "value": "South Indian Bank",
+    "sortOrder": 13
+  },
+  {
+    "group": "bank",
+    "value": "Union Bank of India",
+    "sortOrder": 14
+  },
+  {
+    "group": "bank",
+    "value": "UCO Bank",
+    "sortOrder": 15
+  },
+  {
+    "group": "wardTehsilRegistration",
+    "value": "Ward Hariparvat (Sub-registrar-I)",
+    "sortOrder": 0
+  },
+  {
+    "group": "wardTehsilRegistration",
+    "value": "Ward Lohamandi (Sub-registrar-II)",
+    "sortOrder": 1
+  },
+  {
+    "group": "wardTehsilRegistration",
+    "value": "Ward Tajganj (Sub-registrar-III)",
+    "sortOrder": 2
+  },
+  {
+    "group": "wardTehsilRegistration",
+    "value": "Ward Rakabganj (Sub-registrar-IV)",
+    "sortOrder": 3
+  },
+  {
+    "group": "wardTehsilRegistration",
+    "value": "Ward Chhatta (Sub-registrar-V)",
+    "sortOrder": 4
+  },
+  {
+    "group": "roofingTerracing",
+    "value": "Mud Phuska",
+    "sortOrder": 0
+  },
+  {
+    "group": "roofingTerracing",
+    "value": "Brick Bat Coba",
+    "sortOrder": 1
+  },
+  {
+    "group": "roofingTerracing",
+    "value": "Plastered",
+    "sortOrder": 2
+  },
+  {
+    "group": "roofingTerracing",
+    "value": "N.A.",
+    "sortOrder": 3
+  },
+  {
+    "group": "roofingTerracing",
+    "value": "China Mosaic Terracing",
+    "sortOrder": 4
+  },
+  {
+    "group": "roofingTerracing",
+    "value": "Marble Chips Terracing",
+    "sortOrder": 5
+  },
+  {
+    "group": "roofingTerracing",
+    "value": "Tiled Terracing",
+    "sortOrder": 6
+  },
+  {
+    "group": "typeOfConstruction",
+    "value": "RCC Framed",
+    "sortOrder": 0
+  },
+  {
+    "group": "typeOfConstruction",
+    "value": "Load Bearing",
+    "sortOrder": 1
+  },
+  {
+    "group": "typeOfConstruction",
+    "value": "Mixed-RCC & Load Bearing",
+    "sortOrder": 2
+  },
+  {
+    "group": "typeOfConstruction",
+    "value": "Shed on Truss",
+    "sortOrder": 3
+  },
+  {
+    "group": "typeOfConstruction",
+    "value": "N.A.",
+    "sortOrder": 4
+  },
+  {
+    "group": "waterSupply",
+    "value": "Municipal",
+    "sortOrder": 0
+  },
+  {
+    "group": "waterSupply",
+    "value": "Ground water",
+    "sortOrder": 1
+  },
+  {
+    "group": "waterSupply",
+    "value": "Colony's OH Tank",
+    "sortOrder": 2
+  },
+  {
+    "group": "waterSupply",
+    "value": "Both-Ground Water & Municipal Supply",
+    "sortOrder": 3
+  },
+  {
+    "group": "waterSupply",
+    "value": "Common OH Tanks",
+    "sortOrder": 4
+  },
+  {
+    "group": "waterSupply",
+    "value": "N.A.",
+    "sortOrder": 5
+  },
+  {
+    "group": "waterSupply",
+    "value": "None",
+    "sortOrder": 6
+  },
+  {
+    "group": "sewerage",
+    "value": "Septic Tank",
+    "sortOrder": 0
+  },
+  {
+    "group": "sewerage",
+    "value": "Sewer Line",
+    "sortOrder": 1
+  },
+  {
+    "group": "sewerage",
+    "value": "None",
+    "sortOrder": 2
+  },
+  {
+    "group": "sewerage",
+    "value": "N.A.",
+    "sortOrder": 3
+  },
+  {
+    "group": "foundation",
+    "value": "RCC Footing",
+    "sortOrder": 0
+  },
+  {
+    "group": "foundation",
+    "value": "Spread Foundation",
+    "sortOrder": 1
+  },
+  {
+    "group": "foundation",
+    "value": "Mixed Foundation",
+    "sortOrder": 2
+  },
+  {
+    "group": "foundation",
+    "value": "N.A.",
+    "sortOrder": 3
+  },
+  {
+    "group": "stageOfConstruction",
+    "value": "Complete",
+    "sortOrder": 0
+  },
+  {
+    "group": "stageOfConstruction",
+    "value": "Under Construction",
+    "sortOrder": 1
+  },
+  {
+    "group": "stageOfConstruction",
+    "value": "Under Finishing",
+    "sortOrder": 2
+  },
+  {
+    "group": "stageOfConstruction",
+    "value": "Incomplete",
+    "sortOrder": 3
+  },
+  {
+    "group": "typeOfRoad",
+    "value": "Bitumen Road",
+    "sortOrder": 0
+  },
+  {
+    "group": "typeOfRoad",
+    "value": "Interlocking tile road",
+    "sortOrder": 1
+  },
+  {
+    "group": "typeOfRoad",
+    "value": "Kharanja",
+    "sortOrder": 2
+  },
+  {
+    "group": "typeOfRoad",
+    "value": "Concrete Road",
+    "sortOrder": 3
+  },
+  {
+    "group": "typeOfRoad",
+    "value": "Unpaved Road",
+    "sortOrder": 4
+  },
+  {
+    "group": "widthOfRoad",
+    "value": "Less than 20ft wide",
+    "sortOrder": 0
+  },
+  {
+    "group": "widthOfRoad",
+    "value": "More than 20ft wide",
+    "sortOrder": 1
+  },
+  {
+    "group": "widthOfRoad",
+    "value": "9m wide",
+    "sortOrder": 2
+  },
+  {
+    "group": "widthOfRoad",
+    "value": "100ft Wide",
+    "sortOrder": 3
+  },
+  {
+    "group": "widthOfRoad",
+    "value": "30m wide",
+    "sortOrder": 4
+  },
+  {
+    "group": "widthOfRoad",
+    "value": "12m wide",
+    "sortOrder": 5
+  },
+  {
+    "group": "widthOfRoad",
+    "value": "Less than 10ft wide",
+    "sortOrder": 6
+  },
+  {
+    "group": "widthOfRoad",
+    "value": "Less than 5ft wide",
+    "sortOrder": 7
+  },
+  {
+    "group": "qualityOfConstruction",
+    "value": "Superior",
+    "sortOrder": 0
+  },
+  {
+    "group": "qualityOfConstruction",
+    "value": "Good Quality",
+    "sortOrder": 1
+  },
+  {
+    "group": "qualityOfConstruction",
+    "value": "Normal",
+    "sortOrder": 2
+  },
+  {
+    "group": "qualityOfConstruction",
+    "value": "Ordinary",
+    "sortOrder": 3
+  },
+  {
+    "group": "qualityOfConstruction",
+    "value": "Average",
+    "sortOrder": 4
+  },
+  {
+    "group": "qualityOfConstruction",
+    "value": "Below Average",
+    "sortOrder": 5
+  },
+  {
+    "group": "qualityOfConstruction",
     "value": "N.A.",
     "sortOrder": 6
   },
   {
-    "group": "Surrounding Areas",
-    "value": "Demand & Supply",
+    "group": "qualityOfConstruction",
+    "value": "Unfinished",
     "sortOrder": 7
   },
   {
-    "group": "Surrounding Areas",
-    "value": "Normal demand & supply pattern",
+    "group": "qualityOfConstruction",
+    "value": "Under Construction",
     "sortOrder": 8
   },
   {
-    "group": "Surrounding Areas",
-    "value": "Property is situated in a posh locality and demand is more than supply",
-    "sortOrder": 9
-  },
-  {
-    "group": "Surrounding Areas",
-    "value": "Rural area with abundant land available, so supply is more than demand",
-    "sortOrder": 10
-  },
-  {
-    "group": "Address as per deed",
-    "value": "Present Address",
+    "group": "floor.electricalFittings",
+    "value": "Superior",
     "sortOrder": 0
   },
   {
-    "group": "Address as per deed",
-    "value": "Maintenance",
+    "group": "floor.electricalFittings",
+    "value": "Good Quality",
     "sortOrder": 1
   },
   {
-    "group": "Address as per deed",
-    "value": "OK",
+    "group": "floor.electricalFittings",
+    "value": "Normal",
     "sortOrder": 2
   },
   {
-    "group": "Address as per deed",
-    "value": "Normal",
+    "group": "floor.electricalFittings",
+    "value": "Ordinary",
     "sortOrder": 3
   },
   {
-    "group": "Address as per deed",
-    "value": "Ordinary",
+    "group": "floor.electricalFittings",
+    "value": "Average",
     "sortOrder": 4
   },
   {
-    "group": "Address as per deed",
-    "value": "Average",
+    "group": "floor.electricalFittings",
+    "value": "Below Average",
     "sortOrder": 5
   },
   {
-    "group": "Address as per deed",
-    "value": "Good",
+    "group": "floor.electricalFittings",
+    "value": "N.A.",
     "sortOrder": 6
   },
   {
-    "group": "Address as per deed",
-    "value": "Excellent",
+    "group": "floor.electricalFittings",
+    "value": "Unfinished",
     "sortOrder": 7
   },
   {
-    "group": "Address as per deed",
-    "value": "In Dilapidated condition",
+    "group": "floor.electricalFittings",
+    "value": "Under Construction",
     "sortOrder": 8
   },
   {
-    "group": "Address as per deed",
+    "group": "floor.sanitaryInstallations",
+    "value": "Superior",
+    "sortOrder": 0
+  },
+  {
+    "group": "floor.sanitaryInstallations",
+    "value": "Good Quality",
+    "sortOrder": 1
+  },
+  {
+    "group": "floor.sanitaryInstallations",
+    "value": "Normal",
+    "sortOrder": 2
+  },
+  {
+    "group": "floor.sanitaryInstallations",
+    "value": "Ordinary",
+    "sortOrder": 3
+  },
+  {
+    "group": "floor.sanitaryInstallations",
+    "value": "Average",
+    "sortOrder": 4
+  },
+  {
+    "group": "floor.sanitaryInstallations",
+    "value": "Below Average",
+    "sortOrder": 5
+  },
+  {
+    "group": "floor.sanitaryInstallations",
+    "value": "N.A.",
+    "sortOrder": 6
+  },
+  {
+    "group": "floor.sanitaryInstallations",
+    "value": "Unfinished",
+    "sortOrder": 7
+  },
+  {
+    "group": "floor.sanitaryInstallations",
+    "value": "Under Construction",
+    "sortOrder": 8
+  },
+  {
+    "group": "floor.finishing",
+    "value": "Superior",
+    "sortOrder": 0
+  },
+  {
+    "group": "floor.finishing",
+    "value": "Good Quality",
+    "sortOrder": 1
+  },
+  {
+    "group": "floor.finishing",
+    "value": "Normal",
+    "sortOrder": 2
+  },
+  {
+    "group": "floor.finishing",
+    "value": "Ordinary",
+    "sortOrder": 3
+  },
+  {
+    "group": "floor.finishing",
+    "value": "Average",
+    "sortOrder": 4
+  },
+  {
+    "group": "floor.finishing",
+    "value": "Below Average",
+    "sortOrder": 5
+  },
+  {
+    "group": "floor.finishing",
+    "value": "N.A.",
+    "sortOrder": 6
+  },
+  {
+    "group": "floor.finishing",
+    "value": "Unfinished",
+    "sortOrder": 7
+  },
+  {
+    "group": "floor.finishing",
+    "value": "Under Construction",
+    "sortOrder": 8
+  },
+  {
+    "group": "maintenance",
+    "value": "OK",
+    "sortOrder": 0
+  },
+  {
+    "group": "maintenance",
+    "value": "Normal",
+    "sortOrder": 1
+  },
+  {
+    "group": "maintenance",
+    "value": "Ordinary",
+    "sortOrder": 2
+  },
+  {
+    "group": "maintenance",
+    "value": "Average",
+    "sortOrder": 3
+  },
+  {
+    "group": "maintenance",
+    "value": "Good",
+    "sortOrder": 4
+  },
+  {
+    "group": "maintenance",
+    "value": "Excellent",
+    "sortOrder": 5
+  },
+  {
+    "group": "maintenance",
+    "value": "In Dilapidated condition",
+    "sortOrder": 6
+  },
+  {
+    "group": "maintenance",
     "value": "Vacant Plot",
+    "sortOrder": 7
+  },
+  {
+    "group": "exterior",
+    "value": "OK",
+    "sortOrder": 0
+  },
+  {
+    "group": "exterior",
+    "value": "Normal",
+    "sortOrder": 1
+  },
+  {
+    "group": "exterior",
+    "value": "Ordinary",
+    "sortOrder": 2
+  },
+  {
+    "group": "exterior",
+    "value": "Average",
+    "sortOrder": 3
+  },
+  {
+    "group": "exterior",
+    "value": "Good",
+    "sortOrder": 4
+  },
+  {
+    "group": "exterior",
+    "value": "Excellent",
+    "sortOrder": 5
+  },
+  {
+    "group": "exterior",
+    "value": "In Dilapidated condition",
+    "sortOrder": 6
+  },
+  {
+    "group": "exterior",
+    "value": "Vacant Plot",
+    "sortOrder": 7
+  },
+  {
+    "group": "interior",
+    "value": "OK",
+    "sortOrder": 0
+  },
+  {
+    "group": "interior",
+    "value": "Normal",
+    "sortOrder": 1
+  },
+  {
+    "group": "interior",
+    "value": "Ordinary",
+    "sortOrder": 2
+  },
+  {
+    "group": "interior",
+    "value": "Average",
+    "sortOrder": 3
+  },
+  {
+    "group": "interior",
+    "value": "Good",
+    "sortOrder": 4
+  },
+  {
+    "group": "interior",
+    "value": "Excellent",
+    "sortOrder": 5
+  },
+  {
+    "group": "interior",
+    "value": "In Dilapidated condition",
+    "sortOrder": 6
+  },
+  {
+    "group": "interior",
+    "value": "Vacant Plot",
+    "sortOrder": 7
+  },
+  {
+    "group": "floor.walls",
+    "value": "Plastered Painted Walls",
+    "sortOrder": 0
+  },
+  {
+    "group": "floor.walls",
+    "value": "Plastered Whitewashed Walls",
+    "sortOrder": 1
+  },
+  {
+    "group": "floor.walls",
+    "value": "Unplastered Walls",
+    "sortOrder": 2
+  },
+  {
+    "group": "floor.walls",
+    "value": "Plastered unpainted walls",
+    "sortOrder": 3
+  },
+  {
+    "group": "floor.walls",
+    "value": "Unplastered Whitewashed Walls",
+    "sortOrder": 4
+  },
+  {
+    "group": "floor.walls",
+    "value": "Plastered Limewashed Walls",
+    "sortOrder": 5
+  },
+  {
+    "group": "floor.walls",
+    "value": "N.A.",
+    "sortOrder": 6
+  },
+  {
+    "group": "floor.doors",
+    "value": "MS Doors",
+    "sortOrder": 0
+  },
+  {
+    "group": "floor.doors",
+    "value": "Wooden Doors on Wooden Frame",
+    "sortOrder": 1
+  },
+  {
+    "group": "floor.doors",
+    "value": "MS Shutters",
+    "sortOrder": 2
+  },
+  {
+    "group": "floor.doors",
+    "value": "None",
+    "sortOrder": 3
+  },
+  {
+    "group": "floor.doors",
+    "value": "Aluminium Frame Glass Doors",
+    "sortOrder": 4
+  },
+  {
+    "group": "floor.doors",
+    "value": "Glass Door",
+    "sortOrder": 5
+  },
+  {
+    "group": "floor.doors",
+    "value": "Wooden Doors on MS Frame",
+    "sortOrder": 6
+  },
+  {
+    "group": "floor.doors",
+    "value": "Wooden frame only",
+    "sortOrder": 7
+  },
+  {
+    "group": "floor.windows",
+    "value": "MS Framed MS Windows",
+    "sortOrder": 0
+  },
+  {
+    "group": "floor.windows",
+    "value": "Wooden Windows on wooden frame",
+    "sortOrder": 1
+  },
+  {
+    "group": "floor.windows",
+    "value": "None",
+    "sortOrder": 2
+  },
+  {
+    "group": "floor.windows",
+    "value": "Aluminium Frame Glass Windows",
+    "sortOrder": 3
+  },
+  {
+    "group": "floor.windows",
+    "value": "Glass Windows",
+    "sortOrder": 4
+  },
+  {
+    "group": "floor.windows",
+    "value": "Wooden frame only",
+    "sortOrder": 5
+  },
+  {
+    "group": "floor.flooring",
+    "value": "Kota Stone Flooring",
+    "sortOrder": 0
+  },
+  {
+    "group": "floor.flooring",
+    "value": "Marble Flooring",
+    "sortOrder": 1
+  },
+  {
+    "group": "floor.flooring",
+    "value": "Marble Chips Flooring",
+    "sortOrder": 2
+  },
+  {
+    "group": "floor.flooring",
+    "value": "Ordinary IPC Flooring",
+    "sortOrder": 3
+  },
+  {
+    "group": "floor.flooring",
+    "value": "Brick Flooring",
+    "sortOrder": 4
+  },
+  {
+    "group": "floor.flooring",
+    "value": "Mixed- Ordinary & Marble Chips Flooring",
+    "sortOrder": 5
+  },
+  {
+    "group": "floor.flooring",
+    "value": "None",
+    "sortOrder": 6
+  },
+  {
+    "group": "floor.flooring",
+    "value": "Tiled Flooring",
+    "sortOrder": 7
+  },
+  {
+    "group": "floor.ceiling",
+    "value": "Plastered Painted Ceiling",
+    "sortOrder": 0
+  },
+  {
+    "group": "floor.ceiling",
+    "value": "Plastered Painted Ceiling with POP work",
+    "sortOrder": 1
+  },
+  {
+    "group": "floor.ceiling",
+    "value": "Gypsum Board False Ceiling",
+    "sortOrder": 2
+  },
+  {
+    "group": "floor.ceiling",
+    "value": "POP False Ceiling",
+    "sortOrder": 3
+  },
+  {
+    "group": "floor.ceiling",
+    "value": "Plastered whitewashed ceiling",
+    "sortOrder": 4
+  },
+  {
+    "group": "floor.ceiling",
+    "value": "Girder Stone Roofing",
+    "sortOrder": 5
+  },
+  {
+    "group": "floor.ceiling",
+    "value": "N.A.",
+    "sortOrder": 6
+  },
+  {
+    "group": "floor.ceiling",
+    "value": "Tin Shed Roof",
+    "sortOrder": 7
+  },
+  {
+    "group": "floor.roofingTerracing",
+    "value": "Mud Phuska",
+    "sortOrder": 0
+  },
+  {
+    "group": "floor.roofingTerracing",
+    "value": "Brick Bat Coba",
+    "sortOrder": 1
+  },
+  {
+    "group": "floor.roofingTerracing",
+    "value": "Plastered",
+    "sortOrder": 2
+  },
+  {
+    "group": "floor.roofingTerracing",
+    "value": "N.A.",
+    "sortOrder": 3
+  },
+  {
+    "group": "floor.roofingTerracing",
+    "value": "China Mosaic Terracing",
+    "sortOrder": 4
+  },
+  {
+    "group": "floor.roofingTerracing",
+    "value": "Marble Chips Terracing",
+    "sortOrder": 5
+  },
+  {
+    "group": "floor.roofingTerracing",
+    "value": "Tiled Terracing",
+    "sortOrder": 6
+  },
+  {
+    "group": "floor.roofType",
+    "value": "Girder Stone",
+    "sortOrder": 0
+  },
+  {
+    "group": "floor.roofType",
+    "value": "Kachcha",
+    "sortOrder": 1
+  },
+  {
+    "group": "floor.roofType",
+    "value": "RBC",
+    "sortOrder": 2
+  },
+  {
+    "group": "floor.roofType",
+    "value": "RCC",
+    "sortOrder": 3
+  },
+  {
+    "group": "floor.roofType",
+    "value": "Tin Shed",
+    "sortOrder": 4
+  },
+  {
+    "group": "floor.wiring",
+    "value": "Internal",
+    "sortOrder": 0
+  },
+  {
+    "group": "floor.wiring",
+    "value": "External",
+    "sortOrder": 1
+  },
+  {
+    "group": "floor.wiring",
+    "value": "None",
+    "sortOrder": 2
+  },
+  {
+    "group": "floor.wiring",
+    "value": "Mixed-Internal & External",
+    "sortOrder": 3
+  },
+  {
+    "group": "floor.partitions",
+    "value": "None",
+    "sortOrder": 0
+  },
+  {
+    "group": "floor.partitions",
+    "value": "4.5\"/ 9\" walls",
+    "sortOrder": 1
+  },
+  {
+    "group": "floor.partitions",
+    "value": "Aluminium Framed Partitions",
+    "sortOrder": 2
+  },
+  {
+    "group": "floor.partitions",
+    "value": "Wooden Partitions",
+    "sortOrder": 3
+  },
+  {
+    "group": "coveredAreaConsideration",
+    "value": "As per actual",
+    "sortOrder": 0
+  },
+  {
+    "group": "coveredAreaConsideration",
+    "value": "As per approved plan",
+    "sortOrder": 1
+  },
+  {
+    "group": "coveredAreaConsideration",
+    "value": "As per bye laws",
+    "sortOrder": 2
+  },
+  {
+    "group": "coveredAreaConsideration",
+    "value": "N.A.",
+    "sortOrder": 3
+  },
+  {
+    "group": "floor.constructionCategory",
+    "value": "1",
+    "sortOrder": 0
+  },
+  {
+    "group": "floor.constructionCategory",
+    "value": "2",
+    "sortOrder": 1
+  },
+  {
+    "group": "plotPosition",
+    "value": "Flat",
+    "sortOrder": 0
+  },
+  {
+    "group": "plotPosition",
+    "value": "Intermittent Plot",
+    "sortOrder": 1
+  },
+  {
+    "group": "plotPosition",
+    "value": "2 Side Road Facing Plot",
+    "sortOrder": 2
+  },
+  {
+    "group": "plotPosition",
+    "value": "Park Facing",
+    "sortOrder": 3
+  },
+  {
+    "group": "plotPosition",
+    "value": "Park & 2 Side Road Facing Plot",
+    "sortOrder": 4
+  },
+  {
+    "group": "appearanceOfBuilding",
+    "value": "Common",
+    "sortOrder": 0
+  },
+  {
+    "group": "appearanceOfBuilding",
+    "value": "Attractive",
+    "sortOrder": 1
+  },
+  {
+    "group": "appearanceOfBuilding",
+    "value": "Aesthetic",
+    "sortOrder": 2
+  },
+  {
+    "group": "appearanceOfBuilding",
+    "value": "Ordinary",
+    "sortOrder": 3
+  },
+  {
+    "group": "appearanceOfBuilding",
+    "value": "Average",
+    "sortOrder": 4
+  },
+  {
+    "group": "tenancy",
+    "value": "N.A.",
+    "sortOrder": 0
+  },
+  {
+    "group": "tenancy",
+    "value": "Less than 1 Years as reported",
+    "sortOrder": 1
+  },
+  {
+    "group": "tenancy",
+    "value": "Approx. 2 Years as reported",
+    "sortOrder": 2
+  },
+  {
+    "group": "tenancy",
+    "value": "More than 3 Years as reported",
+    "sortOrder": 3
+  },
+  {
+    "group": "tenancy",
+    "value": "More than 5 Years as reported",
+    "sortOrder": 4
+  },
+  {
+    "group": "tenancy",
+    "value": "Rented for a very long time",
+    "sortOrder": 5
+  },
+  {
+    "group": "occupantsRelated",
+    "value": "Owner occupied",
+    "sortOrder": 0
+  },
+  {
+    "group": "occupantsRelated",
+    "value": "Tenanted",
+    "sortOrder": 1
+  },
+  {
+    "group": "occupantsRelated",
+    "value": "Both-Owner Occupied & tenanted",
+    "sortOrder": 2
+  },
+  {
+    "group": "occupantsRelated",
+    "value": "Under Owner's Possession",
+    "sortOrder": 3
+  },
+  {
+    "group": "occupantsRelated",
+    "value": "Vacant Plot Under Owner's Possession",
+    "sortOrder": 4
+  },
+  {
+    "group": "occupantsRelated",
+    "value": "Vacant Plot",
+    "sortOrder": 5
+  },
+  {
+    "group": "occupantsRelated",
+    "value": "Presently lying Vacant",
+    "sortOrder": 6
+  },
+  {
+    "group": "occupantsRelated",
+    "value": "Under Construction",
+    "sortOrder": 7
+  },
+  {
+    "group": "proximityToAmenities",
+    "value": "N.A.",
+    "sortOrder": 0
+  },
+  {
+    "group": "proximityToAmenities",
+    "value": "1 Km",
+    "sortOrder": 1
+  },
+  {
+    "group": "proximityToAmenities",
+    "value": "1-2 km",
+    "sortOrder": 2
+  },
+  {
+    "group": "proximityToAmenities",
+    "value": "2-3 Km",
+    "sortOrder": 3
+  },
+  {
+    "group": "proximityToAmenities",
+    "value": "3-4 Km",
+    "sortOrder": 4
+  },
+  {
+    "group": "proximityToAmenities",
+    "value": "4-5 Km",
+    "sortOrder": 5
+  },
+  {
+    "group": "proximityToAmenities",
+    "value": "5-6 km",
+    "sortOrder": 6
+  },
+  {
+    "group": "proximityToAmenities",
+    "value": "6-7 Km",
+    "sortOrder": 7
+  },
+  {
+    "group": "proximityToAmenities",
+    "value": "7-8 Km",
+    "sortOrder": 8
+  },
+  {
+    "group": "proximityToAmenities",
+    "value": "8-9 km",
     "sortOrder": 9
+  },
+  {
+    "group": "proximityToAmenities",
+    "value": "9-10 Km",
+    "sortOrder": 10
+  },
+  {
+    "group": "occupancyStatus",
+    "value": "Yes",
+    "sortOrder": 0
+  },
+  {
+    "group": "occupancyStatus",
+    "value": "No",
+    "sortOrder": 1
+  },
+  {
+    "group": "occupancyStatus",
+    "value": "Latest Receipt not available",
+    "sortOrder": 2
+  },
+  {
+    "group": "occupancyStatus",
+    "value": "Under Panchayat",
+    "sortOrder": 3
+  },
+  {
+    "group": "occupancyStatus",
+    "value": "Outside Municipal Limits",
+    "sortOrder": 4
+  },
+  {
+    "group": "occupancyStatus",
+    "value": "N.A.",
+    "sortOrder": 5
+  },
+  {
+    "group": "buildingPlanApproved",
+    "value": "Approved",
+    "sortOrder": 0
+  },
+  {
+    "group": "buildingPlanApproved",
+    "value": "Approved building plan not available",
+    "sortOrder": 1
+  },
+  {
+    "group": "buildingPlanApproved",
+    "value": "Building plan is not approved",
+    "sortOrder": 2
+  },
+  {
+    "group": "buildingPlanApproved",
+    "value": "Originally Constructed & Allotted by ADA",
+    "sortOrder": 3
+  },
+  {
+    "group": "buildingPlanApproved",
+    "value": "Originally Constructed & Allotted by UP Awas Vikas Parishad",
+    "sortOrder": 4
+  },
+  {
+    "group": "buildingPlanApproved",
+    "value": "Approved as 3 storeyed individual residence",
+    "sortOrder": 5
+  },
+  {
+    "group": "constructionAsPerLayout",
+    "value": "Awas Vikas Colony",
+    "sortOrder": 0
+  },
+  {
+    "group": "constructionAsPerLayout",
+    "value": "ADA Colony",
+    "sortOrder": 1
+  },
+  {
+    "group": "constructionAsPerLayout",
+    "value": "N.A.",
+    "sortOrder": 2
+  },
+  {
+    "group": "propertyTaxPaid",
+    "value": "House has been fully covered",
+    "sortOrder": 0
+  },
+  {
+    "group": "propertyTaxPaid",
+    "value": "Covered area is more than approved plan",
+    "sortOrder": 1
+  },
+  {
+    "group": "propertyTaxPaid",
+    "value": "Approved as individual residence but developed as G+2 Floors",
+    "sortOrder": 2
+  },
+  {
+    "group": "propertyTaxPaid",
+    "value": "Approved as individual residence but developed as Flats",
+    "sortOrder": 3
+  },
+  {
+    "group": "propertyTaxPaid",
+    "value": "N.A.",
+    "sortOrder": 4
+  },
+  {
+    "group": "approvedColony",
+    "value": "Approved ADA developed colony",
+    "sortOrder": 0
+  },
+  {
+    "group": "approvedColony",
+    "value": "Approved UPAVP developed colony",
+    "sortOrder": 1
+  },
+  {
+    "group": "approvedColony",
+    "value": "Approved Apartments",
+    "sortOrder": 2
+  },
+  {
+    "group": "approvedColony",
+    "value": "Approved Area",
+    "sortOrder": 3
+  },
+  {
+    "group": "approvedColony",
+    "value": "Approved Colony layout not available",
+    "sortOrder": 4
+  },
+  {
+    "group": "approvedColony",
+    "value": "Colony is approved",
+    "sortOrder": 5
+  },
+  {
+    "group": "approvedColony",
+    "value": "Colony is not approved",
+    "sortOrder": 6
+  },
+  {
+    "group": "approvedColony",
+    "value": "N.A.",
+    "sortOrder": 7
+  },
+  {
+    "group": "approvedColony",
+    "value": "Old City Area",
+    "sortOrder": 8
+  },
+  {
+    "group": "approvedColony",
+    "value": "Rural Area",
+    "sortOrder": 9
+  },
+  {
+    "group": "approvedColony",
+    "value": "Semi-Rural Area",
+    "sortOrder": 10
+  },
+  {
+    "group": "approvedColony",
+    "value": "Semi-Urban Area",
+    "sortOrder": 11
+  },
+  {
+    "group": "approvedColony",
+    "value": "Under Municipality",
+    "sortOrder": 12
+  },
+  {
+    "group": "approvedColony",
+    "value": "Under Panchayat",
+    "sortOrder": 13
+  },
+  {
+    "group": "approvingAuthority",
+    "value": "A.D.A.",
+    "sortOrder": 0
+  },
+  {
+    "group": "approvingAuthority",
+    "value": "UP Awas Vikas Parishad",
+    "sortOrder": 1
+  },
+  {
+    "group": "approvingAuthority",
+    "value": "M.V.D.A.",
+    "sortOrder": 2
+  },
+  {
+    "group": "approvingAuthority",
+    "value": "F.S.D.A.",
+    "sortOrder": 3
+  },
+  {
+    "group": "approvingAuthority",
+    "value": "SDM Office",
+    "sortOrder": 4
+  },
+  {
+    "group": "approvingAuthority",
+    "value": "Old City Area",
+    "sortOrder": 5
+  },
+  {
+    "group": "approvingAuthority",
+    "value": "UPSIDC",
+    "sortOrder": 6
+  },
+  {
+    "group": "approvingAuthority",
+    "value": "N.A.",
+    "sortOrder": 7
+  },
+  {
+    "group": "natureOfViolations",
+    "value": "Construction is as per approved plan",
+    "sortOrder": 0
+  },
+  {
+    "group": "natureOfViolations",
+    "value": "Covered area on site is more",
+    "sortOrder": 1
+  },
+  {
+    "group": "natureOfViolations",
+    "value": "House has been fully covered",
+    "sortOrder": 2
+  },
+  {
+    "group": "natureOfViolations",
+    "value": "We have considered covered area as per approved building plan/ Original Allotment",
+    "sortOrder": 3
+  },
+  {
+    "group": "natureOfViolations",
+    "value": "Plan not available, though covered area is within limits permissible under building byelaws",
+    "sortOrder": 4
+  },
+  {
+    "group": "plotShape",
+    "value": "Rectangular Shaped",
+    "sortOrder": 0
+  },
+  {
+    "group": "plotShape",
+    "value": "Square Shaped",
+    "sortOrder": 1
+  },
+  {
+    "group": "plotShape",
+    "value": "Almost rectangular shape",
+    "sortOrder": 2
+  },
+  {
+    "group": "plotShape",
+    "value": "Trapezoidal Shape",
+    "sortOrder": 3
+  },
+  {
+    "group": "plotShape",
+    "value": "Irregular Shaped",
+    "sortOrder": 4
+  },
+  {
+    "group": "plotShape",
+    "value": "Triangular Shaped",
+    "sortOrder": 5
+  },
+  {
+    "group": "plotShape",
+    "value": "Nature & Extent of Violations",
+    "sortOrder": 6
+  },
+  {
+    "group": "developmentOfArea",
+    "value": "Developed Area",
+    "sortOrder": 0
+  },
+  {
+    "group": "developmentOfArea",
+    "value": "Under Development",
+    "sortOrder": 1
+  },
+  {
+    "group": "developmentOfArea",
+    "value": "Undeveloped",
+    "sortOrder": 2
+  },
+  {
+    "group": "developmentOfArea",
+    "value": "Rural Area",
+    "sortOrder": 3
+  },
+  {
+    "group": "corporationLimit",
+    "value": "Municipal",
+    "sortOrder": 0
+  },
+  {
+    "group": "corporationLimit",
+    "value": "Corporation",
+    "sortOrder": 1
+  },
+  {
+    "group": "corporationLimit",
+    "value": "Village Panchayat",
+    "sortOrder": 2
+  },
+  {
+    "group": "corporationLimit",
+    "value": "Nagar Panchayat",
+    "sortOrder": 3
+  },
+  {
+    "group": "urbanSemiUrbanRural",
+    "value": "Rural",
+    "sortOrder": 0
+  },
+  {
+    "group": "urbanSemiUrbanRural",
+    "value": "Urban",
+    "sortOrder": 1
+  },
+  {
+    "group": "urbanSemiUrbanRural",
+    "value": "Semi-Urban",
+    "sortOrder": 2
+  },
+  {
+    "group": "urbanSemiUrbanRural",
+    "value": "Mixed",
+    "sortOrder": 3
+  },
+  {
+    "group": "powerSupply",
+    "value": "Internal",
+    "sortOrder": 0
+  },
+  {
+    "group": "powerSupply",
+    "value": "External",
+    "sortOrder": 1
+  },
+  {
+    "group": "powerSupply",
+    "value": "None",
+    "sortOrder": 2
+  },
+  {
+    "group": "powerSupply",
+    "value": "Mixed-Internal & External",
+    "sortOrder": 3
+  },
+  {
+    "group": "usedForSanctionedPurpose",
+    "value": "Residential",
+    "sortOrder": 0
+  },
+  {
+    "group": "usedForSanctionedPurpose",
+    "value": "Commercial",
+    "sortOrder": 1
+  },
+  {
+    "group": "usedForSanctionedPurpose",
+    "value": "Industrial",
+    "sortOrder": 2
+  },
+  {
+    "group": "usedForSanctionedPurpose",
+    "value": "Agricultural",
+    "sortOrder": 3
+  },
+  {
+    "group": "usedForSanctionedPurpose",
+    "value": "Institutional",
+    "sortOrder": 4
+  },
+  {
+    "group": "usedForSanctionedPurpose",
+    "value": "Mixed-residential & commercial",
+    "sortOrder": 5
+  },
+  {
+    "group": "usedForSanctionedPurpose",
+    "value": "Declared non-agricultural u/s 143",
+    "sortOrder": 6
+  },
+  {
+    "group": "usedForSanctionedPurpose",
+    "value": "N.A.",
+    "sortOrder": 7
+  },
+  {
+    "group": "approvedLandUse",
+    "value": "Residential",
+    "sortOrder": 0
+  },
+  {
+    "group": "approvedLandUse",
+    "value": "Commercial",
+    "sortOrder": 1
+  },
+  {
+    "group": "approvedLandUse",
+    "value": "Industrial",
+    "sortOrder": 2
+  },
+  {
+    "group": "approvedLandUse",
+    "value": "Agricultural",
+    "sortOrder": 3
+  },
+  {
+    "group": "approvedLandUse",
+    "value": "Institutional",
+    "sortOrder": 4
+  },
+  {
+    "group": "approvedLandUse",
+    "value": "Mixed-residential & commercial",
+    "sortOrder": 5
+  },
+  {
+    "group": "approvedLandUse",
+    "value": "Declared non-agricultural u/s 143",
+    "sortOrder": 6
+  },
+  {
+    "group": "approvedLandUse",
+    "value": "N.A.",
+    "sortOrder": 7
+  },
+  {
+    "group": "purposeOfUse",
+    "value": "Residential",
+    "sortOrder": 0
+  },
+  {
+    "group": "purposeOfUse",
+    "value": "Commercial",
+    "sortOrder": 1
+  },
+  {
+    "group": "purposeOfUse",
+    "value": "Industrial",
+    "sortOrder": 2
+  },
+  {
+    "group": "purposeOfUse",
+    "value": "Agricultural",
+    "sortOrder": 3
+  },
+  {
+    "group": "purposeOfUse",
+    "value": "Institutional",
+    "sortOrder": 4
+  },
+  {
+    "group": "purposeOfUse",
+    "value": "Mixed-residential & commercial",
+    "sortOrder": 5
+  },
+  {
+    "group": "purposeOfUse",
+    "value": "Declared non-agricultural u/s 143",
+    "sortOrder": 6
+  },
+  {
+    "group": "purposeOfUse",
+    "value": "N.A.",
+    "sortOrder": 7
+  },
+  {
+    "group": "urbanSemiUrbanRural",
+    "value": "Residential",
+    "sortOrder": 0
+  },
+  {
+    "group": "urbanSemiUrbanRural",
+    "value": "Commercial",
+    "sortOrder": 1
+  },
+  {
+    "group": "urbanSemiUrbanRural",
+    "value": "Industrial",
+    "sortOrder": 2
+  },
+  {
+    "group": "urbanSemiUrbanRural",
+    "value": "Agricultural",
+    "sortOrder": 3
+  },
+  {
+    "group": "urbanSemiUrbanRural",
+    "value": "Institutional",
+    "sortOrder": 4
+  },
+  {
+    "group": "urbanSemiUrbanRural",
+    "value": "Mixed-residential & commercial",
+    "sortOrder": 5
+  },
+  {
+    "group": "urbanSemiUrbanRural",
+    "value": "Declared non-agricultural u/s 143",
+    "sortOrder": 6
+  },
+  {
+    "group": "urbanSemiUrbanRural",
+    "value": "N.A.",
+    "sortOrder": 7
+  },
+  {
+    "group": "corporationLimit",
+    "value": "Residential",
+    "sortOrder": 0
+  },
+  {
+    "group": "corporationLimit",
+    "value": "Commercial",
+    "sortOrder": 1
+  },
+  {
+    "group": "corporationLimit",
+    "value": "Industrial",
+    "sortOrder": 2
+  },
+  {
+    "group": "corporationLimit",
+    "value": "Agricultural",
+    "sortOrder": 3
+  },
+  {
+    "group": "corporationLimit",
+    "value": "Institutional",
+    "sortOrder": 4
+  },
+  {
+    "group": "corporationLimit",
+    "value": "Mixed-residential & commercial",
+    "sortOrder": 5
+  },
+  {
+    "group": "corporationLimit",
+    "value": "Declared non-agricultural u/s 143",
+    "sortOrder": 6
+  },
+  {
+    "group": "corporationLimit",
+    "value": "N.A.",
+    "sortOrder": 7
+  },
+  {
+    "group": "cityTownVillage",
+    "value": "Locale",
+    "sortOrder": 0
+  },
+  {
+    "group": "cityTownVillage",
+    "value": "City",
+    "sortOrder": 1
+  },
+  {
+    "group": "cityTownVillage",
+    "value": "Town",
+    "sortOrder": 2
+  },
+  {
+    "group": "cityTownVillage",
+    "value": "Village",
+    "sortOrder": 3
+  },
+  {
+    "group": "classOfLocality",
+    "value": "Locality List",
+    "sortOrder": 0
+  },
+  {
+    "group": "classOfLocality",
+    "value": "Middle Class",
+    "sortOrder": 1
+  },
+  {
+    "group": "classOfLocality",
+    "value": "Upper Class & Upper Middle Class",
+    "sortOrder": 2
+  },
+  {
+    "group": "classOfLocality",
+    "value": "Lower Class",
+    "sortOrder": 3
+  },
+  {
+    "group": "classOfLocality",
+    "value": "Upper Class",
+    "sortOrder": 4
+  },
+  {
+    "group": "classOfLocality",
+    "value": "Mixed Locality",
+    "sortOrder": 5
+  },
+  {
+    "group": "usedForSanctionedPurpose",
+    "value": "Locality List",
+    "sortOrder": 0
+  },
+  {
+    "group": "usedForSanctionedPurpose",
+    "value": "Middle Class",
+    "sortOrder": 1
+  },
+  {
+    "group": "usedForSanctionedPurpose",
+    "value": "Upper Class & Upper Middle Class",
+    "sortOrder": 2
+  },
+  {
+    "group": "usedForSanctionedPurpose",
+    "value": "Lower Class",
+    "sortOrder": 3
+  },
+  {
+    "group": "usedForSanctionedPurpose",
+    "value": "Upper Class",
+    "sortOrder": 4
+  },
+  {
+    "group": "usedForSanctionedPurpose",
+    "value": "Mixed Locality",
+    "sortOrder": 5
+  },
+  {
+    "group": "restrictiveCovenant",
+    "value": "N.A.",
+    "sortOrder": 0
+  },
+  {
+    "group": "restrictiveCovenant",
+    "value": "Only for cloth market",
+    "sortOrder": 1
+  },
+  {
+    "group": "restrictiveCovenant",
+    "value": "No major construction activity allowed as per SC orders due to proximity to Taj Mahal",
+    "sortOrder": 2
+  },
+  {
+    "group": "restrictiveCovenant",
+    "value": "Only residential",
+    "sortOrder": 3
+  },
+  {
+    "group": "restrictiveCovenant",
+    "value": "Only Commercial",
+    "sortOrder": 4
+  },
+  {
+    "group": "restrictiveCovenant",
+    "value": "Only Industrial",
+    "sortOrder": 5
+  },
+  {
+    "group": "restrictiveCovenant",
+    "value": "Only Export Oriented Units",
+    "sortOrder": 6
+  },
+  {
+    "group": "restrictiveCovenant",
+    "value": "Only for shoe shops",
+    "sortOrder": 7
+  },
+  {
+    "group": "restrictiveCovenant",
+    "value": "Only for Petha Industry",
+    "sortOrder": 8
+  },
+  {
+    "group": "usedForSanctionedPurpose",
+    "value": "Residential House",
+    "sortOrder": 0
+  },
+  {
+    "group": "usedForSanctionedPurpose",
+    "value": "Residential Flat",
+    "sortOrder": 1
+  },
+  {
+    "group": "usedForSanctionedPurpose",
+    "value": "Commercial Property",
+    "sortOrder": 2
+  },
+  {
+    "group": "usedForSanctionedPurpose",
+    "value": "Being used as Industry",
+    "sortOrder": 3
+  },
+  {
+    "group": "usedForSanctionedPurpose",
+    "value": "Agricultural Land",
+    "sortOrder": 4
+  },
+  {
+    "group": "usedForSanctionedPurpose",
+    "value": "Institutional Usage",
+    "sortOrder": 5
+  },
+  {
+    "group": "usedForSanctionedPurpose",
+    "value": "Vacant Plot",
+    "sortOrder": 6
+  },
+  {
+    "group": "usedForSanctionedPurpose",
+    "value": "Residence under construction",
+    "sortOrder": 7
+  },
+  {
+    "group": "usedForSanctionedPurpose",
+    "value": "Residential Flat under construction",
+    "sortOrder": 8
+  },
+  {
+    "group": "floodingProne",
+    "value": "Yes",
+    "sortOrder": 0
+  },
+  {
+    "group": "floodingProne",
+    "value": "No",
+    "sortOrder": 1
+  },
+  {
+    "group": "levelOfLand",
+    "value": "High",
+    "sortOrder": 0
+  },
+  {
+    "group": "levelOfLand",
+    "value": "Below Road Level",
+    "sortOrder": 1
+  },
+  {
+    "group": "levelOfLand",
+    "value": "In level with road",
+    "sortOrder": 2
+  },
+  {
+    "group": "roadFacilities",
+    "value": "Available",
+    "sortOrder": 0
+  },
+  {
+    "group": "roadFacilities",
+    "value": "Land Locked",
+    "sortOrder": 1
   }
 ]

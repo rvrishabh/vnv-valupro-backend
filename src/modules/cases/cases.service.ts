@@ -4,13 +4,37 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { FilterRecord, FindQuery, PaginatedResult } from 'types/common.types';
 import { CreateCaseDto } from './dto';
 import { CasesRepository } from './repositories/cases.repository';
+import { CaseWorkflowService } from './services/case-workflow.service';
 
 const ADMIN_ROLES = new Set(['SUPER_ADMIN', 'ADMIN']);
+
+/**
+ * The list view is where a case's valuation becomes visible, so the relation is
+ * loaded here rather than requiring a second call per row. Only the few report
+ * fields the list actually shows are selected.
+ */
+const CASE_LIST_INCLUDE = {
+  institution: { select: { id: true, name: true, code: true } },
+  branch: { select: { id: true, branchName: true } },
+  createdBy: { select: { id: true, name: true, email: true } },
+  assignedTo: { select: { id: true, name: true, email: true } },
+  checkedBy: { select: { id: true, name: true, email: true } },
+  report: {
+    select: {
+      id: true,
+      status: true,
+      roundedMarketValue: true,
+      realizableValue: true,
+      submittedAt: true,
+    },
+  },
+} as const;
 
 @Injectable()
 export class CasesService {
   constructor(
     private readonly casesRepo: CasesRepository,
+    private readonly workflow: CaseWorkflowService,
     private readonly prisma: PrismaService,
   ) {}
 
@@ -20,7 +44,7 @@ export class CasesService {
     });
     if (!institution) throw new NotFoundException('Institution not found');
 
-    return this.casesRepo.create({
+    const created = await this.casesRepo.create({
       caseNumber: await this.nextCaseNumber(institution.code),
       customerName: dto.customerName,
       customerMobile: dto.customerMobile,
@@ -30,14 +54,18 @@ export class CasesService {
       institution: { connect: { id: dto.institutionId } },
       createdBy: { connect: { id: userId } },
       ...(dto.branchId ? { branch: { connect: { id: dto.branchId } } } : {}),
-      ...(dto.assignedToId
-        ? {
-            assignedTo: { connect: { id: dto.assignedToId } },
-            status: 'ASSIGNED' as const,
-            assignedAt: new Date(),
-          }
-        : {}),
     } as Prisma.CaseCreateInput);
+
+    await this.workflow.recordCreation(created.id, userId);
+
+    // Assigning at creation is a real transition, so it goes through the
+    // workflow rather than being written inline — otherwise the trail would
+    // show the case as never having been assigned.
+    if (dto.assignedToId) {
+      return this.workflow.assign(created.id, dto.assignedToId, userId);
+    }
+
+    return created;
   }
 
   findAll(
@@ -46,14 +74,30 @@ export class CasesService {
     query: FindQuery<FilterRecord>,
   ): Promise<PaginatedResult<Case>> {
     if (ADMIN_ROLES.has(role) || role === 'CHECKER') {
-      return this.casesRepo.findAll(query);
+      return this.casesRepo.findAll(query, CASE_LIST_INCLUDE);
     }
 
     // Engineers only see what is assigned to them.
-    return this.casesRepo.findAll({
-      ...query,
-      filter: { ...query.filter, assignedToId: userId },
+    return this.casesRepo.findAll(
+      { ...query, filter: { ...query.filter, assignedToId: userId } },
+      CASE_LIST_INCLUDE,
+    );
+  }
+
+  /**
+   * Hard-deletes a case and everything hanging off it — valuation, documents,
+   * fees, queries and the audit trail all cascade at the database level.
+   * Irreversible, which is why it is restricted to admins at the controller.
+   */
+  async remove(id: string): Promise<{ id: string; caseNumber: string }> {
+    const record = await this.prisma.case.findUnique({
+      where: { id },
+      select: { id: true, caseNumber: true },
     });
+    if (!record) throw new NotFoundException('Case not found');
+
+    await this.prisma.case.delete({ where: { id } });
+    return record;
   }
 
   async findOne(id: string) {

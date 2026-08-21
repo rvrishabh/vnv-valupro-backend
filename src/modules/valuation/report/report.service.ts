@@ -73,11 +73,22 @@ export class ReportService {
       place: report.tehsil,
 
       plotAreaSqM: Number(report.plotAreaSqM ?? 0),
+      propertyType: report.propertyType,
+      advanceReceived: Number(report.advanceReceived ?? 0),
+      assetsSoldAsPerDeed: report.assetsSoldAsPerDeed,
+      tenure: report.tenure,
+      // Only a leasehold property carries lease terms; the template omits the
+      // block entirely otherwise, as the sheet does.
+      leaseDetails: report.tenure === 'Leasehold' ? (report.leaseDetails ?? {}) : null,
+      siteAddress: report.siteAddress ?? {},
+      consolidatedSiteAddress: this.consolidateAddress(report.siteAddress),
+      discrepancy: report.discrepancy ?? {},
       titleDeed: report.titleDeed ?? {},
       boundaries: report.boundaries ?? {},
       buildingSpecs: report.buildingSpecs ?? {},
       generalDetails: report.generalDetails ?? {},
       boundaryRows: this.toBoundaryRows(report),
+      floorSpecRows: this.toFloorSpecRows(report),
 
       land: {
         prevailingMarketRate: Number(report.prevailingMarketRate ?? 0),
@@ -106,6 +117,56 @@ export class ReportService {
       dimDocs: dimensions[direction]?.asPerDocs,
       dimSite: dimensions[direction]?.asPerSite,
     }));
+  }
+
+  /** M-Doc!C52 — the printed address, assembled from the site address parts. */
+  private consolidateAddress(siteAddress: unknown): string {
+    const parts = (siteAddress ?? {}) as Record<string, string>;
+    return [
+      parts.propertyNumber,
+      parts.subStreet,
+      parts.colony,
+      parts.landmark,
+      parts.mainConnectingRoad,
+      parts.cityVillageTown,
+    ]
+      .map((p) => (p ?? '').trim())
+      .filter(Boolean)
+      .join(', ');
+  }
+
+  /**
+   * Pivots the per-floor specs into rows, since the report prints one row per
+   * specification with a column per floor (M-Rate 65-79).
+   */
+  private toFloorSpecRows(report: Record<string, any>) {
+    const floors = ((report.floors as any[]) ?? []).filter((f) => f?.coveredAreaSqM > 0);
+    if (!floors.length) return [];
+
+    const labels: [string, string][] = [
+      ['walls', 'Walls'],
+      ['partitions', 'Partitions'],
+      ['doors', 'Doors'],
+      ['windows', 'Windows'],
+      ['flooring', 'Flooring'],
+      ['finishing', 'Finishing'],
+      ['ceiling', 'Ceiling'],
+      ['roofingTerracing', 'Roofing / terracing'],
+      ['roofType', 'Roof Type'],
+      ['wiring', 'Wiring'],
+      ['electricalFittings', 'Class of electrical fittings'],
+      ['sanitaryInstallations', 'Class of sanitary installations'],
+      ['heightOfFloor', 'Height of floor'],
+    ];
+
+    return [
+      { label: 'Floor', values: floors.map((f) => f.name), header: true },
+      ...labels.map(([key, label]) => ({
+        label,
+        values: floors.map((f) => f.specs?.[key] ?? 'N.A.'),
+        header: false,
+      })),
+    ];
   }
 
   private formatGps(report: Record<string, any>): string | undefined {

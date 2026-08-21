@@ -39,6 +39,8 @@
   <tr><td class="label">Property inspected by</td><td>{{or engineer.name "—"}}</td></tr>
   <tr><td class="label">Documents produced</td><td>{{or documentsReceived "Title Deed, Sale Deed &amp; Legal Report"}}</td></tr>
   <tr><td class="label">GPS co-ordinates</td><td>{{or gpsCoordinates "N.A."}}</td></tr>
+  <tr><td class="label">Type of property</td><td>{{or propertyType "N.A."}}</td></tr>
+  <tr><td class="label">Advance received</td><td class="num">₹ {{inr advanceReceived}}</td></tr>
 </table>
 
 <h2>2. Ownership &amp; Title</h2>
@@ -50,7 +52,38 @@
       <td>{{or titleDeed.deedNo "—"}} / {{or titleDeed.bahiNo "—"}} / {{or titleDeed.jildNo "—"}}</td></tr>
   <tr><td class="label">Date of purchase as per deed</td><td>{{date titleDeed.purchaseDate}}</td></tr>
   <tr><td class="label">Purchase price as per deed</td><td class="num">₹ {{inr titleDeed.purchasePrice}}</td></tr>
-  <tr><td class="label">Leasehold / Freehold</td><td>{{or titleDeed.tenure "Freehold"}}</td></tr>
+  <tr><td class="label">Assets sold as per title deed</td><td>{{or assetsSoldAsPerDeed "N.A."}}</td></tr>
+  <tr><td class="label">Leasehold / Freehold</td><td>{{or tenure "Freehold"}}</td></tr>
+</table>
+
+{{#if leaseDetails}}
+<h2>2a. Lease Particulars</h2>
+<table>
+  <tr><td class="label">Lessor</td><td>{{or leaseDetails.lessor "N.A."}}</td></tr>
+  <tr><td class="label">Lessee</td><td>{{or leaseDetails.lessee "N.A."}}</td></tr>
+  <tr><td class="label">Date of commencement</td><td>{{or leaseDetails.dateOfCommencement "N.A."}}</td></tr>
+  <tr><td class="label">Period of lease</td><td>{{or leaseDetails.periodOfLease "N.A."}}</td></tr>
+  <tr><td class="label">Initial premium</td><td>{{or leaseDetails.initialPremium "N.A."}}</td></tr>
+  <tr><td class="label">Ground rent payable p.a.</td><td>{{or leaseDetails.groundRent "N.A."}}</td></tr>
+  <tr><td class="label">Agreements of easement</td>
+      <td>{{or leaseDetails.easementAgreements "N.A."}}</td></tr>
+</table>
+{{/if}}
+
+<h2>2b. Address as per Site Visit</h2>
+<table>
+  <tr><td class="label">Property Number / Flat No.</td><td>{{or siteAddress.propertyNumber "N.A."}}</td></tr>
+  <tr><td class="label">Municipal No.</td><td>{{or siteAddress.municipalNo "N.A."}}</td></tr>
+  <tr><td class="label">Sub-street / Apartment building</td><td>{{or siteAddress.subStreet "N.A."}}</td></tr>
+  <tr><td class="label">Colony / Locality</td><td>{{or siteAddress.colony "N.A."}}</td></tr>
+  <tr><td class="label">Main connecting road</td><td>{{or siteAddress.mainConnectingRoad "N.A."}}</td></tr>
+  <tr><td class="label">City / Village / Town</td><td>{{or siteAddress.cityVillageTown "N.A."}}</td></tr>
+  <tr><td class="label">Land mark</td><td>{{or siteAddress.landmark "N.A."}}</td></tr>
+  <tr><td class="label">Tehsil for circle rates</td><td>{{or siteAddress.tehsilForCircleRates "N.A."}}</td></tr>
+  <tr><td class="label">District</td><td>{{or siteAddress.district "N.A."}}</td></tr>
+  <tr><td class="label">Ward / Tehsil for registration</td>
+      <td>{{or siteAddress.wardTehsilRegistration "N.A."}}</td></tr>
+  <tr class="total"><td>Consolidated address</td><td>{{or consolidatedSiteAddress "N.A."}}</td></tr>
 </table>
 
 <h2>3. Boundaries &amp; Dimensions</h2>
@@ -74,6 +107,21 @@
       <td>{{or boundaries.matching "Yes"}}</td></tr>
   <tr><td class="label">Plot demarcated</td><td>{{or boundaries.demarcated "Yes"}}</td></tr>
   <tr><td class="label">Shape of plot</td><td>{{or generalDetails.plotShape "N.A."}}</td></tr>
+</table>
+
+<table>
+  <tr><th colspan="2">Discrepancy check</th></tr>
+  <tr><td class="label">Boundaries matching with the documents</td>
+      <td>{{or discrepancy.boundariesMatching "N.A."}}</td></tr>
+  <tr><td class="label">Reason for mismatch of boundaries</td>
+      <td>{{or discrepancy.mismatchReason "N.A."}}</td></tr>
+  <tr><td class="label">Plot demarcated</td><td>{{or discrepancy.plotDemarcated "N.A."}}</td></tr>
+  <tr><td class="label">Present ownership verified</td>
+      <td>{{or discrepancy.ownershipVerified "N.A."}}</td></tr>
+  <tr><td class="label">Roads / streets the land abuts</td>
+      <td>{{or discrepancy.roadSide "N.A."}}</td></tr>
+  <tr><td class="label">Is it a land-locked land?</td>
+      <td>{{or discrepancy.landLocked "N.A."}}</td></tr>
 </table>
 
 <h2>4. Locational &amp; General Details</h2>
@@ -103,6 +151,23 @@
       <td>{{or buildingSpecs.maintenance "Good"}} / {{or buildingSpecs.exterior "Good"}} /
           {{or buildingSpecs.interior "Good"}}</td></tr>
 </table>
+
+{{#if floorSpecRows}}
+<h2>5a. Specifications &amp; Covered Area Rates — Floorwise</h2>
+<table>
+  {{#each floorSpecRows}}
+  <tr>
+    {{#if this.header}}
+      <th>{{this.label}}</th>
+      {{#each this.values}}<th>{{this}}</th>{{/each}}
+    {{else}}
+      <td class="label">{{this.label}}</td>
+      {{#each this.values}}<td>{{this}}</td>{{/each}}
+    {{/if}}
+  </tr>
+  {{/each}}
+</table>
+{{/if}}
 
 <h2>6. Part A — Valuation of Land</h2>
 <table>

@@ -33,7 +33,14 @@ export class CasesRepository extends PrismaBaseRepository<
   findWithRelations(id: string) {
     return this.prisma.case.findUnique({
       where: { id },
-      include: { institution: true, branch: true, report: true },
+      include: {
+        institution: true,
+        branch: true,
+        report: true,
+        createdBy: { select: { id: true, name: true, email: true } },
+        assignedTo: { select: { id: true, name: true, email: true } },
+        checkedBy: { select: { id: true, name: true, email: true } },
+      },
     });
   }
 }

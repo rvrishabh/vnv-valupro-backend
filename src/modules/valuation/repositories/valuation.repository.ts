@@ -26,7 +26,13 @@ export class ValuationRepository extends PrismaBaseRepository<
 
   protected filterableFields = ['caseId', 'engineerId', 'status', 'createdAt'];
 
-  protected sortableFields = ['createdAt', 'submittedAt', 'totalMarketValue'];
+  protected sortableFields = [
+    'createdAt',
+    'submittedAt',
+    'totalMarketValue',
+    'roundedMarketValue',
+    'realizableValue',
+  ];
 
   protected defaultOrderBy = { createdAt: SortOrder.desc };
 

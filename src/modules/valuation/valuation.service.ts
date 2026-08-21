@@ -17,6 +17,7 @@ import {
 import { CreateValuationDto, ReviewValuationDto, UpsertValuationDto } from './dto';
 import { ValuationCalculator } from './engine/valuation.calculator';
 import { ValuationRepository } from './repositories/valuation.repository';
+import { CaseWorkflowService } from '../cases/services/case-workflow.service';
 import { ValuationRatesService } from './services/valuation-rates.service';
 
 const ENGINE_VERSION = '1.0.0';
@@ -24,11 +25,26 @@ const ADMIN_ROLES = new Set(['SUPER_ADMIN', 'ADMIN']);
 const CHECKER_ROLES = new Set(['SUPER_ADMIN', 'ADMIN', 'CHECKER']);
 const DEFAULT_EXPECTED_LIFE = 80;
 
+/** A valuation is always read in the context of its case, so carry it along. */
+const VALUATION_LIST_INCLUDE = {
+  engineer: { select: { id: true, name: true, email: true } },
+  case: {
+    select: {
+      id: true,
+      caseNumber: true,
+      status: true,
+      customerName: true,
+      institution: { select: { id: true, name: true, code: true } },
+    },
+  },
+} as const;
+
 @Injectable()
 export class ValuationService {
   constructor(
     private readonly valuationRepo: ValuationRepository,
     private readonly ratesService: ValuationRatesService,
+    private readonly caseWorkflow: CaseWorkflowService,
     private readonly prisma: PrismaService,
   ) {}
 
@@ -90,10 +106,7 @@ export class ValuationService {
       submittedAt: new Date(),
     });
 
-    await this.prisma.case.update({
-      where: { id: report.caseId },
-      data: { status: 'CHECKING', submittedAt: new Date() },
-    });
+    await this.caseWorkflow.sendToChecking(report.caseId, userId);
 
     return updated;
   }
@@ -101,6 +114,7 @@ export class ValuationService {
   async review(
     id: string,
     dto: ReviewValuationDto,
+    actorId: string,
     role: string,
   ): Promise<ValuationReport> {
     if (!CHECKER_ROLES.has(role)) {
@@ -120,13 +134,7 @@ export class ValuationService {
       checkerNotes: dto.notes,
     });
 
-    await this.prisma.case.update({
-      where: { id: report.caseId },
-      data: {
-        status: approved ? 'APPROVED' : 'REJECTED',
-        ...(approved ? { approvedAt: new Date() } : {}),
-      },
-    });
+    await this.caseWorkflow.recordReview(report.caseId, actorId, approved, dto.notes);
 
     return updated;
   }
@@ -137,13 +145,13 @@ export class ValuationService {
     query: FindQuery<ValuationFilter>,
   ): Promise<PaginatedResult<ValuationReport>> {
     if (ADMIN_ROLES.has(role) || role === 'CHECKER') {
-      return this.valuationRepo.findAll(query);
+      return this.valuationRepo.findAll(query, VALUATION_LIST_INCLUDE);
     }
 
-    return this.valuationRepo.findAll({
-      ...query,
-      filter: { ...query.filter, engineerId: userId },
-    });
+    return this.valuationRepo.findAll(
+      { ...query, filter: { ...query.filter, engineerId: userId } },
+      VALUATION_LIST_INCLUDE,
+    );
   }
 
   async findOne(id: string, userId: string, role: string) {
@@ -200,8 +208,14 @@ export class ValuationService {
   ): Prisma.ValuationReportUpdateInput {
     const { land, building, ...rest } = dto;
 
+    // A Freehold property has no lease terms; drop any previously entered block
+    // so it cannot resurface in the report after the tenure is corrected.
+    const leaseDetails =
+      rest.tenure === 'Freehold' ? Prisma.DbNull : (rest.leaseDetails as Prisma.InputJsonValue);
+
     return {
       ...(rest as Prisma.ValuationReportUpdateInput),
+      ...(rest.tenure !== undefined ? { leaseDetails } : {}),
       ...(land
         ? {
             prevailingMarketRate: land.prevailingMarketRate,

@@ -66,3 +66,21 @@ export class FilterCaseDto extends BaseFilterQueryDto {
   @IsUUID()
   institutionId?: string;
 }
+
+export class AssignCaseDto {
+  @ApiProperty({ description: 'Site engineer to carry out the visit' })
+  @IsUUID()
+  engineerId: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  notes?: string;
+}
+
+export class CaseNoteDto {
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  notes: string;
+}
