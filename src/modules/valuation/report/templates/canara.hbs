@@ -101,7 +101,13 @@
   {{/each}}
 </table>
 <table>
-  <tr><td class="label">Area under consideration for valuation</td>
+  <tr><td class="label">Area as per dimensions</td>
+      <td class="num">{{#if areaFromDimensions}}{{num areaFromDimensions}} Sq.m{{else}}N.A.{{/if}}</td></tr>
+  <tr><td class="label">Area of property as per deed</td>
+      <td class="num">{{#if areaAsPerDeed}}{{num areaAsPerDeed}} Sq.m{{else}}N.A.{{/if}}</td></tr>
+  <tr><td class="label">Area of property as per site</td>
+      <td class="num">{{#if areaAsPerSite}}{{num areaAsPerSite}} Sq.m{{else}}N.A.{{/if}}</td></tr>
+  <tr class="total"><td>Area under consideration for valuation</td>
       <td class="num">{{num plotAreaSqM}} Sq.m</td></tr>
   <tr><td class="label">Boundaries matching with documents</td>
       <td>{{or boundaries.matching "Yes"}}</td></tr>
@@ -183,13 +189,14 @@
 <h2>7. Part B — Building Component (after depreciation)</h2>
 <table>
   <tr>
-    <th>Floor</th><th>Covered area (Sq.m)</th><th>Age</th><th>Dep. %</th>
+    <th>Floor</th><th>Covered area (Sq.m)</th><th>Year</th><th>Age</th><th>Dep. %</th>
     <th>Replacement rate</th><th>Replacement value</th><th>Depreciation</th><th>Depreciated value</th>
   </tr>
   {{#each computed.floors}}
   <tr>
     <td>{{this.name}}</td>
     <td class="num">{{num this.coveredAreaSqM}}</td>
+    <td class="num">{{this.yearOfConstruction}}</td>
     <td class="num">{{this.age}} yrs</td>
     <td class="num">{{pct this.depreciationPercent}}</td>
     <td class="num">₹ {{inr this.replacementRate}}</td>
@@ -199,7 +206,7 @@
   </tr>
   {{/each}}
   <tr class="total">
-    <td colspan="7">Total — Parts B, C, D &amp; E (building, amenities &amp; extra items)</td>
+    <td colspan="8">Total — Parts B, C, D &amp; E (building, amenities &amp; extra items)</td>
     <td class="num">₹ {{inr computed.partBtoE}}</td>
   </tr>
 </table>

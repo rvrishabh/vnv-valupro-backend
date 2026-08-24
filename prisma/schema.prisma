@@ -279,7 +279,15 @@ model ValuationReport {
   // --- Inputs that drive the calculation (M-Doc / M-Rate) ---
   reportYear         Int?
   tehsil             String?
+  /// M-Doc!C105 — the area actually valued. Derived from the deed and site
+  /// areas below (the lesser governs), so it is not entered directly.
   plotAreaSqM        Decimal? @db.Decimal(12, 2)
+  /// M-Doc!C103 — area of property as typed in the deed.
+  areaAsPerDeed      Decimal? @db.Decimal(12, 2)
+  /// M-Doc!C104 — area measured on site; mirrors the deed until overridden.
+  areaAsPerSite      Decimal? @db.Decimal(12, 2)
+  /// M-Doc!C91 — unit the four side measurements are captured in.
+  dimensionUnit      String?  @default("ft")
   areaUnit           String?  @default("Sq.m")
   yearOfConstruction Int?
   expectedLifeYears  Int?     @default(80)

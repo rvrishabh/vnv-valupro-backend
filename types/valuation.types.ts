@@ -32,6 +32,14 @@ export interface FloorInput {
   /** "Ground Floor", "I Floor", ... — order matters, index 0 is the ground floor. */
   name: string;
   coveredAreaSqM: number;
+  /**
+   * M-Rate!C82:E82 — floors are often built years apart, so each carries its
+   * own year and depreciates on its own age. Falls back to the building-level
+   * year when not set, which is how the sheet seeds D82 from C82.
+   */
+  yearOfConstruction?: number;
+  /** M-Rate!C84:E84 — expected life can differ per floor for the same reason. */
+  expectedLifeYears?: number;
   /** M-Rate!C86 — replacement rate of construction, per Sq.m. */
   replacementRate: number;
   roofType: RoofType;

@@ -46,6 +46,21 @@ export class FloorDto {
   @Max(2)
   constructionCategory?: 1 | 2;
 
+  @ApiPropertyOptional({
+    example: 2020,
+    description: 'M-Rate!C82:E82 — defaults to the building year when omitted',
+  })
+  @IsOptional()
+  @IsInt()
+  @Min(1800)
+  yearOfConstruction?: number;
+
+  @ApiPropertyOptional({ example: 80, description: 'M-Rate!C84:E84 — per-floor expected life' })
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  expectedLifeYears?: number;
+
   @ApiPropertyOptional({ description: 'Floorwise specifications (walls, doors, flooring, ...)' })
   @IsOptional()
   @IsObject()
@@ -117,11 +132,32 @@ export class UpsertValuationDto {
   @IsString()
   tehsil?: string;
 
-  @ApiPropertyOptional({ example: 306.9 })
+  @ApiPropertyOptional({
+    example: 306.9,
+    description:
+      'Derived from areaAsPerDeed/areaAsPerSite (the lesser governs); sent only as a fallback.',
+  })
   @IsOptional()
   @IsNumber()
   @Min(0)
   plotAreaSqM?: number;
+
+  @ApiPropertyOptional({ example: 306.9, description: 'M-Doc!C103 — area as typed in the deed' })
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  areaAsPerDeed?: number;
+
+  @ApiPropertyOptional({ example: 306.9, description: 'M-Doc!C104 — area measured on site' })
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  areaAsPerSite?: number;
+
+  @ApiPropertyOptional({ enum: ['ft', 'm'], description: 'M-Doc!C91 — unit of the side dimensions' })
+  @IsOptional()
+  @IsEnum({ ft: 'ft', m: 'm' })
+  dimensionUnit?: 'ft' | 'm';
 
   @ApiPropertyOptional({ type: LandDto })
   @IsOptional()

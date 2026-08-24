@@ -45,7 +45,8 @@ export class ValuationCalculator {
       : input.land.adoptedRate - (groundFloor?.replacementRate ?? 0);
 
     const compositeRate = excelRound(
-      (landComponentRate + depreciatedBuildingRate) * (1 + input.land.superAreaPercent),
+      (landComponentRate + depreciatedBuildingRate) *
+        (1 + input.land.superAreaPercent),
       -2,
     );
 
@@ -62,7 +63,10 @@ export class ValuationCalculator {
     const totalValue = partA + partBtoE;
     const roundedValue = excelRoundDown(totalValue, -4);
 
-    const totalCoveredAreaSqM = floors.reduce((sum, f) => sum + f.coveredAreaSqM, 0);
+    const totalCoveredAreaSqM = floors.reduce(
+      (sum, f) => sum + f.coveredAreaSqM,
+      0,
+    );
 
     return {
       method: input.method,
@@ -77,33 +81,56 @@ export class ValuationCalculator {
       distressValue: roundedValue * this.DISTRESS_FACTOR,
       // 'II SH FOR ALL'!D219 bases the insurable value on the plot area, not
       // the covered area.
-      insurableValue: excelRound(depreciatedBuildingRate * input.plotAreaSqM, -3),
+      insurableValue: excelRound(
+        depreciatedBuildingRate * input.plotAreaSqM,
+        -3,
+      ),
       depreciatedBuildingRate,
       landComponentRate,
       compositeRate,
       fairMarketValue: compositeRate * input.plotAreaSqM,
       rateVariationPercent: input.land.circleRate
-        ? ((input.land.adoptedRate - input.land.circleRate) / input.land.circleRate) * 100
+        ? ((input.land.adoptedRate - input.land.circleRate) /
+            input.land.circleRate) *
+          100
         : 0,
       guideline: this.calculateGuideline(input, guidelineRates),
       coverage: this.calculateCoverage(input, totalCoveredAreaSqM),
     };
   }
 
-  /** M-Rate!C83:C85 — age and depreciation are per floor, since floors may differ in age. */
-  static ageOf(input: ValuationInput, floor?: FloorInput): number {
-    const year = floor?.['yearOfConstruction'] ?? input.building.yearOfConstruction;
-    return Math.max(0, input.reportYear - (year as number));
+  /**
+   * M-Rate!C83:C85 — age and depreciation are per floor, since floors may
+   * differ in age. A floor's own year when set, otherwise the building's
+   * (M-Rate!D82 = C82).
+   */
+  static yearOf(input: ValuationInput, floor?: FloorInput): number {
+    return floor?.yearOfConstruction ?? input.building.yearOfConstruction;
   }
 
-  static depreciationPercent(input: ValuationInput, floor?: FloorInput): number {
-    const life = input.building.expectedLifeYears;
+  /** Likewise for expected life, which the sheet also repeats per floor. */
+  static expectedLifeOf(input: ValuationInput, floor?: FloorInput): number {
+    return floor?.expectedLifeYears ?? input.building.expectedLifeYears;
+  }
+
+  static ageOf(input: ValuationInput, floor?: FloorInput): number {
+    return Math.max(0, input.reportYear - this.yearOf(input, floor));
+  }
+
+  static depreciationPercent(
+    input: ValuationInput,
+    floor?: FloorInput,
+  ): number {
+    const life = this.expectedLifeOf(input, floor);
     if (!life) return 0;
     return (this.ageOf(input, floor) / life) * this.DEPRECIABLE_FRACTION;
   }
 
   /** 'II SH FOR ALL'!D36 — ROUND(rate - rate x dep%, -2). */
-  private static depreciatedRate(floor: FloorInput | undefined, input: ValuationInput): number {
+  private static depreciatedRate(
+    floor: FloorInput | undefined,
+    input: ValuationInput,
+  ): number {
     if (!floor) return 0;
     const rate = floor.replacementRate;
     return excelRound(rate - rate * this.depreciationPercent(input, floor), -2);
@@ -115,16 +142,24 @@ export class ValuationCalculator {
       .map((floor) => {
         const age = this.ageOf(input, floor);
         const depreciationPercent = this.depreciationPercent(input, floor);
-        const replacementValue = excelRound(floor.replacementRate * floor.coveredAreaSqM, -2);
-        const depreciation = excelRound(replacementValue * depreciationPercent, -2);
+        const replacementValue = excelRound(
+          floor.replacementRate * floor.coveredAreaSqM,
+          -2,
+        );
+        const depreciation = excelRound(
+          replacementValue * depreciationPercent,
+          -2,
+        );
+
+        const expectedLifeYears = this.expectedLifeOf(input, floor);
 
         return {
           name: floor.name,
           coveredAreaSqM: floor.coveredAreaSqM,
-          yearOfConstruction: input.building.yearOfConstruction,
+          yearOfConstruction: this.yearOf(input, floor),
           age,
-          residualAge: input.building.expectedLifeYears - age,
-          expectedLifeYears: input.building.expectedLifeYears,
+          residualAge: expectedLifeYears - age,
+          expectedLifeYears,
           depreciationPercent,
           replacementRate: floor.replacementRate,
           replacementValue,

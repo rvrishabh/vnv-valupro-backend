@@ -15,6 +15,7 @@ import {
   ValuationFilter,
 } from 'types/valuation.types';
 import { CreateValuationDto, ReviewValuationDto, UpsertValuationDto } from './dto';
+import { resolveAreaOfSite } from './engine/area.util';
 import { ValuationCalculator } from './engine/valuation.calculator';
 import { ValuationRepository } from './repositories/valuation.repository';
 import { CaseWorkflowService } from '../cases/services/case-workflow.service';
@@ -77,7 +78,7 @@ export class ValuationService {
       throw new BadRequestException('An approved valuation can no longer be edited');
     }
 
-    return this.valuationRepo.updateById(id, this.toPersistablePayload(dto));
+    return this.valuationRepo.updateById(id, this.toPersistablePayload(dto, report));
   }
 
   /**
@@ -205,8 +206,17 @@ export class ValuationService {
   /** Flattens the nested DTO onto the report's columns and JSON sections. */
   private toPersistablePayload(
     dto: UpsertValuationDto,
+    existing?: ValuationReport,
   ): Prisma.ValuationReportUpdateInput {
     const { land, building, ...rest } = dto;
+
+    // The area valued is never entered directly — it follows from the deed and
+    // site areas, with the lesser governing. Sections save independently, so
+    // the value not present in this patch is read back off the record.
+    const areaOfSite = resolveAreaOfSite(
+      rest.areaAsPerDeed ?? numberOrNull(existing?.areaAsPerDeed),
+      rest.areaAsPerSite ?? numberOrNull(existing?.areaAsPerSite),
+    );
 
     // A Freehold property has no lease terms; drop any previously entered block
     // so it cannot resurface in the report after the tenure is corrected.
@@ -216,6 +226,11 @@ export class ValuationService {
     return {
       ...(rest as Prisma.ValuationReportUpdateInput),
       ...(rest.tenure !== undefined ? { leaseDetails } : {}),
+      // Falls back to any explicitly supplied area so older records and direct
+      // API callers that never set the deed/site pair still work.
+      ...(areaOfSite.underConsideration !== null
+        ? { plotAreaSqM: areaOfSite.underConsideration }
+        : {}),
       ...(land
         ? {
             prevailingMarketRate: land.prevailingMarketRate,
@@ -289,4 +304,11 @@ export class ValuationService {
       marketValue: result.roundedValue,
     };
   }
+}
+
+/** Prisma returns Decimal columns as objects; narrow them to plain numbers. */
+function numberOrNull(value: unknown): number | null {
+  if (value === null || value === undefined) return null;
+  const parsed = Number(value);
+  return Number.isFinite(parsed) ? parsed : null;
 }

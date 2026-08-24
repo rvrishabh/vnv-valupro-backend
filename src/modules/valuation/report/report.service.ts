@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ValuationMethod, ValuationResult } from 'types/valuation.types';
 import { ValuationRepository } from '../repositories/valuation.repository';
+import { areaFromDimensions, type SideDimensions } from '../engine/area.util';
 import { rupeesInWords } from './number-to-words.util';
 import { PdfService } from './pdf.service';
 
@@ -73,6 +74,14 @@ export class ReportService {
       place: report.tehsil,
 
       plotAreaSqM: Number(report.plotAreaSqM ?? 0),
+      areaAsPerDeed: report.areaAsPerDeed ? Number(report.areaAsPerDeed) : null,
+      areaAsPerSite: report.areaAsPerSite ? Number(report.areaAsPerSite) : null,
+      areaFromDimensions: areaFromDimensions(
+        this.toSideDimensions(report.dimensions, 'asPerSite') ??
+          this.toSideDimensions(report.dimensions, 'asPerDocs'),
+        (report.dimensionUnit as 'ft' | 'm') ?? 'ft',
+      ),
+      dimensionUnit: report.dimensionUnit ?? 'ft',
       propertyType: report.propertyType,
       advanceReceived: Number(report.advanceReceived ?? 0),
       assetsSoldAsPerDeed: report.assetsSoldAsPerDeed,
@@ -167,6 +176,19 @@ export class ReportService {
         header: false,
       })),
     ];
+  }
+
+  /** Pulls one column (docs or site) out of the per-direction dimensions blob. */
+  private toSideDimensions(
+    dimensions: unknown,
+    column: 'asPerDocs' | 'asPerSite',
+  ): SideDimensions | null {
+    const source = (dimensions ?? {}) as Record<string, Record<string, unknown>>;
+    const sides = DIRECTIONS.map((d) => Number(source[d]?.[column]) || 0);
+    if (sides.some((v) => v <= 0)) return null;
+
+    const [north, south, east, west] = sides;
+    return { north, south, east, west };
   }
 
   private formatGps(report: Record<string, any>): string | undefined {
