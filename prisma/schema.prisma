@@ -294,19 +294,35 @@ model ValuationReport {
 
   /// M-Doc!C8 — "Specify Type of Property" (House/Flat/Shop/...). Distinct from
   /// Case.propertyType, which is the broader RESIDENTIAL/COMMERCIAL class.
-  propertyType        String?
+  propertyType         String?
   /// M-Doc!C10
-  advanceReceived     Decimal? @db.Decimal(15, 2)
+  advanceReceived      Decimal? @db.Decimal(15, 2)
   /// M-Doc!C55
-  assetsSoldAsPerDeed String?
+  assetsSoldAsPerDeed  String?
   /// M-Doc!C62 — Freehold | Leasehold. Drives the lease block below.
-  tenure              String?
+  tenure               String?
   /// M-Doc!C63:C69 — only meaningful when tenure is Leasehold.
-  leaseDetails        Json?
+  leaseDetails         Json?
   /// M-Doc!C41:C52 — address as observed on site, alongside the deed address.
-  siteAddress         Json?
+  siteAddress          Json?
   /// M-Doc!C80:C87 — boundary/ownership discrepancy checks and road frontage.
-  discrepancy         Json?
+  discrepancy          Json?
+  /// M-Doc!C26 — documents produced by the bank/owner for the valuation.
+  documentsReceived    String?
+  /// M-Doc!C28 — GPS reading taken at the site.
+  gpsCoordinates       String?
+  /// M-Doc!C115:C118 — living rooms, bedrooms, water closets, kitchen.
+  rooms                Json?
+  /// M-Doc!C122:C124 — total floors, floor the unit sits on, flat type.
+  floorDetails         Json?
+  /// M-Doc!C127 — free-text summary of what the engineer saw on site.
+  briefDescription     String?
+  /// M-Doc!C108 — Plot Area / Super Area / Builtup Area / Carpet Area. The
+  /// method of valuation sets the default (CRM implies Super Area).
+  areaBasis            String?
+  /// M-Doc!C110 — only meaningful for a Flat (entered) or Shop (the area
+  /// under consideration); otherwise the share is not stated in the documents.
+  undividedShareOfLand Decimal? @db.Decimal(12, 2)
 
   prevailingMarketRate Decimal? @db.Decimal(15, 2)
   circleRate           Decimal? @db.Decimal(15, 2)

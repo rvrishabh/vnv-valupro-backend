@@ -3,6 +3,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { ValuationMethod, ValuationResult } from 'types/valuation.types';
 import { ValuationRepository } from '../repositories/valuation.repository';
 import { areaFromDimensions, type SideDimensions } from '../engine/area.util';
+import { resolveUndividedShare } from '../engine/area-basis.util';
 import { rupeesInWords } from './number-to-words.util';
 import { PdfService } from './pdf.service';
 
@@ -90,6 +91,20 @@ export class ReportService {
       // block entirely otherwise, as the sheet does.
       leaseDetails: report.tenure === 'Leasehold' ? (report.leaseDetails ?? {}) : null,
       siteAddress: report.siteAddress ?? {},
+      documentsReceivedText: report.documentsReceived,
+      rooms: report.rooms ?? {},
+      roomsSummary: this.summariseRooms(report),
+      floorDetails: report.floorDetails ?? {},
+      briefDescription: report.briefDescription,
+      // Labelled "Remarks" on the form and in the report; the column keeps its
+      // original name so existing records are untouched.
+      remarks: report.engineerNotes,
+      areaBasis: report.areaBasis,
+      undividedShare: resolveUndividedShare(
+        report.propertyType,
+        Number(report.plotAreaSqM ?? 0),
+        Number(report.undividedShareOfLand ?? 0),
+      ),
       consolidatedSiteAddress: this.consolidateAddress(report.siteAddress),
       discrepancy: report.discrepancy ?? {},
       titleDeed: report.titleDeed ?? {},
@@ -191,7 +206,32 @@ export class ReportService {
     return { north, south, east, west };
   }
 
+  /**
+   * M-Doc!C120 — "House has total of 2 Living Rooms, 9 Bed rooms, ...".
+   * Built from the counts so the sentence always agrees with the numbers.
+   */
+  private summariseRooms(report: Record<string, any>): string | null {
+    const rooms = (report.rooms ?? {}) as Record<string, unknown>;
+    const parts = [
+      ['Living Rooms', rooms.livingRooms],
+      ['Bed rooms', rooms.bedRooms],
+      ['Water Closets', rooms.waterClosets],
+      ['Kitchen', rooms.kitchen],
+    ]
+      .filter(([, count]) => Number(count) > 0)
+      .map(([label, count]) => `${count} ${label}`);
+
+    if (!parts.length) return null;
+
+    const subject = report.propertyType || 'Property';
+    const last = parts.pop();
+    return parts.length
+      ? `${subject} has total of ${parts.join(', ')} & ${last}`
+      : `${subject} has total of ${last}`;
+  }
+
   private formatGps(report: Record<string, any>): string | undefined {
+    if (report.gpsCoordinates) return report.gpsCoordinates as string;
     if (report.visitLat == null || report.visitLng == null) return undefined;
     return `${report.visitLat}, ${report.visitLng}`;
   }

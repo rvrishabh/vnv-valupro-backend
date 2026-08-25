@@ -23,7 +23,10 @@ export class ValuationRatesService {
     return new Map(rows.map((r) => [r.roofType, Number(r.rate)]));
   }
 
-  async getCircleRate(tehsil: string, locality: string): Promise<number | null> {
+  async getCircleRate(
+    tehsil: string,
+    locality: string,
+  ): Promise<number | null> {
     const row = await this.prisma.circleRate.findFirst({
       where: { tehsil, locality },
     });

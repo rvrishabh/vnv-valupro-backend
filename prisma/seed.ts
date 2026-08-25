@@ -1,6 +1,6 @@
-import 'dotenv/config';
 import { PrismaNeon } from '@prisma/adapter-neon';
 import * as bcrypt from 'bcrypt';
+import 'dotenv/config';
 import {
   AUTH_METHOD,
   LoginChannel,
@@ -272,6 +272,32 @@ async function seedConstructionRates(prisma: PrismaClient) {
   }
 }
 
+/**
+ * Groups the workbook expresses as free-text templates rather than validated
+ * lists. C85 reads "House is (E/W/N/S) side facing property.", so the choices
+ * are implied by the template rather than declared as a dropdown.
+ */
+const CURATED_OPTIONS = [
+  {
+    group: 'propertyFacing',
+    values: [
+      'East',
+      'West',
+      'North',
+      'South',
+      'North-East',
+      'North-West',
+      'South-East',
+      'South-West',
+    ],
+  },
+  { group: 'areaUnit', values: ['Sq.m', 'Ha'] },
+  {
+    group: 'areaBasis',
+    values: ['Plot Area', 'Super Area', 'Builtup Area', 'Carpet Area'],
+  },
+];
+
 async function seedValuationOptions(prisma: PrismaClient) {
   for (const option of valuationOptions) {
     await prisma.valuationOption.upsert({
@@ -286,12 +312,29 @@ async function seedValuationOptions(prisma: PrismaClient) {
   // This is master data mirrored from the workbook, so anything no longer in
   // the book must go: a stale group would otherwise keep offering choices the
   // valuer can no longer justify against the sheet.
-  const groups = [...new Set(valuationOptions.map((o) => o.group))];
+  for (const curated of CURATED_OPTIONS) {
+    for (const [index, value] of curated.values.entries()) {
+      await prisma.valuationOption.upsert({
+        where: { group_value: { group: curated.group, value } },
+        update: { sortOrder: index, isActive: true },
+        create: { group: curated.group, value, sortOrder: index },
+      });
+    }
+  }
+
+  const groups = [
+    ...new Set([
+      ...valuationOptions.map((o) => o.group),
+      ...CURATED_OPTIONS.map((c) => c.group),
+    ]),
+  ];
   const removed = await prisma.valuationOption.deleteMany({
     where: { group: { notIn: groups } },
   });
   if (removed.count) {
-    console.log(`  pruned ${removed.count} option(s) no longer in the workbook`);
+    console.log(
+      `  pruned ${removed.count} option(s) no longer in the workbook`,
+    );
   }
 }
 

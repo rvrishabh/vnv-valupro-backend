@@ -60,7 +60,10 @@ export class ValuationController {
 
   @Get()
   @Roles('SUPER_ADMIN', 'ADMIN', 'SITE_ENGINEER', 'CHECKER')
-  findAll(@Query() query: FilterValuationDto, @Req() req: AuthenticatedRequest) {
+  findAll(
+    @Query() query: FilterValuationDto,
+    @Req() req: AuthenticatedRequest,
+  ) {
     const filter = { caseId: query.caseId, status: query.status };
     return this.valuationService.findAll(
       req.user.id,
@@ -71,14 +74,20 @@ export class ValuationController {
 
   @Get(':id')
   @Roles('SUPER_ADMIN', 'ADMIN', 'SITE_ENGINEER', 'CHECKER')
-  findOne(@Param('id', ParseUUIDPipe) id: string, @Req() req: AuthenticatedRequest) {
+  findOne(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Req() req: AuthenticatedRequest,
+  ) {
     return this.valuationService.findOne(id, req.user.id, req.user.roleName);
   }
 
   @Get(':id/preview')
   @ApiOperation({ summary: 'Recompute a draft without persisting' })
   @Roles('SUPER_ADMIN', 'ADMIN', 'SITE_ENGINEER', 'CHECKER')
-  preview(@Param('id', ParseUUIDPipe) id: string, @Req() req: AuthenticatedRequest) {
+  preview(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Req() req: AuthenticatedRequest,
+  ) {
     return this.valuationService.preview(id, req.user.id, req.user.roleName);
   }
 
@@ -89,20 +98,35 @@ export class ValuationController {
     @Body() dto: UpsertValuationDto,
     @Req() req: AuthenticatedRequest,
   ) {
-    return this.valuationService.update(id, dto, req.user.id, req.user.roleName);
+    return this.valuationService.update(
+      id,
+      dto,
+      req.user.id,
+      req.user.roleName,
+    );
   }
 
   @Post(':id/recalculate')
   @HttpCode(HttpStatus.OK)
   @Roles('SUPER_ADMIN', 'ADMIN', 'SITE_ENGINEER')
-  recalculate(@Param('id', ParseUUIDPipe) id: string, @Req() req: AuthenticatedRequest) {
-    return this.valuationService.recalculate(id, req.user.id, req.user.roleName);
+  recalculate(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Req() req: AuthenticatedRequest,
+  ) {
+    return this.valuationService.recalculate(
+      id,
+      req.user.id,
+      req.user.roleName,
+    );
   }
 
   @Post(':id/submit')
   @HttpCode(HttpStatus.OK)
   @Roles('SUPER_ADMIN', 'ADMIN', 'SITE_ENGINEER')
-  submit(@Param('id', ParseUUIDPipe) id: string, @Req() req: AuthenticatedRequest) {
+  submit(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Req() req: AuthenticatedRequest,
+  ) {
     return this.valuationService.submit(id, req.user.id, req.user.roleName);
   }
 
@@ -114,7 +138,12 @@ export class ValuationController {
     @Body() dto: ReviewValuationDto,
     @Req() req: AuthenticatedRequest,
   ) {
-    return this.valuationService.review(id, dto, req.user.id, req.user.roleName);
+    return this.valuationService.review(
+      id,
+      dto,
+      req.user.id,
+      req.user.roleName,
+    );
   }
 
   @Get(':id/pdf')

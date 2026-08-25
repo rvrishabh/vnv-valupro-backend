@@ -37,7 +37,8 @@
   <tr><td class="label">Date of site inspection</td><td>{{date siteVisitDate}}</td></tr>
   <tr><td class="label">Date of valuation</td><td>{{date valuationDate}}</td></tr>
   <tr><td class="label">Property inspected by</td><td>{{or engineer.name "—"}}</td></tr>
-  <tr><td class="label">Documents produced</td><td>{{or documentsReceived "Title Deed, Sale Deed &amp; Legal Report"}}</td></tr>
+  <tr><td class="label">Documents produced</td>
+      <td>{{or documentsReceivedText "Title Deed, Sale Deed &amp; Legal Report"}}</td></tr>
   <tr><td class="label">GPS co-ordinates</td><td>{{or gpsCoordinates "N.A."}}</td></tr>
   <tr><td class="label">Type of property</td><td>{{or propertyType "N.A."}}</td></tr>
   <tr><td class="label">Advance received</td><td class="num">₹ {{inr advanceReceived}}</td></tr>
@@ -109,6 +110,8 @@
       <td class="num">{{#if areaAsPerSite}}{{num areaAsPerSite}} Sq.m{{else}}N.A.{{/if}}</td></tr>
   <tr class="total"><td>Area under consideration for valuation</td>
       <td class="num">{{num plotAreaSqM}} Sq.m</td></tr>
+  <tr><td class="label">Area under consideration</td><td>{{or areaBasis "Plot Area"}}</td></tr>
+  <tr><td class="label">Undivided share of land</td><td>{{undividedShare.label}}</td></tr>
   <tr><td class="label">Boundaries matching with documents</td>
       <td>{{or boundaries.matching "Yes"}}</td></tr>
   <tr><td class="label">Plot demarcated</td><td>{{or boundaries.demarcated "Yes"}}</td></tr>
@@ -144,6 +147,26 @@
 </table>
 
 <div class="page-break"></div>
+
+<h2>4a. Accommodation &amp; Floor Details</h2>
+<table>
+  <tr><td class="label">Living rooms</td><td class="num">{{or rooms.livingRooms "—"}}</td></tr>
+  <tr><td class="label">Bed rooms</td><td class="num">{{or rooms.bedRooms "—"}}</td></tr>
+  <tr><td class="label">Water closets</td><td class="num">{{or rooms.waterClosets "—"}}</td></tr>
+  <tr><td class="label">Kitchen</td><td class="num">{{or rooms.kitchen "—"}}</td></tr>
+  {{#if roomsSummary}}
+  <tr class="total"><td colspan="2">{{roomsSummary}}</td></tr>
+  {{/if}}
+  <tr><td class="label">Total no. of floors</td><td>{{or floorDetails.totalFloors "N.A."}}</td></tr>
+  <tr><td class="label">Floor on which the flat/shop is situated</td>
+      <td>{{or floorDetails.floorSituated "N.A."}}</td></tr>
+  <tr><td class="label">Flat type</td><td>{{or floorDetails.flatType "N.A."}}</td></tr>
+</table>
+
+{{#if briefDescription}}
+<h2>4b. Brief Description of the Property (Site Visit)</h2>
+<p class="words">{{briefDescription}}</p>
+{{/if}}
 
 <h2>5. Building Specifications</h2>
 <table>
@@ -258,6 +281,11 @@
   <tr><td class="label">FAR achieved / permissible</td>
       <td class="num">{{num computed.coverage.achievedFAR}} / {{computed.coverage.permissibleFAR}}</td></tr>
 </table>
+
+{{#if remarks}}
+<h2>10a. Remarks</h2>
+<p class="words">{{remarks}}</p>
+{{/if}}
 
 <h2>11. Declaration</h2>
 <p>

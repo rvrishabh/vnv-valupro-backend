@@ -9,16 +9,23 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { FindQuery, PaginatedResult } from 'types/common.types';
 import {
   FloorInput,
-  ValuationInput,
-  ValuationMethod,
-  ValuationResult,
   ValuationFilter,
+  ValuationInput,
+  ValuationResult,
 } from 'types/valuation.types';
-import { CreateValuationDto, ReviewValuationDto, UpsertValuationDto } from './dto';
+import { CaseWorkflowService } from '../cases/services/case-workflow.service';
+import {
+  CreateValuationDto,
+  ReviewValuationDto,
+  UpsertValuationDto,
+} from './dto';
+import {
+  defaultAreaBasis,
+  resolveUndividedShare,
+} from './engine/area-basis.util';
 import { resolveAreaOfSite } from './engine/area.util';
 import { ValuationCalculator } from './engine/valuation.calculator';
 import { ValuationRepository } from './repositories/valuation.repository';
-import { CaseWorkflowService } from '../cases/services/case-workflow.service';
 import { ValuationRatesService } from './services/valuation-rates.service';
 
 const ENGINE_VERSION = '1.0.0';
@@ -49,13 +56,18 @@ export class ValuationService {
     private readonly prisma: PrismaService,
   ) {}
 
-  async create(dto: CreateValuationDto, userId: string): Promise<ValuationReport> {
+  async create(
+    dto: CreateValuationDto,
+    userId: string,
+  ): Promise<ValuationReport> {
     const existing = await this.valuationRepo.findByCaseId(dto.caseId);
     if (existing) {
       throw new BadRequestException('A valuation already exists for this case');
     }
 
-    const caseRecord = await this.prisma.case.findUnique({ where: { id: dto.caseId } });
+    const caseRecord = await this.prisma.case.findUnique({
+      where: { id: dto.caseId },
+    });
     if (!caseRecord) throw new NotFoundException('Case not found');
 
     const { caseId, ...rest } = dto;
@@ -75,10 +87,15 @@ export class ValuationService {
     const report = await this.getOwned(id, userId, role);
 
     if (report.status === 'APPROVED') {
-      throw new BadRequestException('An approved valuation can no longer be edited');
+      throw new BadRequestException(
+        'An approved valuation can no longer be edited',
+      );
     }
 
-    return this.valuationRepo.updateById(id, this.toPersistablePayload(dto, report));
+    return this.valuationRepo.updateById(
+      id,
+      this.toPersistablePayload(dto, report),
+    );
   }
 
   /**
@@ -86,7 +103,11 @@ export class ValuationService {
    * Called on submit and on an explicit recalculate, so a rate-table correction
    * can be replayed without re-entering the case.
    */
-  async recalculate(id: string, userId: string, role: string): Promise<ValuationReport> {
+  async recalculate(
+    id: string,
+    userId: string,
+    role: string,
+  ): Promise<ValuationReport> {
     const report = await this.getOwned(id, userId, role);
     const input = this.toEngineInput(report);
     const rates = await this.ratesService.getConstructionRates(input.tehsil);
@@ -95,7 +116,11 @@ export class ValuationService {
     return this.valuationRepo.updateById(id, this.toComputedPayload(result));
   }
 
-  async submit(id: string, userId: string, role: string): Promise<ValuationReport> {
+  async submit(
+    id: string,
+    userId: string,
+    role: string,
+  ): Promise<ValuationReport> {
     const report = await this.getOwned(id, userId, role);
     this.assertComplete(report);
 
@@ -125,7 +150,9 @@ export class ValuationService {
     const report = await this.valuationRepo.findById(id);
     if (!report) throw new NotFoundException('Valuation not found');
     if (report.status !== 'SUBMITTED') {
-      throw new BadRequestException('Only a submitted valuation can be reviewed');
+      throw new BadRequestException(
+        'Only a submitted valuation can be reviewed',
+      );
     }
 
     const approved = dto.decision === 'approved';
@@ -135,7 +162,12 @@ export class ValuationService {
       checkerNotes: dto.notes,
     });
 
-    await this.caseWorkflow.recordReview(report.caseId, actorId, approved, dto.notes);
+    await this.caseWorkflow.recordReview(
+      report.caseId,
+      actorId,
+      approved,
+      dto.notes,
+    );
 
     return updated;
   }
@@ -163,7 +195,11 @@ export class ValuationService {
   }
 
   /** Recomputes on the fly so a draft can be previewed before it is submitted. */
-  async preview(id: string, userId: string, role: string): Promise<ValuationResult> {
+  async preview(
+    id: string,
+    userId: string,
+    role: string,
+  ): Promise<ValuationResult> {
     const report = await this.getOwned(id, userId, role);
     const input = this.toEngineInput(report);
     const rates = await this.ratesService.getConstructionRates(input.tehsil);
@@ -181,7 +217,11 @@ export class ValuationService {
     return report;
   }
 
-  private assertVisible(engineerId: string, userId: string, role: string): void {
+  private assertVisible(
+    engineerId: string,
+    userId: string,
+    role: string,
+  ): void {
     if (ADMIN_ROLES.has(role) || role === 'CHECKER') return;
     if (engineerId !== userId) {
       throw new ForbiddenException('You do not have access to this valuation');
@@ -221,7 +261,34 @@ export class ValuationService {
     // A Freehold property has no lease terms; drop any previously entered block
     // so it cannot resurface in the report after the tenure is corrected.
     const leaseDetails =
-      rest.tenure === 'Freehold' ? Prisma.DbNull : (rest.leaseDetails as Prisma.InputJsonValue);
+      rest.tenure === 'Freehold'
+        ? Prisma.DbNull
+        : (rest.leaseDetails as Prisma.InputJsonValue);
+
+    // What the area measures follows from the method (M-Doc!C108), but stays
+    // overridable — only fill it in when neither this patch nor the record has
+    // a value, so a deliberate choice is never silently reset.
+    const method = rest.method ?? existing?.method;
+    // The sheet holds C108 as a formula on the method, so switching to CRM has
+    // to move the basis to Super Area. An explicit choice in this same patch
+    // still wins, and an untouched method leaves any earlier choice alone.
+    const methodChanged =
+      rest.method !== undefined && rest.method !== existing?.method;
+    const areaBasis =
+      rest.areaBasis ??
+      (methodChanged && method
+        ? defaultAreaBasis(method)
+        : (existing?.areaBasis ??
+          (method ? defaultAreaBasis(method) : undefined)));
+
+    // A shop's undivided share is simply its area; a flat's has to be read off
+    // the deed; anything else has none to state (M-Doc!C110).
+    const propertyType = rest.propertyType ?? existing?.propertyType;
+    const share = resolveUndividedShare(
+      propertyType,
+      areaOfSite.underConsideration ?? numberOrNull(existing?.plotAreaSqM),
+      rest.undividedShareOfLand ?? numberOrNull(existing?.undividedShareOfLand),
+    );
 
     return {
       ...(rest as Prisma.ValuationReportUpdateInput),
@@ -231,6 +298,14 @@ export class ValuationService {
       ...(areaOfSite.underConsideration !== null
         ? { plotAreaSqM: areaOfSite.underConsideration }
         : {}),
+      ...(areaBasis ? { areaBasis } : {}),
+      // A derived share is stored so the report and the API agree; a share that
+      // does not apply is cleared rather than left over from a previous type.
+      ...(share.mode === 'not-applicable'
+        ? { undividedShareOfLand: null }
+        : share.value !== null
+          ? { undividedShareOfLand: share.value }
+          : {}),
       ...(land
         ? {
             prevailingMarketRate: land.prevailingMarketRate,
@@ -243,7 +318,8 @@ export class ValuationService {
       ...(building
         ? {
             yearOfConstruction: building.yearOfConstruction,
-            expectedLifeYears: building.expectedLifeYears ?? DEFAULT_EXPECTED_LIFE,
+            expectedLifeYears:
+              building.expectedLifeYears ?? DEFAULT_EXPECTED_LIFE,
             floors: building.floors as unknown as Prisma.InputJsonValue,
           }
         : {}),
@@ -252,7 +328,7 @@ export class ValuationService {
 
   private toEngineInput(report: ValuationReport): ValuationInput {
     return {
-      method: report.method as ValuationMethod,
+      method: report.method,
       reportYear: report.reportYear ?? new Date().getFullYear(),
       tehsil: report.tehsil ?? '',
       plotAreaSqM: Number(report.plotAreaSqM ?? 0),
@@ -260,7 +336,8 @@ export class ValuationService {
         prevailingMarketRate: Number(report.prevailingMarketRate ?? 0),
         circleRate: Number(report.circleRate ?? 0),
         adoptedRate: Number(report.adoptedRate ?? 0),
-        plotPosition: (report.plotPosition ?? 'Intermittent Plot') as ValuationInput['land']['plotPosition'],
+        plotPosition: (report.plotPosition ??
+          'Intermittent Plot') as ValuationInput['land']['plotPosition'],
         superAreaPercent: Number(report.superAreaPercent ?? 0),
       },
       building: {
@@ -271,8 +348,10 @@ export class ValuationService {
           constructionCategory: f.constructionCategory ?? 1,
         })),
       },
-      extraItems: (report.extraItems as Record<string, number | string>) ?? undefined,
-      services: (report.services as Record<string, number | string>) ?? undefined,
+      extraItems:
+        (report.extraItems as Record<string, number | string>) ?? undefined,
+      services:
+        (report.services as Record<string, number | string>) ?? undefined,
     };
   }
 

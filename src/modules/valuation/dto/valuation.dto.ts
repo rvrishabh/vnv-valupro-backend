@@ -209,6 +209,50 @@ export class UpsertValuationDto {
   @IsObject()
   discrepancy?: Record<string, unknown>;
 
+  @ApiPropertyOptional({ description: 'M-Doc!C92', enum: ['Sq.m', 'Ha'] })
+  @IsOptional()
+  @IsString()
+  areaUnit?: string;
+
+  @ApiPropertyOptional({ description: 'M-Doc!C26' })
+  @IsOptional()
+  @IsString()
+  documentsReceived?: string;
+
+  @ApiPropertyOptional({ description: 'M-Doc!C28', example: '27.565146, 78.652088' })
+  @IsOptional()
+  @IsString()
+  gpsCoordinates?: string;
+
+  @ApiPropertyOptional({ description: 'M-Doc!C115:C118 — room counts' })
+  @IsOptional()
+  @IsObject()
+  rooms?: Record<string, unknown>;
+
+  @ApiPropertyOptional({ description: 'M-Doc!C122:C124 — floor details' })
+  @IsOptional()
+  @IsObject()
+  floorDetails?: Record<string, unknown>;
+
+  @ApiPropertyOptional({ description: 'M-Doc!C127' })
+  @IsOptional()
+  @IsString()
+  briefDescription?: string;
+
+  @ApiPropertyOptional({
+    description: 'M-Doc!C108',
+    enum: ['Plot Area', 'Super Area', 'Builtup Area', 'Carpet Area'],
+  })
+  @IsOptional()
+  @IsString()
+  areaBasis?: string;
+
+  @ApiPropertyOptional({ description: 'M-Doc!C110 — undivided share of land for a Flat' })
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  undividedShareOfLand?: number;
+
   @ApiPropertyOptional() @IsOptional() @IsObject() titleDeed?: Record<string, unknown>;
   @ApiPropertyOptional() @IsOptional() @IsObject() boundaries?: Record<string, unknown>;
   @ApiPropertyOptional() @IsOptional() @IsObject() dimensions?: Record<string, unknown>;
