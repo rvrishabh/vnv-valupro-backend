@@ -20,6 +20,7 @@ import { Roles } from '../auth/decorators/roles.decorator';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import {
+  AddValuationOptionDto,
   CreateValuationDto,
   FilterValuationDto,
   ReviewValuationDto,
@@ -49,6 +50,16 @@ export class ValuationController {
   @Roles('SUPER_ADMIN', 'ADMIN', 'SITE_ENGINEER', 'CHECKER', 'BANK_MANAGER')
   getOptions() {
     return this.ratesService.getOptions();
+  }
+
+  @Post('options')
+  @HttpCode(HttpStatus.CREATED)
+  @ApiOperation({
+    summary: 'Record a value typed into an open-ended dropdown so it persists',
+  })
+  @Roles('SUPER_ADMIN', 'ADMIN', 'SITE_ENGINEER', 'CHECKER')
+  addOption(@Body() dto: AddValuationOptionDto) {
+    return this.ratesService.addOption(dto.group, dto.value);
   }
 
   @Post()

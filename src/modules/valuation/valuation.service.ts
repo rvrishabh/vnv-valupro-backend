@@ -19,10 +19,7 @@ import {
   ReviewValuationDto,
   UpsertValuationDto,
 } from './dto';
-import {
-  defaultAreaBasis,
-  resolveUndividedShare,
-} from './engine/area-basis.util';
+import { areaBasisFor, resolveUndividedShare } from './engine/area-basis.util';
 import { resolveAreaOfSite } from './engine/area.util';
 import { ValuationCalculator } from './engine/valuation.calculator';
 import { ValuationRepository } from './repositories/valuation.repository';
@@ -269,24 +266,17 @@ export class ValuationService {
     // overridable — only fill it in when neither this patch nor the record has
     // a value, so a deliberate choice is never silently reset.
     const method = rest.method ?? existing?.method;
-    // The sheet holds C108 as a formula on the method, so switching to CRM has
-    // to move the basis to Super Area. An explicit choice in this same patch
-    // still wins, and an untouched method leaves any earlier choice alone.
-    const methodChanged =
-      rest.method !== undefined && rest.method !== existing?.method;
-    const areaBasis =
-      rest.areaBasis ??
-      (methodChanged && method
-        ? defaultAreaBasis(method)
-        : (existing?.areaBasis ??
-          (method ? defaultAreaBasis(method) : undefined)));
+    // C108 is a formula on the method in the sheet, so it is derived here too
+    // rather than offered as a choice — the basis can never contradict the
+    // method that produced it.
+    const areaBasis = method ? areaBasisFor(method) : undefined;
 
-    // A shop's undivided share is simply its area; a flat's has to be read off
-    // the deed; anything else has none to state (M-Doc!C110).
+    // A share of common land only arises for a flat priced on a composite
+    // rate; anything else owns its land outright (M-Doc!C110).
     const propertyType = rest.propertyType ?? existing?.propertyType;
     const share = resolveUndividedShare(
+      method,
       propertyType,
-      areaOfSite.underConsideration ?? numberOrNull(existing?.plotAreaSqM),
       rest.undividedShareOfLand ?? numberOrNull(existing?.undividedShareOfLand),
     );
 

@@ -101,8 +101,8 @@ export class ReportService {
       remarks: report.engineerNotes,
       areaBasis: report.areaBasis,
       undividedShare: resolveUndividedShare(
+        method,
         report.propertyType,
-        Number(report.plotAreaSqM ?? 0),
         Number(report.undividedShareOfLand ?? 0),
       ),
       consolidatedSiteAddress: this.consolidateAddress(report.siteAddress),

@@ -296,3 +296,18 @@ export class FilterValuationDto
   @IsString()
   status?: string;
 }
+
+export class AddValuationOptionDto {
+  @ApiProperty({
+    description: 'Option group to extend, e.g. "tehsil"',
+    example: 'tehsil',
+  })
+  @IsString()
+  @IsNotEmpty()
+  group: string;
+
+  @ApiProperty({ example: 'Sahawar' })
+  @IsString()
+  @IsNotEmpty()
+  value: string;
+}

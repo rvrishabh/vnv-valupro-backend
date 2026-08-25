@@ -425,6 +425,10 @@ model ValuationOption {
   value     String
   sortOrder Int      @default(0)
   isActive  Boolean  @default(true)
+  /// Added by a valuer rather than extracted from the workbook. Kept apart so
+  /// re-seeding from a revised book never silently drops a locality someone
+  /// entered in the field.
+  isCustom  Boolean  @default(false)
   createdAt DateTime @default(now())
 
   @@unique([group, value])

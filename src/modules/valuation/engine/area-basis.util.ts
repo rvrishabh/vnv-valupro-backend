@@ -18,14 +18,14 @@ export const AREA_BASES: AreaBasis[] = [
  *
  * A composite-rate valuation prices a built unit, so its area is the super
  * area; land-and-building and vacant-plot valuations price the plot itself.
- * The sheet hard-codes this as a formula, but a valuer can still override it,
- * so this only supplies the default.
+ * The sheet holds this as a formula on the method and so does this: it is
+ * derived, not chosen, which keeps the basis and the method from disagreeing.
  */
-export function defaultAreaBasis(method: ValuationMethod): AreaBasis {
+export function areaBasisFor(method: ValuationMethod): AreaBasis {
   return method === 'CRM' ? 'Super Area' : 'Plot Area';
 }
 
-export type UndividedShareMode = 'entered' | 'derived' | 'not-applicable';
+export type UndividedShareMode = 'entered' | 'not-applicable';
 
 export interface UndividedShare {
   mode: UndividedShareMode;
@@ -44,42 +44,31 @@ export interface UndividedShare {
  * the sheet prints "Undivided Share not mentioned in documents" (CANARA!D105).
  */
 export function resolveUndividedShare(
+  method: ValuationMethod | null | undefined,
   propertyType: string | null | undefined,
-  areaUnderConsideration: number | null | undefined,
   entered: number | null | undefined,
 ): UndividedShare {
-  const type = (propertyType ?? '').trim().toLowerCase();
+  const isFlat = (propertyType ?? '').trim().toLowerCase() === 'flat';
 
-  if (type === 'shop') {
-    const value = isUsable(areaUnderConsideration)
-      ? areaUnderConsideration
-      : null;
+  // A share of common land only arises where a unit sits in a larger building
+  // priced on a composite rate. Outside that the property owns its land
+  // outright, and the sheet prints the "not mentioned" line (CANARA!D105).
+  if (method !== 'CRM' || !isFlat) {
     return {
-      mode: 'derived',
-      value,
-      label:
-        value === null
-          ? 'Undivided Share not mentioned in documents'
-          : `${value} Sq.m`,
+      mode: 'not-applicable',
+      value: null,
+      label: 'Undivided Share not mentioned in documents',
     };
   }
 
-  if (type === 'flat') {
-    const value = isUsable(entered) ? entered : null;
-    return {
-      mode: 'entered',
-      value,
-      label:
-        value === null
-          ? 'Undivided Share not mentioned in documents'
-          : `${value} Sq.m`,
-    };
-  }
-
+  const value = isUsable(entered) ? entered : null;
   return {
-    mode: 'not-applicable',
-    value: null,
-    label: 'Undivided Share not mentioned in documents',
+    mode: 'entered',
+    value,
+    label:
+      value === null
+        ? 'Undivided Share not mentioned in documents'
+        : `${value} Sq.m`,
   };
 }
 
