@@ -4,8 +4,12 @@ import {
   OnModuleDestroy,
   OnModuleInit,
 } from '@nestjs/common';
+import { neonConfig } from '@neondatabase/serverless';
 import { PrismaNeon } from '@prisma/adapter-neon';
+import { WebSocket } from 'ws';
 import { PrismaClient } from '../../generated/prisma/client';
+
+neonConfig.webSocketConstructor = WebSocket;
 
 @Injectable()
 export class PrismaService
