@@ -1,4 +1,5 @@
 import fastifyCookie from '@fastify/cookie';
+import fastifyMultipart from '@fastify/multipart';
 import { Logger, RequestMethod, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import {
@@ -18,6 +19,12 @@ async function bootstrap() {
   );
 
   await app.register(fastifyCookie);
+  // Site-visit and Google Earth photo uploads for the valuation annexure —
+  // capped per-file since a phone photo can run several MB and these are
+  // stored in Postgres (no object storage is configured yet).
+  await app.register(fastifyMultipart, {
+    limits: { fileSize: 10 * 1024 * 1024, files: 20 },
+  });
 
   // ─── Global prefix ────────────────────────────────
   app.setGlobalPrefix('api/v1', {

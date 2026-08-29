@@ -1,0 +1,85 @@
+<style>
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Times New Roman", Georgia, serif;
+    font-size: 10.5px; color: #111; margin: 0;
+  }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 3mm; }
+  td { border: 1px solid #999; padding: 2.5mm 3mm; vertical-align: middle; }
+  td.label {
+    width: 32%; background: #1f3864; color: #fff; font-weight: bold;
+    font-size: 10.5px;
+  }
+
+  /* A "justified gallery": each row's height is computed server-side
+     (photo-layout.util.ts) so that row's photos — each kept at its own
+     aspect ratio — exactly fill the page width with a 2mm gap between them.
+     That's what lets a landscape photo render wide and a portrait photo
+     narrow, side by side, with neither cropped nor letterboxed; a uniform
+     grid can't do that because a cell's shape is fixed independently of
+     what's inside it. */
+  .photo-rows { display: flex; flex-direction: column; gap: 2mm; }
+  /* Rows normally sum to exactly the container width; centering only matters
+     for the rare case a row got scaled down to fit the page-height budget
+     (see photo-layout.util.ts), leaving a small even margin instead of a
+     one-sided gap. */
+  .photo-row { display: flex; gap: 2mm; justify-content: center; }
+  .photo-cell { overflow: hidden; flex: 0 0 auto; border: 1px solid #999; }
+  .photo-cell img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  .photo-empty {
+    height: 100mm; display: flex; align-items: center; justify-content: center;
+    border: 1px dashed #999; color: #777; font-style: italic;
+  }
+
+  .aerial-wrap { position: relative; margin-top: 3mm; }
+  .aerial-wrap img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    border: 1px solid #999;
+  }
+  .aerial-empty {
+    margin-top: 3mm; display: flex; align-items: center;
+    justify-content: center; border: 1px dashed #999; color: #777; font-style: italic;
+  }
+  .aerial-label {
+    position: absolute; top: 3mm; right: 3mm; background: #1f3864; color: #fff;
+    padding: 1.5mm 4mm; font-weight: bold; font-size: 11px; border-radius: 2px;
+  }
+</style>
+
+<table>
+  <tr>
+    <td class="label">Name of the Owner/s</td>
+    <td>{{ownerName}}</td>
+  </tr>
+  <tr>
+    <td class="label">Address</td>
+    <td>{{consolidatedSiteAddress}}</td>
+  </tr>
+</table>
+
+{{#if photoRows.length}}
+<div class="photo-rows">
+  {{#each photoRows}}
+  <div class="photo-row" style="height: {{this.heightMm}}mm;">
+    {{#each this.photos}}
+    <div class="photo-cell" style="width: {{this.widthMm}}mm;">
+      <img src="{{this.url}}" alt="Site photo" />
+    </div>
+    {{/each}}
+  </div>
+  {{/each}}
+</div>
+{{else}}
+<div class="photo-empty">No site-visit photos uploaded yet.</div>
+{{/if}}
+
+{{#if googleEarthPhoto}}
+<div class="aerial-wrap" style="height: {{aerialHeightMm}}mm;">
+  <img src="{{googleEarthPhoto}}" alt="Aerial location plan" />
+  <span class="aerial-label">Aerial Location Plan</span>
+</div>
+{{else}}
+<div class="aerial-empty" style="height: {{aerialHeightMm}}mm;">No Google Earth image uploaded yet.</div>
+{{/if}}

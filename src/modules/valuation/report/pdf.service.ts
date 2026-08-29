@@ -41,6 +41,20 @@ export class PdfService {
 
       const page = await browser.newPage();
       await page.setContent(html, { waitUntil: 'domcontentloaded' });
+      // `domcontentloaded` fires before an <img> — including a base64 data
+      // URI, which triggers no network request but still decodes
+      // asynchronously — has actually rendered a pixel. A template that sizes
+      // anything off image content (the photo annexure's fixed-height grid,
+      // relying on `object-fit: cover`) would otherwise get PDF'd against a
+      // layout computed before the images had dimensions, producing a
+      // content-driven "auto" height instead of the fixed one.
+      await page.evaluate(async () => {
+        await Promise.all(
+          Array.from(document.images).map((img) =>
+            img.decode().catch(() => undefined),
+          ),
+        );
+      });
 
       return Buffer.from(
         await page.pdf({

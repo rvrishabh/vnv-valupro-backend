@@ -389,9 +389,46 @@ model ValuationReport {
   case              Case              @relation(fields: [caseId], references: [id], onDelete: Cascade)
   engineer          User              @relation(fields: [engineerId], references: [id])
   circleRateEntries CircleRateEntry[]
+  photos            ValuationPhoto[]
 
   @@index([status])
   @@index([engineerId])
+}
+
+/// A site-visit or Google Earth photo for the photograph annexure page.
+///
+/// Stored as raw bytes in Postgres rather than object storage: no S3/R2
+/// credentials are configured for this deployment yet, and the volumes here
+/// (a few dozen compressed JPEGs per valuation) are small enough that bytea
+/// is a reasonable place to start. Move this to R2 later without changing the
+/// API — swap what `data` is read from, keep everything above it the same.
+model ValuationPhoto {
+  id          String          @id @default(cuid())
+  valuationId String
+  valuation   ValuationReport @relation(fields: [valuationId], references: [id], onDelete: Cascade)
+
+  /// SITE_VISIT (the top two rows, any count) or GOOGLE_EARTH (exactly one,
+  /// the bottom aerial plan) — kept as a string rather than an enum so a third
+  /// section can be added without a migration.
+  section   String
+  /// Position within its section; SITE_VISIT photos render in this order.
+  sortOrder Int    @default(0)
+
+  data     Bytes
+  mimeType String
+  fileSize Int
+  /// Dimensions after the upload-time resize — the annexure layout needs
+  /// these to tell a landscape photo from a portrait one without decoding the
+  /// image again server-side. Nullable because photos uploaded before this
+  /// column existed have no recorded size; those get backfilled once, but the
+  /// column stays optional so a backfill gap fails soft (treated as portrait)
+  /// instead of corrupting the row.
+  width    Int?
+  height   Int?
+
+  createdAt DateTime @default(now())
+
+  @@index([valuationId, section])
 }
 
 /// One locality the circle-rate register is keyed on — a mohalla or revenue

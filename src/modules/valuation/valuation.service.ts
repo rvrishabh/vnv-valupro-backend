@@ -212,6 +212,23 @@ export class ValuationService {
     return ValuationCalculator.calculate(input, rates);
   }
 
+  /**
+   * The same visibility check `findOne`/`update`/etc. apply, exposed for
+   * callers (the photo endpoints) that only need to know "is this person
+   * allowed to touch this valuation" without paying for the detailed fetch.
+   */
+  async assertAccess(id: string, userId: string, role: string): Promise<void> {
+    await this.getOwned(id, userId, role);
+  }
+
+  /** Same rule as `update()` — an approved valuation's photos are final too. */
+  async assertEditable(id: string, userId: string, role: string): Promise<void> {
+    const report = await this.getOwned(id, userId, role);
+    if (report.status === 'APPROVED') {
+      throw new BadRequestException('An approved valuation can no longer be edited');
+    }
+  }
+
   private async getOwned(
     id: string,
     userId: string,

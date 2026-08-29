@@ -350,3 +350,9 @@ export class CircleRateSuggestionQueryDto {
   @IsEnum({ LAND_AND_BUILDING: 'LAND_AND_BUILDING', CRM: 'CRM', PLOT: 'PLOT' })
   method: 'LAND_AND_BUILDING' | 'CRM' | 'PLOT';
 }
+
+export class PhotoSectionQueryDto {
+  @ApiProperty({ enum: ['SITE_VISIT', 'GOOGLE_EARTH'] })
+  @IsEnum({ SITE_VISIT: 'SITE_VISIT', GOOGLE_EARTH: 'GOOGLE_EARTH' })
+  section: 'SITE_VISIT' | 'GOOGLE_EARTH';
+}

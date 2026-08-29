@@ -6,8 +6,28 @@ import { areaFromDimensions, type SideDimensions } from '../engine/area.util';
 import { ValuationRepository } from '../repositories/valuation.repository';
 import { rupeesInWords } from './number-to-words.util';
 import { PdfService } from './pdf.service';
+import { ValuationPhotoService } from '../services/valuation-photo.service';
+import { computePhotoLayout } from './photo-layout.util';
 
 const DEFAULT_TEMPLATE = 'canara';
+
+// A4 content box (297mm tall, 210mm wide) minus the PDF's shared 14mm/16mm
+// top/bottom and 12mm/12mm left/right margins — see pdf.service.ts.
+const PHOTO_ANNEXURE_CONTENT_WIDTH_MM = 186;
+// Of the 267mm of vertical content room, ~36mm always goes to the owner/
+// address table above the photos (measured empirically — see the page-fit
+// note in photo-annexure.hbs); this is what's left for the photo rows, the
+// gap below them, and the aerial image.
+const PHOTO_ANNEXURE_PHOTO_AERIAL_BUDGET_MM = 231;
+const PHOTO_ANNEXURE_SECTION_GAP_MM = 3;
+const PHOTO_ANNEXURE_MIN_AERIAL_HEIGHT_MM = 50;
+// The aerial image is a map screenshot — inherently wide, not tall. Letting
+// it claim *all* the height the photo rows didn't need would stretch its box
+// well past its own aspect ratio, and object-fit: cover crops more aggressively
+// the further the box drifts from that shape (labels near the map's edges are
+// the first casualty). Capping it leaves any further leftover space as plain
+// margin instead — a bit of blank space beats a map missing its labels.
+const PHOTO_ANNEXURE_MAX_AERIAL_HEIGHT_MM = 95;
 
 const METHOD_LABELS: Record<ValuationMethod, string> = {
   LAND_AND_BUILDING: 'Land & Building method',
@@ -23,6 +43,7 @@ export class ReportService {
     private readonly valuationRepo: ValuationRepository,
     private readonly pdfService: PdfService,
     private readonly prisma: PrismaService,
+    private readonly photoService: ValuationPhotoService,
   ) {}
 
   async generatePdf(id: string): Promise<{ buffer: Buffer; filename: string }> {
@@ -42,6 +63,51 @@ export class ReportService {
     return {
       buffer,
       filename: `${this.slugify(owner)}-valuation-report.pdf`,
+    };
+  }
+
+  /**
+   * The one-page "Photograph & Location Annexure" — site-visit photos packed
+   * into two justified rows (any count, any mix of portrait/landscape, never
+   * cropped) with the Google Earth aerial plan filling whatever page space
+   * the photos didn't need, matching the layout banks expect on this page
+   * regardless of how many photos were taken.
+   */
+  async generatePhotoAnnexurePdf(id: string): Promise<{ buffer: Buffer; filename: string }> {
+    const report = await this.valuationRepo.findDetailed(id);
+    if (!report) throw new NotFoundException('Valuation not found');
+
+    const photos = await this.photoService.getPhotosForReport(id);
+    const owner = String((report.titleDeed as Record<string, unknown>)?.ownerName ?? '');
+    // Landscape photo(s) move to the front so they land at the top-left, then
+    // a justified-row layout gives every photo its own natural width at a
+    // shared row height — nothing is ever cropped or letterboxed. See
+    // photo-layout.util.ts for why row height has to be derived, not fixed.
+    const ordered = [...photos.siteVisit].sort((a, b) => (b.aspect > 1 ? 1 : 0) - (a.aspect > 1 ? 1 : 0));
+    const maxPhotoHeightMm =
+      PHOTO_ANNEXURE_PHOTO_AERIAL_BUDGET_MM -
+      PHOTO_ANNEXURE_SECTION_GAP_MM -
+      PHOTO_ANNEXURE_MIN_AERIAL_HEIGHT_MM;
+    const layout = computePhotoLayout(ordered, PHOTO_ANNEXURE_CONTENT_WIDTH_MM, maxPhotoHeightMm);
+    const aerialHeightMm = Math.min(
+      PHOTO_ANNEXURE_PHOTO_AERIAL_BUDGET_MM - PHOTO_ANNEXURE_SECTION_GAP_MM - layout.heightMm,
+      PHOTO_ANNEXURE_MAX_AERIAL_HEIGHT_MM,
+    );
+
+    const buffer = await this.pdfService.render('photo-annexure', {
+      ownerName: owner || 'N.A.',
+      consolidatedSiteAddress: this.consolidateAddress(report.siteAddress),
+      photoRows: layout.rows.map((row) => ({
+        heightMm: row.heightMm.toFixed(2),
+        photos: row.photos.map((p) => ({ url: p.url, widthMm: p.widthMm.toFixed(2) })),
+      })),
+      googleEarthPhoto: photos.googleEarth,
+      aerialHeightMm: aerialHeightMm.toFixed(2),
+    });
+
+    return {
+      buffer,
+      filename: `${this.slugify(owner || 'valuation')}-photo-annexure.pdf`,
     };
   }
 
