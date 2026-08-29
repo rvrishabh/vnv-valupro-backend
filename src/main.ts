@@ -1,4 +1,3 @@
-import 'dotenv/config';
 import fastifyCookie from '@fastify/cookie';
 import { Logger, RequestMethod, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
@@ -7,6 +6,7 @@ import {
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import 'dotenv/config';
 import { AppModule } from './modules/app.module';
 
 async function bootstrap() {
@@ -38,7 +38,9 @@ async function bootstrap() {
 
   // ─── CORS ─────────────────────────────────────────
   app.enableCors({
-    origin: process.env.FRONTEND_URL ?? true, // true = reflect origin (dev only)
+    origin: process.env.FRONTEND_URL
+      ? [process.env.FRONTEND_URL, 'http://localhost:5173']
+      : true, // true = reflect origin (dev only)
     credentials: true,
     methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
   });
