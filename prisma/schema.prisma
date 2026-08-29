@@ -329,6 +329,12 @@ model ValuationReport {
   adoptedRate          Decimal? @db.Decimal(15, 2)
   plotPosition         String?
   superAreaPercent     Decimal? @default(0) @db.Decimal(6, 4)
+  /// Local body / mohalla the site sits in — the circle-rate register is keyed
+  /// on this, not on the tehsil above, which only narrows it to an SR office.
+  circleRateMohalla    String?
+  /// Metres, not the free-text "Width of road" — needed to pick the
+  /// <=9m / 9-18m / >18m band the circle-rate list prices land by.
+  roadWidthMeters      Decimal? @db.Decimal(6, 2)
 
   // --- Narrative / repeating sections, rendered straight into the template ---
   titleDeed      Json?
@@ -380,11 +386,69 @@ model ValuationReport {
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 
-  case     Case @relation(fields: [caseId], references: [id], onDelete: Cascade)
-  engineer User @relation(fields: [engineerId], references: [id])
+  case              Case              @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  engineer          User              @relation(fields: [engineerId], references: [id])
+  circleRateEntries CircleRateEntry[]
 
   @@index([status])
   @@index([engineerId])
+}
+
+/// One locality the circle-rate register is keyed on — a mohalla or revenue
+/// village under a given sub-registrar office ("tehsil" elsewhere in this
+/// schema). Identity only; the actual rates live on CircleRateEntry.
+model CircleRateArea {
+  id                 String   @id @default(cuid())
+  subRegistrarOffice String
+  mohalla            String
+  district           String?
+  /// Urban / Semi-Urban / Rural, as printed on the rate list. Free text since
+  /// it is descriptive only — no lookup keys off it.
+  areaClass          String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  entries CircleRateEntry[]
+
+  @@unique([subRegistrarOffice, mohalla])
+  @@index([subRegistrarOffice])
+}
+
+/// A circle rate observed for one area on one day, learned from a valuer's
+/// entry rather than bulk-imported from the printed register (OCR on a
+/// photocopied Devanagari table is not something to trust for a figure that
+/// drives a valuation). Submitting a valuation with a circle rate filled in
+/// writes one of these; later valuations in the same area are then offered it
+/// as a suggestion.
+model CircleRateEntry {
+  id     String         @id @default(cuid())
+  areaId String
+  area   CircleRateArea @relation(fields: [areaId], references: [id], onDelete: Cascade)
+
+  /// Truncated to the day it was recorded — one entry per area/category/band
+  /// per day; a same-day resave updates it rather than duplicating it.
+  effectiveFrom DateTime
+
+  /// "LAND" (road-width banded, M-Rate cols 4-6) or "CRM" (composite/built-unit
+  /// rate, cols 7-12). Kept as a plain string, not an enum: the printed
+  /// register's six commercial sub-categories are not modelled yet, and a
+  /// string lets that grow without a migration.
+  propertyCategory String
+  /// UPTO_9M / FROM_9_TO_18M / ABOVE_18M for the LAND category, or "NONE" for
+  /// anything else. Postgres treats NULL as distinct in a unique constraint,
+  /// which would defeat the one-entry-per-day intent below, so this is a
+  /// non-null sentinel rather than an optional column.
+  roadWidthBand    String @default("NONE")
+
+  rate Decimal @db.Decimal(15, 2)
+
+  sourceValuationId String?
+  sourceValuation   ValuationReport? @relation(fields: [sourceValuationId], references: [id], onDelete: SetNull)
+
+  createdAt DateTime @default(now())
+
+  @@unique([areaId, propertyCategory, roadWidthBand, effectiveFrom])
+  @@index([areaId])
 }
 
 /// Govt. construction rates keyed by tehsil, backing the workbook's

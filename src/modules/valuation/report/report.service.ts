@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ValuationMethod, ValuationResult } from 'types/valuation.types';
-import { ValuationRepository } from '../repositories/valuation.repository';
-import { areaFromDimensions, type SideDimensions } from '../engine/area.util';
 import { resolveUndividedShare } from '../engine/area-basis.util';
+import { areaFromDimensions, type SideDimensions } from '../engine/area.util';
+import { ValuationRepository } from '../repositories/valuation.repository';
 import { rupeesInWords } from './number-to-words.util';
 import { PdfService } from './pdf.service';
 
@@ -30,7 +30,10 @@ export class ReportService {
     if (!report) throw new NotFoundException('Valuation not found');
 
     const templateKey = await this.resolveTemplate(report.case?.institutionId);
-    const buffer = await this.pdfService.render(templateKey, this.toViewModel(report));
+    const buffer = await this.pdfService.render(
+      templateKey,
+      this.toViewModel(report),
+    );
 
     const owner = String(
       (report.titleDeed as Record<string, unknown>)?.ownerName ?? 'valuation',
@@ -71,7 +74,8 @@ export class ReportService {
       siteVisitDate: report.visitStartedAt ?? report.createdAt,
       valuationDate: report.computedAt ?? report.updatedAt,
       gpsCoordinates: this.formatGps(report),
-      documentsReceived: (report.siteVisit as Record<string, unknown>)?.documentsReceived,
+      documentsReceived: (report.siteVisit as Record<string, unknown>)
+        ?.documentsReceived,
       place: report.tehsil,
 
       plotAreaSqM: Number(report.plotAreaSqM ?? 0),
@@ -89,7 +93,8 @@ export class ReportService {
       tenure: report.tenure,
       // Only a leasehold property carries lease terms; the template omits the
       // block entirely otherwise, as the sheet does.
-      leaseDetails: report.tenure === 'Leasehold' ? (report.leaseDetails ?? {}) : null,
+      leaseDetails:
+        report.tenure === 'Leasehold' ? (report.leaseDetails ?? {}) : null,
       siteAddress: report.siteAddress ?? {},
       documentsReceivedText: report.documentsReceived,
       rooms: report.rooms ?? {},
@@ -164,7 +169,9 @@ export class ReportService {
    * specification with a column per floor (M-Rate 65-79).
    */
   private toFloorSpecRows(report: Record<string, any>) {
-    const floors = ((report.floors as any[]) ?? []).filter((f) => f?.coveredAreaSqM > 0);
+    const floors = ((report.floors as any[]) ?? []).filter(
+      (f) => f?.coveredAreaSqM > 0,
+    );
     if (!floors.length) return [];
 
     const labels: [string, string][] = [
@@ -198,7 +205,10 @@ export class ReportService {
     dimensions: unknown,
     column: 'asPerDocs' | 'asPerSite',
   ): SideDimensions | null {
-    const source = (dimensions ?? {}) as Record<string, Record<string, unknown>>;
+    const source = (dimensions ?? {}) as Record<
+      string,
+      Record<string, unknown>
+    >;
     const sides = DIRECTIONS.map((d) => Number(source[d]?.[column]) || 0);
     if (sides.some((v) => v <= 0)) return null;
 

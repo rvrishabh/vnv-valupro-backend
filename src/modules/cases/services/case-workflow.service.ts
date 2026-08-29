@@ -42,8 +42,25 @@ export class CaseWorkflowService {
     });
   }
 
-  /** Site engineer finishes the visit; the report is then prepared. */
-  completeSurvey(caseId: string, actorId: string, notes?: string) {
+  /**
+   * Site engineer finishes the visit; the report is then prepared.
+   *
+   * This records a milestone rather than moving the case on, so the status
+   * check that guards the other actions cannot catch a second attempt. The
+   * timestamp is checked instead — completing twice would overwrite when the
+   * visit actually ended and add a duplicate entry to the trail.
+   */
+  async completeSurvey(caseId: string, actorId: string, notes?: string) {
+    const current = await this.prisma.case.findUnique({
+      where: { id: caseId },
+      select: { surveyCompletedAt: true },
+    });
+    if (!current) throw new NotFoundException('Case not found');
+
+    if (current.surveyCompletedAt) {
+      throw new BadRequestException('The site visit has already been completed');
+    }
+
     return this.transition(caseId, 'IN_PROGRESS', actorId, {
       notes,
       action: 'SURVEY_COMPLETED',

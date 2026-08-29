@@ -23,6 +23,7 @@ import { areaBasisFor, resolveUndividedShare } from './engine/area-basis.util';
 import { resolveAreaOfSite } from './engine/area.util';
 import { ValuationCalculator } from './engine/valuation.calculator';
 import { ValuationRepository } from './repositories/valuation.repository';
+import { CircleRateService } from './services/circle-rate.service';
 import { ValuationRatesService } from './services/valuation-rates.service';
 
 const ENGINE_VERSION = '1.0.0';
@@ -49,6 +50,7 @@ export class ValuationService {
   constructor(
     private readonly valuationRepo: ValuationRepository,
     private readonly ratesService: ValuationRatesService,
+    private readonly circleRateService: CircleRateService,
     private readonly caseWorkflow: CaseWorkflowService,
     private readonly prisma: PrismaService,
   ) {}
@@ -130,6 +132,13 @@ export class ValuationService {
     });
 
     await this.caseWorkflow.sendToChecking(report.caseId, userId);
+
+    // Learn from this valuer's rate for next time, now that the report is
+    // final rather than mid-edit. Best-effort: a failure here must not block
+    // the submission the valuer is actually trying to make.
+    await this.circleRateService
+      .recordFromValuation(updated)
+      .catch(() => undefined);
 
     return updated;
   }
@@ -230,6 +239,8 @@ export class ValuationService {
     if (!report.plotAreaSqM) missing.push('plotAreaSqM');
     if (!report.adoptedRate) missing.push('land.adoptedRate');
     if (!report.tehsil) missing.push('tehsil');
+    if (!report.circleRateMohalla) missing.push('circleRateMohalla');
+    if (!report.roadWidthMeters) missing.push('roadWidthMeters');
     if (report.method !== 'PLOT' && !report.yearOfConstruction) {
       missing.push('building.yearOfConstruction');
     }

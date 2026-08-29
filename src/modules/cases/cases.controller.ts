@@ -18,7 +18,13 @@ import { Roles } from '../auth/decorators/roles.decorator';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { CasesService } from './cases.service';
-import { AssignCaseDto, CaseNoteDto, CreateCaseDto, FilterCaseDto } from './dto';
+import {
+  AssignCaseDto,
+  CaseNoteDto,
+  CreateCaseDto,
+  FilterCaseDto,
+  OptionalCaseNoteDto,
+} from './dto';
 import { CaseWorkflowService } from './services/case-workflow.service';
 
 interface AuthenticatedRequest {
@@ -102,7 +108,7 @@ export class CasesController {
   @Roles('SUPER_ADMIN', 'ADMIN', 'SITE_ENGINEER')
   completeSurvey(
     @Param('id', ParseUUIDPipe) id: string,
-    @Body() dto: CaseNoteDto,
+    @Body() dto: OptionalCaseNoteDto,
     @Req() req: AuthenticatedRequest,
   ) {
     return this.workflow.completeSurvey(id, req.user.id, dto.notes);

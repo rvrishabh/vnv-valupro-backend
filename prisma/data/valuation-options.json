@@ -1035,6 +1035,36 @@
     "sortOrder": 3
   },
   {
+    "group": "compoundWall",
+    "value": "4 ft high plastered painted wall",
+    "sortOrder": 0
+  },
+  {
+    "group": "compoundWall",
+    "value": "5 ft high plastered painted wall",
+    "sortOrder": 1
+  },
+  {
+    "group": "compoundWall",
+    "value": "5 ft high tiled brick wall",
+    "sortOrder": 2
+  },
+  {
+    "group": "compoundWall",
+    "value": "Common Compound wall of Complex",
+    "sortOrder": 3
+  },
+  {
+    "group": "compoundWall",
+    "value": "None",
+    "sortOrder": 4
+  },
+  {
+    "group": "compoundWall",
+    "value": "5 ft high unplastered wall",
+    "sortOrder": 5
+  },
+  {
     "group": "typeOfRoad",
     "value": "Bitumen Road",
     "sortOrder": 0
@@ -1398,6 +1428,81 @@
     "group": "interior",
     "value": "Vacant Plot",
     "sortOrder": 7
+  },
+  {
+    "group": "lifts",
+    "value": "Yes",
+    "sortOrder": 0
+  },
+  {
+    "group": "lifts",
+    "value": "No",
+    "sortOrder": 1
+  },
+  {
+    "group": "undergroundWaterTank",
+    "value": "Yes",
+    "sortOrder": 0
+  },
+  {
+    "group": "undergroundWaterTank",
+    "value": "No",
+    "sortOrder": 1
+  },
+  {
+    "group": "undergroundWaterTank",
+    "value": "None",
+    "sortOrder": 2
+  },
+  {
+    "group": "overheadTankCapacity",
+    "value": "2000 Lt",
+    "sortOrder": 0
+  },
+  {
+    "group": "overheadTankCapacity",
+    "value": "500 Lt",
+    "sortOrder": 1
+  },
+  {
+    "group": "overheadTankCapacity",
+    "value": "1000 Lt",
+    "sortOrder": 2
+  },
+  {
+    "group": "overheadTankCapacity",
+    "value": "500 Lt x 2 Nos.",
+    "sortOrder": 3
+  },
+  {
+    "group": "overheadTankCapacity",
+    "value": "700 Lt",
+    "sortOrder": 4
+  },
+  {
+    "group": "overheadTankType",
+    "value": "Plastic Tank",
+    "sortOrder": 0
+  },
+  {
+    "group": "overheadTankType",
+    "value": "Cement Tank",
+    "sortOrder": 1
+  },
+  {
+    "group": "overheadTankType",
+    "value": "RCC Tank",
+    "sortOrder": 2
+  },
+  {
+    "group": "overheadTankType",
+    "value": "N.A.",
+    "sortOrder": 3
+  },
+  {
+    "group": "overheadTankType",
+    "value": "None",
+    "sortOrder": 4
   },
   {
     "group": "floor.walls",

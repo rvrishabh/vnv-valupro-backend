@@ -21,12 +21,14 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import {
   AddValuationOptionDto,
+  CircleRateSuggestionQueryDto,
   CreateValuationDto,
   FilterValuationDto,
   ReviewValuationDto,
   UpsertValuationDto,
 } from './dto';
 import { ReportService } from './report/report.service';
+import { CircleRateService } from './services/circle-rate.service';
 import { ValuationRatesService } from './services/valuation-rates.service';
 import { ValuationService } from './valuation.service';
 
@@ -43,6 +45,7 @@ export class ValuationController {
     private readonly valuationService: ValuationService,
     private readonly reportService: ReportService,
     private readonly ratesService: ValuationRatesService,
+    private readonly circleRateService: CircleRateService,
   ) {}
 
   @Get('options')
@@ -60,6 +63,20 @@ export class ValuationController {
   @Roles('SUPER_ADMIN', 'ADMIN', 'SITE_ENGINEER', 'CHECKER')
   addOption(@Body() dto: AddValuationOptionDto) {
     return this.ratesService.addOption(dto.group, dto.value);
+  }
+
+  @Get('circle-rate-suggestion')
+  @ApiOperation({
+    summary: 'Last circle rate recorded for this area, if any valuer has entered one',
+  })
+  @Roles('SUPER_ADMIN', 'ADMIN', 'SITE_ENGINEER', 'CHECKER', 'BANK_MANAGER')
+  getCircleRateSuggestion(@Query() query: CircleRateSuggestionQueryDto) {
+    return this.circleRateService.suggest(
+      query.tehsil,
+      query.mohalla,
+      query.roadWidthMeters,
+      query.method,
+    );
   }
 
   @Post()

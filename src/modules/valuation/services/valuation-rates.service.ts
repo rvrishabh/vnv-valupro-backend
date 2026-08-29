@@ -49,6 +49,7 @@ export class ValuationRatesService {
     'cityTownVillage',
     'bank',
     'approvingAuthority',
+    'circleRateMohalla',
   ]);
 
   /**

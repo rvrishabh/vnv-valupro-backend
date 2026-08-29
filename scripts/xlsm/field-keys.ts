@@ -32,6 +32,11 @@ export const FIELD_KEYS: Record<string, Record<string, string>> = {
   'M-Rate': {
     C4: 'typeOfConstruction',
     C5: 'foundation',
+    C6: 'compoundWall',
+    C7: 'lifts',
+    C8: 'undergroundWaterTank',
+    C10: 'overheadTankCapacity',
+    C11: 'overheadTankType',
     C12: 'qualityOfConstruction',
     C13: 'stageOfConstruction',
     C16: 'roofingTerracing',

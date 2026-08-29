@@ -224,6 +224,23 @@ export class UpsertValuationDto {
   @IsString()
   gpsCoordinates?: string;
 
+  @ApiPropertyOptional({
+    description: 'Local body / mohalla the circle-rate register is keyed on',
+    example: 'Arjun Nagar',
+  })
+  @IsOptional()
+  @IsString()
+  circleRateMohalla?: string;
+
+  @ApiPropertyOptional({
+    description: 'Road width in metres — picks the <=9m / 9-18m / >18m circle-rate band',
+    example: 12,
+  })
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  roadWidthMeters?: number;
+
   @ApiPropertyOptional({ description: 'M-Doc!C115:C118 — room counts' })
   @IsOptional()
   @IsObject()
@@ -310,4 +327,26 @@ export class AddValuationOptionDto {
   @IsString()
   @IsNotEmpty()
   value: string;
+}
+
+export class CircleRateSuggestionQueryDto {
+  @ApiProperty({ description: 'Tehsil / sub-registrar office' })
+  @IsString()
+  @IsNotEmpty()
+  tehsil: string;
+
+  @ApiProperty({ description: 'Local body / mohalla' })
+  @IsString()
+  @IsNotEmpty()
+  mohalla: string;
+
+  @ApiProperty({ example: 12 })
+  @Type(() => Number)
+  @IsNumber()
+  @Min(0)
+  roadWidthMeters: number;
+
+  @ApiProperty({ enum: ['LAND_AND_BUILDING', 'CRM', 'PLOT'] })
+  @IsEnum({ LAND_AND_BUILDING: 'LAND_AND_BUILDING', CRM: 'CRM', PLOT: 'PLOT' })
+  method: 'LAND_AND_BUILDING' | 'CRM' | 'PLOT';
 }

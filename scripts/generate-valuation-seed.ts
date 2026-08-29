@@ -79,7 +79,11 @@ function options(archive: string, sheets: Sheet[]) {
       );
       if (!keys.length) continue;
 
-      const resolved = resolveRange(source.replace(/&amp;/g, '&'), cellsBySheet);
+      const firstCell = sqref.trim().split(/\s+/)[0].split(':')[0];
+      const declared = source.replace(/&amp;/g, '&');
+      const effective = RANGE_OVERRIDES[`${sheetName}!${firstCell}`] ?? declared;
+
+      const resolved = resolveRange(effective, cellsBySheet);
       if (!resolved?.options.length) continue;
 
       for (const key of keys) {
@@ -140,6 +144,18 @@ function indexToCol(index: number): string {
   }
   return out;
 }
+
+/**
+ * Validation ranges the workbook itself declares too wide.
+ *
+ * M-Rate!C6 points at Lists!D96:D106, but the compound-wall values stop at
+ * D101 — D104 onwards is the unrelated "Type of road" list sharing the column.
+ * Extracting the declared range would offer "Bitumen Road" as a compound wall,
+ * so the range is narrowed to what the column actually holds.
+ */
+const RANGE_OVERRIDES: Record<string, string> = {
+  'M-Rate!C6': 'Lists!$D$96:$D$101',
+};
 
 function sheetEntryMap(archive: string): Map<string, string> {
   const rels = new Map<string, string>();

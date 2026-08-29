@@ -78,9 +78,22 @@ export class AssignCaseDto {
   notes?: string;
 }
 
+/** A note that carries the action — a query with no text says nothing. */
 export class CaseNoteDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
   notes: string;
+}
+
+/**
+ * A note attached to an action that stands on its own. Completing a site visit
+ * is the event being recorded; the remark about it is optional, which is how
+ * the form presents it and how the workflow service accepts it.
+ */
+export class OptionalCaseNoteDto {
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsString()
+  notes?: string;
 }

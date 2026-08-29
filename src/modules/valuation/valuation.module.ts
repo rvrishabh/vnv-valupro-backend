@@ -2,6 +2,7 @@ import { Module, forwardRef } from '@nestjs/common';
 import { AuthModule } from '../auth/auth.module';
 import { CasesModule } from '../cases/cases.module';
 import { ValuationRepository } from './repositories/valuation.repository';
+import { CircleRateService } from './services/circle-rate.service';
 import { PdfService } from './report/pdf.service';
 import { ReportService } from './report/report.service';
 import { ValuationRatesService } from './services/valuation-rates.service';
@@ -15,6 +16,7 @@ import { ValuationService } from './valuation.service';
     ValuationService,
     ValuationRepository,
     ValuationRatesService,
+    CircleRateService,
     ReportService,
     PdfService,
   ],
