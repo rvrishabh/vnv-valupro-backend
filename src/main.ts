@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import fastifyCookie from '@fastify/cookie';
-import { Logger, ValidationPipe } from '@nestjs/common';
+import { Logger, RequestMethod, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import {
   FastifyAdapter,
@@ -20,7 +20,9 @@ async function bootstrap() {
   await app.register(fastifyCookie);
 
   // ─── Global prefix ────────────────────────────────
-  app.setGlobalPrefix('api/v1');
+  app.setGlobalPrefix('api/v1', {
+    exclude: [{ path: '/', method: RequestMethod.GET }],
+  });
 
   // ─── Validation ───────────────────────────────────
   app.useGlobalPipes(

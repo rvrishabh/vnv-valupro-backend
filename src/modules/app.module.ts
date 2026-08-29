@@ -11,6 +11,7 @@ import { UserModule } from './user/user.module';
 import { ValuationEstimateModule } from './valuation-estimate/valuation-estimate.module';
 import { ValuationModule } from './valuation/valuation.module';
 import { CasesModule } from './cases/cases.module';
+import { HealthController } from './health/health.controller';
 
 @Module({
   imports: [
@@ -27,7 +28,7 @@ import { CasesModule } from './cases/cases.module';
     ValuationModule,
     CasesModule,
   ],
-  controllers: [],
+  controllers: [HealthController],
   providers: [],
 })
 export class AppModule {}
