@@ -4,6 +4,7 @@ import {
   ExceptionFilter,
   HttpException,
   HttpStatus,
+  Logger,
 } from '@nestjs/common';
 export interface ApiErrorResponse {
   success: false;
@@ -13,7 +14,15 @@ export interface ApiErrorResponse {
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
+  private readonly logger = new Logger(HttpExceptionFilter.name);
+
   catch(exception: unknown, host: ArgumentsHost): void {
+    if (!(exception instanceof HttpException)) {
+      this.logger.error(
+        exception instanceof Error ? exception.stack : exception,
+      );
+    }
+
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<{
       status: (code: number) => { send: (body: ApiErrorResponse) => void };
