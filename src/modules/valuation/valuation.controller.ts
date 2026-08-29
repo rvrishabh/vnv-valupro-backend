@@ -67,7 +67,8 @@ export class ValuationController {
 
   @Get('circle-rate-suggestion')
   @ApiOperation({
-    summary: 'Last circle rate recorded for this area, if any valuer has entered one',
+    summary:
+      'Last circle rate recorded for this area, if any valuer has entered one',
   })
   @Roles('SUPER_ADMIN', 'ADMIN', 'SITE_ENGINEER', 'CHECKER', 'BANK_MANAGER')
   getCircleRateSuggestion(@Query() query: CircleRateSuggestionQueryDto) {
