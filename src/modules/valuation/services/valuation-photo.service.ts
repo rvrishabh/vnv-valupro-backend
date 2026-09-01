@@ -1,11 +1,17 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { randomUUID } from 'crypto';
 import type { Sharp } from 'sharp';
+import { R2Service } from 'src/common/services/r2.service';
+import { PrismaService } from 'src/prisma/prisma.service';
 // sharp 0.35's dual ESM/CJS package.json confuses this project's legacy
 // module resolution into typing the CJS require as a non-callable
 // namespace; asserting the require'd value's type sidesteps that entirely.
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const sharp = require('sharp') as (input?: Buffer) => Sharp;
-import { PrismaService } from 'src/prisma/prisma.service';
 
 export type PhotoSection = 'SITE_VISIT' | 'GOOGLE_EARTH';
 
@@ -42,17 +48,22 @@ export interface ReportPhoto {
 /**
  * Site-visit and Google Earth photos for the photograph annexure.
  *
- * No S3/R2 credentials are configured for this deployment, so images are
- * compressed and stored as bytes in Postgres rather than object storage —
- * fine at the volumes here (a few dozen photos per valuation). Every read
- * path goes through this service, so moving the bytes to R2 later only means
- * changing what is inside these methods, not their callers.
+ * Images are compressed here and stored as objects in Cloudflare R2; only
+ * the resulting URL/key and metadata live in Postgres. Every read path goes
+ * through this service.
  */
 @Injectable()
 export class ValuationPhotoService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly r2: R2Service,
+  ) {}
 
-  async upload(valuationId: string, section: PhotoSection, files: UploadedFile[]) {
+  async upload(
+    valuationId: string,
+    section: PhotoSection,
+    files: UploadedFile[],
+  ) {
     if (!files.length) {
       throw new BadRequestException('No files were uploaded');
     }
@@ -88,7 +99,8 @@ export class ValuationPhotoService {
       }
     }
 
-    const startOrder = section === 'GOOGLE_EARTH' ? 0 : await this.nextSortOrder(valuationId);
+    const startOrder =
+      section === 'GOOGLE_EARTH' ? 0 : await this.nextSortOrder(valuationId);
 
     const created = [];
     for (const [index, file] of files.entries()) {
@@ -98,17 +110,28 @@ export class ValuationPhotoService {
       // orientation tag — otherwise a portrait phone photo can land sideways.
       const { data: compressed, info } = await sharp(file.buffer)
         .rotate()
-        .resize({ width: 2000, height: 2000, fit: 'inside', withoutEnlargement: true })
+        .resize({
+          width: 2000,
+          height: 2000,
+          fit: 'inside',
+          withoutEnlargement: true,
+        })
         .jpeg({ quality: 80 })
         .toBuffer({ resolveWithObject: true });
+
+      const id = randomUUID();
+      const key = `valuations/${valuationId}/${id}.jpg`;
+      const url = await this.r2.upload(key, compressed, 'image/jpeg');
 
       created.push(
         await this.prisma.valuationPhoto.create({
           data: {
+            id,
             valuationId,
             section,
             sortOrder: startOrder + index,
-            data: compressed,
+            key,
+            url,
             mimeType: 'image/jpeg',
             fileSize: compressed.length,
             width: info.width,
@@ -158,9 +181,10 @@ export class ValuationPhotoService {
     });
     if (!photo) throw new NotFoundException('Photo not found');
     await this.prisma.valuationPhoto.delete({ where: { id: photoId } });
+    await this.r2.delete(photo.key);
   }
 
-  /** Data URIs for embedding straight into the annexure's HTML — no separate asset requests for Puppeteer to make. */
+  /** Public R2 URLs for embedding into the annexure's HTML. */
   async getPhotosForReport(
     valuationId: string,
   ): Promise<{ siteVisit: ReportPhoto[]; googleEarth: string | null }> {
@@ -169,24 +193,22 @@ export class ValuationPhotoService {
       orderBy: [{ section: 'asc' }, { sortOrder: 'asc' }],
     });
 
-    // The Neon driver adapter returns Bytes columns as Uint8Array rather than
-    // a Node Buffer, which has no `toString('base64')` overload — wrap it.
-    const toDataUri = (row: (typeof rows)[number]) =>
-      `data:${row.mimeType};base64,${Buffer.from(row.data).toString('base64')}`;
-
     const googleEarth = rows.find((r) => r.section === 'GOOGLE_EARTH');
 
     return {
       siteVisit: rows
         .filter((r) => r.section === 'SITE_VISIT')
         .map((row) => ({
-          url: toDataUri(row),
+          url: row.url,
           // Missing only for photos uploaded before dimensions were captured;
           // 0.75 (a typical portrait phone photo) is a safe fallback since it
           // just affects that one photo's row width, not whether it renders.
-          aspect: row.width != null && row.height != null ? row.width / row.height : 0.75,
+          aspect:
+            row.width != null && row.height != null
+              ? row.width / row.height
+              : 0.75,
         })),
-      googleEarth: googleEarth ? toDataUri(googleEarth) : null,
+      googleEarth: googleEarth ? googleEarth.url : null,
     };
   }
 

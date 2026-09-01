@@ -30,6 +30,16 @@ export class FloorDto {
   @Min(0)
   coveredAreaSqM: number;
 
+  @ApiPropertyOptional({
+    example: 250,
+    minimum: 0,
+    description: 'M-Rate!D49 — the area measured on site, before any considered-basis adjustment',
+  })
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  actualAreaSqM?: number;
+
   @ApiProperty({ example: 9500, minimum: 0 })
   @IsNumber()
   @Min(0)

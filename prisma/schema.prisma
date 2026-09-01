@@ -397,11 +397,8 @@ model ValuationReport {
 
 /// A site-visit or Google Earth photo for the photograph annexure page.
 ///
-/// Stored as raw bytes in Postgres rather than object storage: no S3/R2
-/// credentials are configured for this deployment yet, and the volumes here
-/// (a few dozen compressed JPEGs per valuation) are small enough that bytea
-/// is a reasonable place to start. Move this to R2 later without changing the
-/// API — swap what `data` is read from, keep everything above it the same.
+/// Stored in Cloudflare R2 (S3-compatible object storage) — `key` is the R2
+/// object key, `url` is the public URL derived from it at upload time.
 model ValuationPhoto {
   id          String          @id @default(cuid())
   valuationId String
@@ -414,7 +411,10 @@ model ValuationPhoto {
   /// Position within its section; SITE_VISIT photos render in this order.
   sortOrder Int    @default(0)
 
-  data     Bytes
+  /// R2 object key, e.g. "valuations/<valuationId>/<photoId>.jpg" — needed to
+  /// delete the object from the bucket independently of the public URL.
+  key      String
+  url      String
   mimeType String
   fileSize Int
   /// Dimensions after the upload-time resize — the annexure layout needs

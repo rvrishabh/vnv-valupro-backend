@@ -32,6 +32,8 @@ export interface FloorInput {
   /** "Ground Floor", "I Floor", ... — order matters, index 0 is the ground floor. */
   name: string;
   coveredAreaSqM: number;
+  /** M-Rate!D49 — the area measured on site, before any considered-basis adjustment. Reference only; not used in any calculation. */
+  actualAreaSqM?: number;
   /**
    * M-Rate!C82:E82 — floors are often built years apart, so each carries its
    * own year and depreciates on its own age. Falls back to the building-level
