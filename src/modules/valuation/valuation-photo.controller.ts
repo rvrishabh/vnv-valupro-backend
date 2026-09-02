@@ -112,24 +112,6 @@ export class ValuationPhotoController {
       .send(buffer);
   }
 
-  @Get(':photoId/file')
-  @ApiOperation({ summary: 'Stream one photo — for <img src> and previews' })
-  @Roles('SUPER_ADMIN', 'ADMIN', 'SITE_ENGINEER', 'CHECKER', 'BANK_MANAGER')
-  async getFile(
-    @Param('id', ParseUUIDPipe) id: string,
-    @Param('photoId') photoId: string,
-    @Req() req: AuthenticatedRequest,
-    @Res() reply: FastifyReply,
-  ) {
-    await this.valuationService.assertAccess(
-      id,
-      req.user.id,
-      req.user.roleName,
-    );
-    const photo = await this.photoService.getFile(id, photoId);
-    return reply.redirect(photo.url, HttpStatus.FOUND);
-  }
-
   @Delete(':photoId')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Remove one photo' })

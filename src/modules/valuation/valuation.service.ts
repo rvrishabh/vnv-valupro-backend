@@ -222,10 +222,16 @@ export class ValuationService {
   }
 
   /** Same rule as `update()` — an approved valuation's photos are final too. */
-  async assertEditable(id: string, userId: string, role: string): Promise<void> {
+  async assertEditable(
+    id: string,
+    userId: string,
+    role: string,
+  ): Promise<void> {
     const report = await this.getOwned(id, userId, role);
     if (report.status === 'APPROVED') {
-      throw new BadRequestException('An approved valuation can no longer be edited');
+      throw new BadRequestException(
+        'An approved valuation can no longer be edited',
+      );
     }
   }
 

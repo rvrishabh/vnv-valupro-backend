@@ -163,16 +163,11 @@ export class ValuationPhotoService {
         mimeType: true,
         fileSize: true,
         createdAt: true,
+        // R2 objects are public, so the frontend can put this straight in an
+        // <img src> — no auth-gated proxy needed for the bytes themselves.
+        url: true,
       },
     });
-  }
-
-  async getFile(valuationId: string, photoId: string) {
-    const photo = await this.prisma.valuationPhoto.findFirst({
-      where: { id: photoId, valuationId },
-    });
-    if (!photo) throw new NotFoundException('Photo not found');
-    return photo;
   }
 
   async remove(valuationId: string, photoId: string): Promise<void> {
@@ -180,8 +175,18 @@ export class ValuationPhotoService {
       where: { id: photoId, valuationId },
     });
     if (!photo) throw new NotFoundException('Photo not found');
+    // R2 first: if that throws, the row stays put and the delete is safe to
+    // retry. Deleting the row first would "succeed" from the user's side —
+    // the photo vanishes from the list — while quietly orphaning the R2
+    // object every time R2 itself is unreachable or rejects the request.
+    try {
+      await this.r2.delete(photo.key);
+    } catch (err) {
+      throw new BadRequestException(
+        `Failed to delete photo from R2: ${err instanceof Error ? err.message : String(err)}`,
+      );
+    }
     await this.prisma.valuationPhoto.delete({ where: { id: photoId } });
-    await this.r2.delete(photo.key);
   }
 
   /** Public R2 URLs for embedding into the annexure's HTML. */
