@@ -13,7 +13,19 @@ import { PrismaService } from 'src/prisma/prisma.service';
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const sharp = require('sharp') as (input?: Buffer) => Sharp;
 
-export type PhotoSection = 'SITE_VISIT' | 'GOOGLE_EARTH';
+export type PhotoSection = 'SITE_VISIT' | 'GOOGLE_EARTH' | 'CIRCLE_RATE';
+
+/**
+ * Sections that hold exactly one image, where uploading replaces whatever was
+ * there: the aerial location plan on the annexure page, and the photographed
+ * page of the government circle-rate register that closes the report. Both are
+ * a single scan of a single thing, so a second upload is always a correction
+ * rather than an addition.
+ */
+const SINGLE_IMAGE_SECTIONS = new Set<PhotoSection>([
+  'GOOGLE_EARTH',
+  'CIRCLE_RATE',
+]);
 
 /**
  * The annexure always resolves to exactly two rows (columns = ceil(count/2)),
@@ -77,15 +89,17 @@ export class ValuationPhotoService {
       }
     }
 
-    if (section === 'GOOGLE_EARTH') {
+    if (SINGLE_IMAGE_SECTIONS.has(section)) {
       if (files.length > 1) {
         throw new BadRequestException(
-          'Only one Google Earth image is shown — upload a single screenshot',
+          section === 'GOOGLE_EARTH'
+            ? 'Only one Google Earth image is shown — upload a single screenshot'
+            : 'Only one circle-rate image is shown — upload a single scan',
         );
       }
-      // The annexure has one aerial-plan slot; a new upload replaces it.
+      // One slot per section; a new upload replaces what is there.
       await this.prisma.valuationPhoto.deleteMany({
-        where: { valuationId, section: 'GOOGLE_EARTH' },
+        where: { valuationId, section },
       });
     } else {
       const existing = await this.prisma.valuationPhoto.count({
@@ -99,8 +113,9 @@ export class ValuationPhotoService {
       }
     }
 
-    const startOrder =
-      section === 'GOOGLE_EARTH' ? 0 : await this.nextSortOrder(valuationId);
+    const startOrder = SINGLE_IMAGE_SECTIONS.has(section)
+      ? 0
+      : await this.nextSortOrder(valuationId);
 
     const created = [];
     for (const [index, file] of files.entries()) {
@@ -144,6 +159,7 @@ export class ValuationPhotoService {
             mimeType: true,
             fileSize: true,
             createdAt: true,
+            url: true,
           },
         }),
       );
@@ -189,31 +205,51 @@ export class ValuationPhotoService {
     await this.prisma.valuationPhoto.delete({ where: { id: photoId } });
   }
 
-  /** Public R2 URLs for embedding into the annexure's HTML. */
-  async getPhotosForReport(
-    valuationId: string,
-  ): Promise<{ siteVisit: ReportPhoto[]; googleEarth: string | null }> {
+  /**
+   * Public R2 URLs for embedding into the report's HTML, each with its aspect
+   * ratio — the report sizes every image box to the picture inside it rather
+   * than to a fixed rectangle, so nothing is cropped or letterboxed.
+   */
+  async getPhotosForReport(valuationId: string): Promise<{
+    siteVisit: ReportPhoto[];
+    googleEarth: ReportPhoto | null;
+    circleRate: ReportPhoto | null;
+  }> {
     const rows = await this.prisma.valuationPhoto.findMany({
       where: { valuationId },
       orderBy: [{ section: 'asc' }, { sortOrder: 'asc' }],
     });
 
-    const googleEarth = rows.find((r) => r.section === 'GOOGLE_EARTH');
+    // Missing dimensions only for photos uploaded before they were captured.
+    // The fallbacks are per-section defaults that keep the layout sane rather
+    // than correct: a portrait phone photo for a site visit, a landscape map
+    // for the aerial plan, a portrait page scan for the rate register.
+    const toPhoto = (
+      row: (typeof rows)[number] | undefined,
+      fallbackAspect: number,
+    ): ReportPhoto | null =>
+      row
+        ? {
+            url: row.url,
+            aspect:
+              row.width != null && row.height != null
+                ? row.width / row.height
+                : fallbackAspect,
+          }
+        : null;
 
     return {
       siteVisit: rows
         .filter((r) => r.section === 'SITE_VISIT')
-        .map((row) => ({
-          url: row.url,
-          // Missing only for photos uploaded before dimensions were captured;
-          // 0.75 (a typical portrait phone photo) is a safe fallback since it
-          // just affects that one photo's row width, not whether it renders.
-          aspect:
-            row.width != null && row.height != null
-              ? row.width / row.height
-              : 0.75,
-        })),
-      googleEarth: googleEarth ? googleEarth.url : null,
+        .map((row) => toPhoto(row, 0.75)!),
+      googleEarth: toPhoto(
+        rows.find((r) => r.section === 'GOOGLE_EARTH'),
+        1.5,
+      ),
+      circleRate: toPhoto(
+        rows.find((r) => r.section === 'CIRCLE_RATE'),
+        0.75,
+      ),
     };
   }
 

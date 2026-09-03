@@ -14,12 +14,16 @@ export type PlotPosition =
 export type RoofType = 'RCC' | 'RBC' | 'Girder Stone' | 'Tin Shed' | 'Kachcha';
 
 export interface FloorSpecs {
+  /** Printed as the first row of the report's floorwise specification table. */
+  superstructure?: string;
   walls?: string;
   partitions?: string;
   doors?: string;
   windows?: string;
   flooring?: string;
+  specialFinish?: string;
   finishing?: string;
+  drainage?: string;
   ceiling?: string;
   roofingTerracing?: string;
   wiring?: string;

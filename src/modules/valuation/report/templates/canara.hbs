@@ -1,276 +1,700 @@
+{{!--
+  The body of the valuation report — everything after the covering letter and
+  the photograph annexure, printed as one document so Chrome can number its
+  pages and repeat the slim header/footer across them.
+
+  Section order and clause numbering follow the reference report the firm
+  issues today (I. General, II. Characteristics of Site, the Valuation and
+  Certificate, Format-E, then Annexure-01 with Parts A-G and the circle-rate
+  extract), so a bank reading it side by side with an older report finds the
+  same clause under the same number.
+--}}
+{{> report-styles}}
 <style>
-  * { box-sizing: border-box; }
-  body {
-    font-family: "Times New Roman", Georgia, serif;
-    font-size: 10.5px; color: #111; margin: 0; line-height: 1.45;
+  .title-block {
+    margin-bottom: 4mm;
+    padding-bottom: 2.5mm;
+    border-bottom: 1.6pt solid var(--navy);
   }
-  h1 { font-size: 15px; text-align: center; margin: 0 0 2px; letter-spacing: .3px; }
-  .firm { text-align: center; font-size: 11px; font-weight: bold; }
-  .sub  { text-align: center; font-size: 9px; color: #444; margin-bottom: 8px; }
-  h2 {
-    font-size: 11px; margin: 14px 0 4px; padding: 3px 6px;
-    background: #1f3864; color: #fff; text-transform: uppercase; letter-spacing: .4px;
+  .title-block h1 {
+    margin: 0 0 1mm;
+    color: var(--navy);
+    font-size: 14pt;
+    font-weight: 700;
+    letter-spacing: .6px;
+    text-transform: uppercase;
   }
-  table { width: 100%; border-collapse: collapse; margin-bottom: 6px; }
-  th, td { border: 1px solid #999; padding: 3px 5px; vertical-align: top; }
-  th { background: #eef1f7; text-align: left; font-weight: bold; }
-  td.label { width: 42%; background: #fafafa; }
-  td.num { text-align: right; font-variant-numeric: tabular-nums; }
-  .total td { font-weight: bold; background: #eef1f7; }
-  .grand td { font-weight: bold; background: #1f3864; color: #fff; font-size: 11.5px; }
-  .words { font-style: italic; padding: 5px 6px; border: 1px solid #999; background: #fafafa; }
-  .note { font-size: 9px; color: #444; margin-top: 3px; }
-  .page-break { page-break-before: always; }
+  .title-block .valuer {
+    display: flex;
+    justify-content: space-between;
+    gap: 6mm;
+    font-size: 9pt;
+    color: var(--muted);
+  }
+  .title-block .valuer b { color: var(--navy); }
+
+  h2.part {
+    margin: 6mm 0 2mm;
+    padding-bottom: 1.2mm;
+    border-bottom: 1pt solid var(--gold);
+    color: var(--navy);
+    font-size: 11pt;
+    font-weight: 700;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  /* The clause tables carry their own numbering gutter, so the generic
+     label column is narrower here than the shared default. */
+  table.clauses td.label { width: 42%; }
 </style>
 
-<div class="firm">V.N.V. ENGINEERS</div>
-<div class="sub">Approved Valuers &amp; Chartered Engineers</div>
-<h1>VALUATION REPORT — {{institution.name}}</h1>
-<div class="sub">
-  {{#if branch.branchName}}{{branch.branchName}} Branch · {{/if}}Report No. {{or reportNo "—"}}
+<div class="title-block">
+  <h1>Valuation Report</h1>
+  <div class="valuer">
+    <span>Registered Valuer: <b>{{valuer.name}}</b></span>
+    <span>Registration No.: <b>{{valuer.registrationNo}}</b></span>
+    <span>Report No.: <b>{{or reportNo "—"}}</b></span>
+  </div>
 </div>
 
-<h2>1. Introduction</h2>
-<table>
-  <tr><td class="label">Purpose of valuation</td><td>Bank loan / security assessment</td></tr>
-  <tr><td class="label">Method of valuation adopted</td><td>{{methodLabel}}</td></tr>
-  <tr><td class="label">Date of site inspection</td><td>{{date siteVisitDate}}</td></tr>
-  <tr><td class="label">Date of valuation</td><td>{{date valuationDate}}</td></tr>
-  <tr><td class="label">Property inspected by</td><td>{{or engineer.name "—"}}</td></tr>
-  <tr><td class="label">Documents produced</td>
-      <td>{{or documentsReceivedText "Title Deed, Sale Deed &amp; Legal Report"}}</td></tr>
-  <tr><td class="label">GPS co-ordinates</td><td>{{or gpsCoordinates "N.A."}}</td></tr>
-  <tr><td class="label">Type of property</td><td>{{or propertyType "N.A."}}</td></tr>
-  <tr><td class="label">Advance received</td><td class="num">₹ {{inr advanceReceived}}</td></tr>
-</table>
-
-<h2>2. Ownership &amp; Title</h2>
-<table>
-  <tr><td class="label">Name of the owner(s)</td><td>{{or titleDeed.ownerName "N.A."}}</td></tr>
-  <tr><td class="label">Type of ownership</td><td>{{or titleDeed.ownershipType "N.A."}}</td></tr>
-  <tr><td class="label">Address as per deed</td><td>{{or titleDeed.addressAsPerDeed "N.A."}}</td></tr>
-  <tr><td class="label">Title deed no. / Bahi / Jild</td>
-      <td>{{or titleDeed.deedNo "—"}} / {{or titleDeed.bahiNo "—"}} / {{or titleDeed.jildNo "—"}}</td></tr>
-  <tr><td class="label">Date of purchase as per deed</td><td>{{date titleDeed.purchaseDate}}</td></tr>
-  <tr><td class="label">Purchase price as per deed</td><td class="num">₹ {{inr titleDeed.purchasePrice}}</td></tr>
-  <tr><td class="label">Assets sold as per title deed</td><td>{{or assetsSoldAsPerDeed "N.A."}}</td></tr>
-  <tr><td class="label">Leasehold / Freehold</td><td>{{or tenure "Freehold"}}</td></tr>
-</table>
-
-{{#if leaseDetails}}
-<h2>2a. Lease Particulars</h2>
-<table>
-  <tr><td class="label">Lessor</td><td>{{or leaseDetails.lessor "N.A."}}</td></tr>
-  <tr><td class="label">Lessee</td><td>{{or leaseDetails.lessee "N.A."}}</td></tr>
-  <tr><td class="label">Date of commencement</td><td>{{or leaseDetails.dateOfCommencement "N.A."}}</td></tr>
-  <tr><td class="label">Period of lease</td><td>{{or leaseDetails.periodOfLease "N.A."}}</td></tr>
-  <tr><td class="label">Initial premium</td><td>{{or leaseDetails.initialPremium "N.A."}}</td></tr>
-  <tr><td class="label">Ground rent payable p.a.</td><td>{{or leaseDetails.groundRent "N.A."}}</td></tr>
-  <tr><td class="label">Agreements of easement</td>
-      <td>{{or leaseDetails.easementAgreements "N.A."}}</td></tr>
-</table>
-{{/if}}
-
-<h2>2b. Address as per Site Visit</h2>
-<table>
-  <tr><td class="label">Property Number / Flat No.</td><td>{{or siteAddress.propertyNumber "N.A."}}</td></tr>
-  <tr><td class="label">Municipal No.</td><td>{{or siteAddress.municipalNo "N.A."}}</td></tr>
-  <tr><td class="label">Sub-street / Apartment building</td><td>{{or siteAddress.subStreet "N.A."}}</td></tr>
-  <tr><td class="label">Colony / Locality</td><td>{{or siteAddress.colony "N.A."}}</td></tr>
-  <tr><td class="label">Main connecting road</td><td>{{or siteAddress.mainConnectingRoad "N.A."}}</td></tr>
-  <tr><td class="label">City / Village / Town</td><td>{{or siteAddress.cityVillageTown "N.A."}}</td></tr>
-  <tr><td class="label">Land mark</td><td>{{or siteAddress.landmark "N.A."}}</td></tr>
-  <tr><td class="label">Tehsil for circle rates</td><td>{{or siteAddress.tehsilForCircleRates "N.A."}}</td></tr>
-  <tr><td class="label">District</td><td>{{or siteAddress.district "N.A."}}</td></tr>
-  <tr><td class="label">Ward / Tehsil for registration</td>
+{{!-- ===================== I. GENERAL ===================== --}}
+<h2 class="part">I &nbsp; General</h2>
+<table class="clauses">
+  <tr><td class="sn">1</td><td class="label">Purpose for which the valuation is made</td>
+      <td>To assess the fair market value of the property</td></tr>
+  <tr><td class="sn">2 a.</td><td class="label">Date of inspection</td>
+      <td>{{dateLong siteVisitDate}}</td></tr>
+  <tr><td class="sn">b.</td><td class="label">Date of making the valuation</td>
+      <td>{{dateLong valuationDate}}</td></tr>
+  <tr><td class="sn">3 a.</td><td class="label">List of documents produced</td>
+      <td>{{or documentsReceivedText "Title Deed, LSR &amp; Building Plan"}}</td></tr>
+  <tr><td class="sn">b.</td>
+      <td class="label">Survey no. and Registrar Office wherein the title deeds are registered</td>
+      <td>Bahi No. {{or titleDeed.bahiNo "—"}}, Jild No. {{or titleDeed.jildNo "—"}},
+          Serial No. {{or titleDeed.deedNo "—"}}{{#if titleDeed.purchaseDate}},
+          dated {{date titleDeed.purchaseDate}}{{/if}}</td></tr>
+  <tr><td class="sn">4 a.</td><td class="label">Name of the owner/s</td>
+      <td><strong>{{or titleDeed.ownerName "N.A."}}</strong></td></tr>
+  <tr><td class="sn">b.</td><td class="label">Contact person</td>
+      <td>{{or titleDeed.contactPerson "N.A."}}</td></tr>
+  <tr><td class="sn">c.</td><td class="label">Phone no.</td>
+      <td>{{or titleDeed.contactPhone "N.A."}}</td></tr>
+  <tr><td class="sn">d.</td>
+      <td class="label">If the property is under joint ownership / co-ownership, share of each
+          such owner. Are the shares undivided?</td>
+      <td>{{or titleDeed.ownershipType "N.A."}}{{#if titleDeed.sharesDivided}} —
+          {{titleDeed.sharesDivided}}{{/if}}</td></tr>
+  <tr><td class="sn">e.</td><td class="label">Is the property Freehold or Leasehold</td>
+      <td>{{or tenure "Freehold"}}</td></tr>
+  <tr><td class="sn">f.</td>
+      <td class="label">If leasehold, name of lessee &amp; lessor, date of commencement and
+          period of lease</td>
+      <td>
+        {{#if leaseDetails}}
+          Lessor: {{or leaseDetails.lessor "N.A."}}; Lessee: {{or leaseDetails.lessee "N.A."}};
+          Commencing {{or leaseDetails.dateOfCommencement "N.A."}};
+          Period {{or leaseDetails.periodOfLease "N.A."}};
+          Ground rent p.a. {{or leaseDetails.groundRent "N.A."}}
+        {{else}}N.A.{{/if}}
+      </td></tr>
+  <tr><td class="sn">5</td><td class="label">Brief description of the property</td>
+      <td>{{or briefDescription "N.A."}}</td></tr>
+  <tr><td class="sn">6</td><td class="label">Location of property — Property number / Flat no.</td>
+      <td>{{or siteAddress.propertyNumber "N.A."}}</td></tr>
+  <tr><td class="sn"></td><td class="label">Colony / Locality</td>
+      <td>{{or siteAddress.colony "N.A."}}</td></tr>
+  <tr><td class="sn"></td><td class="label">Ward / Tehsil for registration</td>
       <td>{{or siteAddress.wardTehsilRegistration "N.A."}}</td></tr>
-  <tr class="total"><td>Consolidated address</td><td>{{or consolidatedSiteAddress "N.A."}}</td></tr>
+  <tr><td class="sn"></td><td class="label">City</td>
+      <td>{{or siteAddress.cityVillageTown "N.A."}}</td></tr>
+  <tr class="total"><td class="sn">7</td><td>Postal address of the property</td>
+      <td>{{or consolidatedSiteAddress "N.A."}}</td></tr>
+  <tr><td class="sn"></td><td class="label">Address of the property as mentioned in the deed</td>
+      <td>{{or titleDeed.addressAsPerDeed "N.A."}}</td></tr>
+  <tr><td class="sn">8 a.</td><td class="label">City / Town / Village</td>
+      <td>{{or general.cityTownVillage "N.A."}}</td></tr>
+  <tr><td class="sn">b.</td>
+      <td class="label">Is the property situated in a Residential / Commercial / Mixed /
+          Industrial area</td>
+      <td>{{or general.approvedLandUse "N.A."}}</td></tr>
+  <tr><td class="sn">9</td><td class="label">Classification of locality — High / Middle / Poor class</td>
+      <td>{{or general.classOfLocality "N.A."}}</td></tr>
+  <tr><td class="sn"></td><td class="label">Urban / Semi-urban / Rural</td>
+      <td>{{or general.urbanSemiUrbanRural "N.A."}}</td></tr>
+  <tr><td class="sn">10</td>
+      <td class="label">Coming under Corporation limit / Village Panchayat / Municipality</td>
+      <td>{{or general.corporationLimit "N.A."}}</td></tr>
+  <tr><td class="sn">11</td>
+      <td class="label">Whether covered under any State / Central Govt. enactments (e.g. Urban
+          Land Ceiling Act) or notified under agency / schedule / cantonment area</td>
+      <td>{{or general.govtEnactments "N.A."}}</td></tr>
+  <tr><td class="sn">12</td>
+      <td class="label">In case it is agricultural land, is any conversion to house-site plots
+          contemplated</td>
+      <td>{{or general.agriculturalConversion "N.A."}}</td></tr>
 </table>
 
-<h2>3. Boundaries &amp; Dimensions</h2>
+<h3 class="sub">13 &nbsp; Boundaries of the Property</h3>
 <table>
-  <tr><th>Direction</th><th>As per documents</th><th>As per site</th>
-      <th>Dim. (docs)</th><th>Dim. (site)</th></tr>
+  <tr>
+    <th style="width:14%">Direction</th>
+    <th>As per Documents</th>
+    <th>As per Actual (Site)</th>
+  </tr>
   {{#each boundaryRows}}
   <tr>
-    <td>{{this.direction}}</td>
+    <td><strong>{{this.direction}}</strong></td>
     <td>{{or this.asPerDocs "—"}}</td>
     <td>{{or this.asPerSite "—"}}</td>
-    <td class="num">{{or this.dimDocs "—"}}</td>
-    <td class="num">{{or this.dimSite "—"}}</td>
   </tr>
   {{/each}}
 </table>
+<table class="clauses">
+  <tr><td class="sn">13.1</td>
+      <td class="label">Whether the land is demarcated; is a compound wall with gate available</td>
+      <td>{{or discrepancy.plotDemarcated "N.A."}}</td></tr>
+  <tr><td class="sn">13.2</td><td class="label">Plot no. or house no. allocated</td>
+      <td>{{or siteAddress.propertyNumber "N.A."}}</td></tr>
+  <tr><td class="sn">13.3</td>
+      <td class="label">Whether the boundary is matching; reason for deviation</td>
+      <td>{{or discrepancy.boundariesMatching "N.A."}}{{#if discrepancy.mismatchReason}} —
+          {{discrepancy.mismatchReason}}{{/if}}</td></tr>
+</table>
+
+<h3 class="sub">14 &nbsp; Dimensions of the Site</h3>
 <table>
-  <tr><td class="label">Area as per dimensions</td>
-      <td class="num">{{#if areaFromDimensions}}{{num areaFromDimensions}} Sq.m{{else}}N.A.{{/if}}</td></tr>
-  <tr><td class="label">Area of property as per deed</td>
-      <td class="num">{{#if areaAsPerDeed}}{{num areaAsPerDeed}} Sq.m{{else}}N.A.{{/if}}</td></tr>
-  <tr><td class="label">Area of property as per site</td>
-      <td class="num">{{#if areaAsPerSite}}{{num areaAsPerSite}} Sq.m{{else}}N.A.{{/if}}</td></tr>
-  <tr class="total"><td>Area under consideration for valuation</td>
+  <tr>
+    <th style="width:14%">Direction</th>
+    <th class="center">(14a) As per Documents</th>
+    <th class="center">(14b) As per Site</th>
+    <th class="center" style="width:14%">Unit</th>
+  </tr>
+  {{#each boundaryRows}}
+  <tr>
+    <td><strong>{{this.direction}}</strong></td>
+    <td class="num">{{or this.dimDocs "—"}}</td>
+    <td class="num">{{or this.dimSite "—"}}</td>
+    <td class="center">{{../dimensionUnit}}</td>
+  </tr>
+  {{/each}}
+  <tr class="total">
+    <td>Area</td>
+    <td class="num">{{#if areaAsPerDeed}}{{num areaAsPerDeed}}{{else}}—{{/if}}</td>
+    <td class="num">{{#if areaAsPerSite}}{{num areaAsPerSite}}{{else}}—{{/if}}</td>
+    <td class="center">{{or areaUnit "Sq.m"}}</td>
+  </tr>
+</table>
+<table class="clauses">
+  <tr><td class="sn">14.1</td><td class="label">Latitude, longitude &amp; co-ordinates of the site</td>
+      <td>{{or gpsCoordinates "N.A."}}</td></tr>
+  <tr><td class="sn">15</td><td class="label">Extent of the site</td>
+      <td>{{#if areaFromDimensions}}{{num areaFromDimensions}} Sq.m (from site dimensions){{else}}N.A.{{/if}}</td></tr>
+  <tr class="total"><td class="sn">16</td>
+      <td>Extent of the site considered for valuation (least of 14a &amp; 14b)</td>
       <td class="num">{{num plotAreaSqM}} Sq.m</td></tr>
-  <tr><td class="label">Area under consideration</td><td>{{or areaBasis "Plot Area"}}</td></tr>
-  <tr><td class="label">Undivided share of land</td><td>{{undividedShare.label}}</td></tr>
-  <tr><td class="label">Boundaries matching with documents</td>
-      <td>{{or boundaries.matching "Yes"}}</td></tr>
-  <tr><td class="label">Plot demarcated</td><td>{{or boundaries.demarcated "Yes"}}</td></tr>
-  <tr><td class="label">Shape of plot</td><td>{{or generalDetails.plotShape "N.A."}}</td></tr>
+  <tr><td class="sn">17</td><td class="label">Is the property owner-occupied / tenanted / both</td>
+      <td>{{or general.occupancyStatus "N.A."}}</td></tr>
+  <tr><td class="sn">a.</td><td class="label">Names of tenants / lessees / licensees</td>
+      <td>{{or general.tenantNames "N.A."}}</td></tr>
+  <tr><td class="sn">b.</td><td class="label">Portion in their occupation</td>
+      <td>{{or general.portionUnderOccupation "N.A."}}</td></tr>
+  <tr><td class="sn">c.</td>
+      <td class="label">Monthly or annual rent / compensation / licence fee paid by each</td>
+      <td>{{or general.rentPaid "N.A."}}</td></tr>
+  <tr><td class="sn">17.1</td>
+      <td class="label">Whether up-to-date taxes are paid; mention the latest tax receipt number</td>
+      <td>{{or general.propertyTaxPaid "N.A."}}{{#if general.taxReceiptNumberDate}} —
+          {{general.taxReceiptNumberDate}}{{/if}}</td></tr>
+  <tr><td class="sn">18</td>
+      <td class="label">Is the construction plan approved by the competent authority</td>
+      <td>{{or general.approvingAuthority "N.A."}}</td></tr>
+  {{!-- Before this field existed valuers typed the plan number into
+        "Is building plan approved", so that is the fallback. --}}
+  <tr><td class="sn"></td><td class="label">Approval no.</td>
+      <td>{{or general.buildingPlanApprovalNo general.buildingPlanApproved}}</td></tr>
+  <tr><td class="sn"></td><td class="label">Is the construction as per the approved layout?</td>
+      <td>{{or general.constructionAsPerLayout "N.A."}}</td></tr>
 </table>
 
-<table>
-  <tr><th colspan="2">Discrepancy check</th></tr>
-  <tr><td class="label">Boundaries matching with the documents</td>
-      <td>{{or discrepancy.boundariesMatching "N.A."}}</td></tr>
-  <tr><td class="label">Reason for mismatch of boundaries</td>
-      <td>{{or discrepancy.mismatchReason "N.A."}}</td></tr>
-  <tr><td class="label">Plot demarcated</td><td>{{or discrepancy.plotDemarcated "N.A."}}</td></tr>
-  <tr><td class="label">Present ownership verified</td>
-      <td>{{or discrepancy.ownershipVerified "N.A."}}</td></tr>
-  <tr><td class="label">Roads / streets the land abuts</td>
-      <td>{{or discrepancy.roadSide "N.A."}}</td></tr>
-  <tr><td class="label">Is it a land-locked land?</td>
+{{!-- ============= II. CHARACTERISTICS OF SITE ============= --}}
+<h2 class="part">II &nbsp; Characteristics of the Site</h2>
+<table class="clauses">
+  <tr><td class="sn">1</td><td class="label">Classification of locality</td>
+      <td>{{or general.classOfLocality "N.A."}}</td></tr>
+  <tr><td class="sn">2</td><td class="label">Development of the surrounding area</td>
+      <td>{{or general.developmentOfArea "N.A."}}</td></tr>
+  <tr><td class="sn">3</td><td class="label">Whether the locality is subject to frequent flooding</td>
+      <td>{{or general.floodingProne "N.A."}}</td></tr>
+  <tr><td class="sn">4</td>
+      <td class="label">Feasibility to civic amenities like school, hospital, bus stop, market etc.</td>
+      <td>{{or general.proximityToAmenities "N.A."}}</td></tr>
+  <tr><td class="sn">5</td><td class="label">Level of land with topographical conditions</td>
+      <td>{{or general.levelOfLand "N.A."}}</td></tr>
+  <tr><td class="sn">6</td><td class="label">Shape of the plot</td>
+      <td>{{or general.plotShape "N.A."}}</td></tr>
+  <tr><td class="sn">7</td><td class="label">Equivalent spent life</td>
+      <td>{{#if spentLifeYears}}{{spentLifeYears}} Yrs{{else}}N.A.{{/if}}</td></tr>
+  <tr><td class="sn">8</td><td class="label">Residual age</td>
+      <td>{{#if residualAgeYears}}{{residualAgeYears}} Yrs{{else}}N.A.{{/if}}</td></tr>
+  <tr><td class="sn">9</td><td class="label">Type of use to which it can be put</td>
+      <td>{{or general.purposeOfUse "N.A."}}</td></tr>
+  <tr><td class="sn">10</td><td class="label">Any usage restriction</td>
+      <td>{{or general.restrictiveCovenant "N.A."}}</td></tr>
+  <tr><td class="sn">11</td><td class="label">Is the plot in a town-planning approved layout</td>
+      <td>{{or general.approvedColony "N.A."}}</td></tr>
+  <tr><td class="sn">12</td><td class="label">Corner plot or intermittent plot</td>
+      <td>{{or land.plotPosition "N.A."}}</td></tr>
+  <tr><td class="sn">13</td><td class="label">Road facilities</td>
+      <td>{{or general.roadFacilities "N.A."}}</td></tr>
+  <tr><td class="sn">14</td><td class="label">Type of road available at present</td>
+      <td>{{or buildingSpecs.typeOfRoad "N.A."}}</td></tr>
+  <tr><td class="sn">15</td><td class="label">Width of road — is it below 20 ft or more</td>
+      <td>{{or buildingSpecs.widthOfRoad "N.A."}}</td></tr>
+  <tr><td class="sn">16</td><td class="label">Is it a land-locked land?</td>
       <td>{{or discrepancy.landLocked "N.A."}}</td></tr>
+  <tr><td class="sn">17</td><td class="label">Water potentiality</td>
+      <td>{{or buildingSpecs.waterSupply "N.A."}}</td></tr>
+  <tr><td class="sn">18</td><td class="label">Underground sewerage system</td>
+      <td>{{or buildingSpecs.sewerage "N.A."}}</td></tr>
+  <tr><td class="sn">19</td><td class="label">Is power supply available at the site</td>
+      <td>{{or general.powerSupply "N.A."}}</td></tr>
+  <tr><td class="sn">20</td><td class="label">Advantages / disadvantages of the site</td>
+      <td>Positive: {{or general.positiveFactors "None"}}; Negative:
+          {{or general.negativeFactors "None"}}</td></tr>
+  <tr><td class="sn">21</td>
+      <td class="label">Special remarks, if any, like threat of acquisition of land for public
+          service purposes, road widening or applicability of CRZ provisions</td>
+      <td>{{or general.noticedForAcquisition "None"}}{{#if general.landAcquisitionRoadWidening}} —
+          {{general.landAcquisitionRoadWidening}}{{/if}}</td></tr>
+  <tr><td class="sn">21.1</td>
+      <td class="label">Specific comment about the property if it belongs to a Waqf / Temple Trust</td>
+      <td>{{or general.waqfOrTrustProperty "N.A."}}</td></tr>
+  <tr><td class="sn">21.2</td>
+      <td class="label">Specific comment if the property is near a highway, under an HT line, or
+          adjoins a railway track or cemetery</td>
+      <td>{{or general.proximityToHazards "N.A."}}</td></tr>
+  <tr><td class="sn">21.3</td>
+      <td class="label">Is the land swampy, marshy, reclaimed or garden land</td>
+      <td>{{or general.landCondition "N.A."}}</td></tr>
 </table>
 
-<h2>4. Locational &amp; General Details</h2>
+<h3 class="sub">22 &nbsp; Guideline Value / Value of the IP as per Circle Rates</h3>
 <table>
-  <tr><td class="label">Classification of locality</td><td>{{or generalDetails.classOfLocality "N.A."}}</td></tr>
-  <tr><td class="label">Approved land use</td><td>{{or generalDetails.landUse "Residential"}}</td></tr>
-  <tr><td class="label">Development of surrounding area</td><td>{{or generalDetails.development "N.A."}}</td></tr>
-  <tr><td class="label">Type &amp; width of road</td>
-      <td>{{or buildingSpecs.typeOfRoad "N.A."}}, {{or buildingSpecs.widthOfRoad "N.A."}}</td></tr>
-  <tr><td class="label">Water supply / sewerage</td>
-      <td>{{or buildingSpecs.waterSupply "N.A."}} / {{or buildingSpecs.sewerage "N.A."}}</td></tr>
-  <tr><td class="label">Occupancy</td><td>{{or generalDetails.occupancy "Owner occupied"}}</td></tr>
-  <tr><td class="label">Marketability</td><td>{{or generalDetails.marketability "Good"}}</td></tr>
+  <tr><td class="label">Construction value</td>
+      <td class="num">&#8377; {{inr computed.guideline.constructionValue}}</td></tr>
+  <tr><td class="label">Land value</td>
+      <td class="num">&#8377; {{inr computed.guideline.landValue}}</td></tr>
+  <tr class="total"><td>Value as per Govt. guideline rates</td>
+      <td class="num">&#8377; {{inr computed.guideline.totalValue}}</td></tr>
 </table>
 
+<table>
+  <tr class="grand"><td>23 &nbsp; Market value of the property</td>
+      <td class="num">&#8377; {{inr computed.roundedValue}}</td></tr>
+  <tr class="total"><td>24 &nbsp; Realizable sale value of the property</td>
+      <td class="num">&#8377; {{inr computed.realizableValue}}</td></tr>
+  <tr class="total"><td>25 &nbsp; Forced sale value of the property</td>
+      <td class="num">&#8377; {{inr computed.distressValue}}</td></tr>
+</table>
+
+{{!-- ===================== VALUATION ===================== --}}
 <div class="page-break"></div>
+<h2 class="part">Valuation</h2>
 
-<h2>4a. Accommodation &amp; Floor Details</h2>
+<p class="prose">
+  To assess the value of the property I have adopted the <strong>{{methodLabel}}</strong>, which is
+  appropriate for the valuation of such properties.
+</p>
+<p class="prose">
+  As a result of my appraisal and analysis, it is my considered opinion that the market value of the
+  above property in the prevailing condition, with the aforesaid specifications, is as follows:
+</p>
+
+<table class="keep">
+  <tr class="grand">
+    <td>Market Value</td>
+    <td class="num">&#8377; {{inr computed.roundedValue}}</td>
+  </tr>
+  <tr><td colspan="2" class="words">{{marketValueInWords}}</td></tr>
+  <tr class="total">
+    <td>Realizable Sale Value <span class="muted">(10% less than the market value)</span></td>
+    <td class="num">&#8377; {{inr computed.realizableValue}}</td>
+  </tr>
+  <tr><td colspan="2" class="words">{{realizableValueInWords}}</td></tr>
+  <tr class="total">
+    <td>Distress / Forced Sale Value <span class="muted">(20% less than the market value)</span></td>
+    <td class="num">&#8377; {{inr computed.distressValue}}</td>
+  </tr>
+  <tr><td colspan="2" class="words">{{distressValueInWords}}</td></tr>
+  <tr>
+    <td class="label">Insurable value of the building</td>
+    <td class="num">&#8377; {{inr computed.insurableValue}}</td>
+  </tr>
+</table>
+
+<h3 class="sub">Certificate</h3>
+<ol class="clauses">
+  <li>
+    It is hereby certified that in my opinion:
+    <ol class="clauses" type="i">
+      <li>
+        The present market value of the property discussed in this report, adopting the prevailing
+        market rate for land, is of the order of <strong>&#8377; {{inr computed.roundedValue}}</strong>
+        ({{marketValueInWords}}).
+      </li>
+      <li>The forced sale value of the property is estimated as 20% less than the present market value.</li>
+      <li>The realisable value of the property is estimated as 10% less than the present market value.</li>
+    </ol>
+  </li>
+  <li>
+    Number of title deed(s) involved in this property is {{or titleDeed.numberOfTitleDeeds "1"}} nos.
+    The relevant document for the subject property in the opinion of this valuer is
+    {{or titleDeed.relevantDocument "the photocopy of the Site Plan Map"}}.
+  </li>
+  <li>
+    If this property is offered as collateral security, the concerned financial institution is
+    requested to verify the extent of land shown in this valuation report with respect to the latest
+    legal opinion.
+  </li>
+  <li>
+    Value varies with the purpose and date of valuation. This report is not to be referred to if the
+    purpose is different from the one mentioned in (1).
+  </li>
+  <li>The property was inspected on {{date siteVisitDate}} by {{valuer.name}}.</li>
+  <li>The legal aspects were not considered in this valuation.</li>
+  <li>
+    This valuation work was / has been undertaken by the valuer based upon the request from
+    {{institution.name}}{{#if branch.branchName}}, {{branch.branchName}}{{/if}}.
+  </li>
+</ol>
+
+<div class="sign-off keep">
+  <div class="place">
+    Place: {{or place "Agra"}}<br />
+    Date: {{dateLong valuationDate}}
+  </div>
+  <div class="who">
+    <strong>{{valuer.name}}</strong>
+    <span>{{valuer.credentials}}</span>
+  </div>
+</div>
+
+{{!-- ===================== FORMAT-E ===================== --}}
+<div class="page-break"></div>
+<h2 class="part">Format-E &nbsp;&middot;&nbsp; Declaration from Valuers</h2>
+
+<ol class="clauses" type="a">
+  <li>I am a citizen of India.</li>
+  <li>
+    The information furnished in my valuation report is true and correct to the best of my knowledge
+    and belief, and I have made an impartial and true valuation of the property.
+  </li>
+  <li>I have no direct or indirect interest in the property valued.</li>
+  <li>
+    I have personally inspected the property on {{dateLong siteVisitDate}}. The work is not
+    sub-contracted to any other valuer and has been carried out by myself.
+  </li>
+  <li>I have not been removed or dismissed from service / employment earlier.</li>
+  <li>I have not been convicted of any offence and sentenced to a term of imprisonment.</li>
+  <li>I have not been found guilty of misconduct in my professional capacity.</li>
+  <li>
+    I have not concealed or suppressed any material information, facts and records, and I have made
+    a complete and full disclosure.
+  </li>
+  <li>I have not sub-contracted the work to any other valuer and carry out the work myself.</li>
+  <li>
+    I have read the Handbook on Policy, Standards and Procedure for Real Estate Valuation, 2011 of
+    the IBA, and this report is in conformity with the standards enshrined for valuation in Part-B of
+    that handbook to the best of my ability.
+  </li>
+  <li>
+    I have read the International Valuation Standards (IVS), and the report submitted to the bank for
+    the respective asset class is in conformity with the standards enshrined for valuation in the IVS
+    in "General Standards" and "Asset Standards" as applicable and wherever possible.
+  </li>
+  <li>
+    I abide by the Model Code of Conduct for empanelment of valuers in the bank. (Format-F signed
+    copy of the same is to be taken and kept along with this declaration.)
+  </li>
+  <li>I am registered under the Companies Act 2017 by IBBI.</li>
+  <li>
+    I am the proprietor / partner / authorized official of the firm / company, who is competent to
+    sign this valuation report.
+  </li>
+  <li>Further, I hereby provide the following information.</li>
+</ol>
+
+{{!-- Kept whole: split across a page boundary it leaves the declaration's
+      last clauses stranded above a two-row fragment. --}}
+<table class="keep">
+  <tr><th class="sn">S. No.</th><th style="width:46%">Particulars</th><th>Valuer comment</th></tr>
+  <tr><td class="sn">1</td><td>Background information of the asset being valued</td>
+      <td>As detailed in the valuation report</td></tr>
+  <tr><td class="sn">2</td><td>Purpose of valuation and appointing authority</td>
+      <td>As described on the cover page</td></tr>
+  <tr><td class="sn">3</td><td>Identity of the valuer and any other experts involved in the valuation</td>
+      <td>Mentioned on the letterhead</td></tr>
+  <tr><td class="sn">4</td><td>Disclosure of valuer interest or conflict, if any</td>
+      <td>No personal interest</td></tr>
+  <tr><td class="sn">5</td><td>Date of appointment, valuation date and date of report</td>
+      <td>Report dated {{date valuationDate}}</td></tr>
+  <tr><td class="sn">6</td><td>Inspections and / or investigations undertaken</td>
+      <td>By myself</td></tr>
+  <tr><td class="sn">7</td><td>Nature and sources of the information used or relied upon</td>
+      <td>{{or general.rateBasis "Government guideline rate &amp; market survey"}}</td></tr>
+  <tr><td class="sn">8</td>
+      <td>Procedures adopted in carrying out the valuation and valuation standards followed</td>
+      <td>{{methodLabel}}</td></tr>
+  <tr><td class="sn">9</td><td>Restrictions on use of the report, if any</td>
+      <td>To assess fair market value for banking purposes</td></tr>
+  <tr><td class="sn">10</td><td>Major factors that were taken into account during the valuation</td>
+      <td>{{or general.marketability "Marketability"}}</td></tr>
+  <tr><td class="sn">11</td>
+      <td>Caveats, limitations and disclaimers to the extent they explain or elucidate the
+          limitations faced by the valuer, which shall not be for the purpose of limiting his
+          responsibility for the valuation report</td>
+      <td>{{or general.negativeFactors "None"}}</td></tr>
+</table>
+
+<div class="sign-off keep">
+  <div class="place">
+    Place: {{or place "Agra"}}<br />
+    Date: {{dateLong valuationDate}}
+  </div>
+  <div class="who">
+    <strong>{{valuer.name}}</strong>
+    <span>{{valuer.credentials}}</span>
+  </div>
+</div>
+
+{{!-- ================= ANNEXURE-01 · PART A ================= --}}
+<div class="page-break"></div>
+<h2 class="part">Annexure-01 &nbsp;&middot;&nbsp; Valuation of the Property</h2>
+
+<h3 class="band">Part A &nbsp;&middot;&nbsp; Valuation of Land</h3>
+<h3 class="sub">1 &nbsp; Size of the plot</h3>
 <table>
-  <tr><td class="label">Living rooms</td><td class="num">{{or rooms.livingRooms "—"}}</td></tr>
-  <tr><td class="label">Bed rooms</td><td class="num">{{or rooms.bedRooms "—"}}</td></tr>
-  <tr><td class="label">Water closets</td><td class="num">{{or rooms.waterClosets "—"}}</td></tr>
-  <tr><td class="label">Kitchen</td><td class="num">{{or rooms.kitchen "—"}}</td></tr>
-  {{#if roomsSummary}}
-  <tr class="total"><td colspan="2">{{roomsSummary}}</td></tr>
+  <tr>
+    <th style="width:14%">Direction</th>
+    <th class="center">As per Documents</th>
+    <th class="center">As per Site</th>
+    <th class="center" style="width:14%">Unit</th>
+  </tr>
+  {{#each boundaryRows}}
+  <tr>
+    <td><strong>{{this.direction}}</strong></td>
+    <td class="num">{{or this.dimDocs "—"}}</td>
+    <td class="num">{{or this.dimSite "—"}}</td>
+    <td class="center">{{../dimensionUnit}}</td>
+  </tr>
+  {{/each}}
+  <tr class="total">
+    <td>Area</td>
+    <td class="num">{{#if areaAsPerDeed}}{{num areaAsPerDeed}}{{else}}—{{/if}}</td>
+    <td class="num">{{#if areaAsPerSite}}{{num areaAsPerSite}}{{else}}—{{/if}}</td>
+    <td class="center">{{or areaUnit "Sq.m"}}</td>
+  </tr>
+</table>
+
+<table class="clauses">
+  <tr><td class="sn"></td><td class="label">Variations from the title deed, if any</td>
+      <td>{{or discrepancy.mismatchReason "None"}}</td></tr>
+  <tr><td class="sn">2</td><td class="label">Total extent of the plot</td>
+      <td class="num">{{num plotAreaSqM}} Sq.m</td></tr>
+  <tr><td class="sn"></td><td class="label">Area under consideration (basis)</td>
+      <td>{{or areaBasis "Plot Area"}}</td></tr>
+  <tr><td class="sn"></td><td class="label">Undivided share of land</td>
+      <td>{{or undividedShare.label "N.A."}}</td></tr>
+  <tr><td class="sn">3</td><td class="label">Prevailing market rate</td>
+      <td class="num">&#8377; {{inr land.prevailingMarketRate}} (+/-10%) / Sq.m</td></tr>
+  <tr><td class="sn">4</td><td class="label">Guideline rate (circle rate)</td>
+      <td class="num">&#8377; {{inr land.circleRate}} / Sq.m</td></tr>
+  <tr><td class="sn">5</td><td class="label">Unit rate adopted in this valuation</td>
+      <td class="num">&#8377; {{inr land.adoptedRate}} / Sq.m</td></tr>
+  <tr class="total"><td class="sn">6</td><td>Estimated value of land</td>
+      <td class="num">&#8377; {{inr computed.partA}}</td></tr>
+</table>
+<div class="note">
+  Variation of the adopted rate over the circle rate: {{num computed.rateVariationPercent}}%.
+</div>
+
+<h3 class="band">Part B &nbsp;&middot;&nbsp; Building Component</h3>
+<table class="clauses">
+  <tr><td class="sn"></td><td class="label">Type of building (Residential / Commercial / Industrial)</td>
+      <td>{{or general.approvedLandUse "N.A."}}</td></tr>
+  <tr><td class="sn">1</td><td class="label">Type of construction (structure)</td>
+      <td>{{or buildingSpecs.typeOfConstruction "N.A."}}</td></tr>
+  <tr><td class="sn">2</td><td class="label">Quality of construction</td>
+      <td>{{or buildingSpecs.quality "N.A."}}</td></tr>
+  <tr><td class="sn">3</td><td class="label">Appearance of the building</td>
+      <td>{{or buildingSpecs.appearance "N.A."}}</td></tr>
+  <tr><td class="sn">4</td><td class="label">Maintenance / condition of the building</td>
+      <td>{{or buildingSpecs.maintenance "N.A."}}</td></tr>
+  <tr><td class="sn">i.</td><td class="label">Exterior (New / Excellent / Good / Normal / Average / Poor)</td>
+      <td>{{or buildingSpecs.exterior "N.A."}}</td></tr>
+  <tr><td class="sn">ii.</td><td class="label">Interior (Excellent / Good / Normal / Average / Poor)</td>
+      <td>{{or buildingSpecs.interior "N.A."}}</td></tr>
+  <tr><td class="sn">5</td><td class="label">Plinth / covered areas</td>
+      <td>As per IS 3861-1975</td></tr>
+  <tr><td class="sn"></td><td class="label">Type of foundation</td>
+      <td>{{or buildingSpecs.foundation "N.A."}}</td></tr>
+  <tr><td class="sn"></td><td class="label">Stage of construction</td>
+      <td>{{or buildingSpecs.stage "N.A."}}</td></tr>
+</table>
+
+<h3 class="sub">6 &nbsp; No. of floors{{#if floorDetails.totalFloors}} &nbsp;&middot;&nbsp;
+  {{floorDetails.totalFloors}}{{/if}}</h3>
+<table>
+  <tr>
+    <th class="sn">S. No.</th><th>Floor</th>
+    <th class="center">Year of Construction</th>
+    <th class="num">Covered Area</th>
+    <th class="center" style="width:14%">Unit</th>
+  </tr>
+  {{#each computed.floors}}
+  <tr>
+    <td class="sn">{{inc @index}}</td>
+    <td>{{this.name}}</td>
+    <td class="center">{{or this.yearOfConstruction "—"}}</td>
+    <td class="num">{{num this.coveredAreaSqM}}</td>
+    <td class="center">Sq.m</td>
+  </tr>
+  {{/each}}
+  {{#if actualCoveredAreaSqM}}
+  <tr class="total"><td class="sn"></td><td colspan="2">Actual covered area</td>
+      <td class="num">{{num actualCoveredAreaSqM}}</td><td class="center">Sq.m</td></tr>
   {{/if}}
-  <tr><td class="label">Total no. of floors</td><td>{{or floorDetails.totalFloors "N.A."}}</td></tr>
-  <tr><td class="label">Floor on which the flat/shop is situated</td>
-      <td>{{or floorDetails.floorSituated "N.A."}}</td></tr>
-  <tr><td class="label">Flat type</td><td>{{or floorDetails.flatType "N.A."}}</td></tr>
+  <tr class="total"><td class="sn"></td><td colspan="2">Area considered for valuation</td>
+      <td class="num">{{num consideredCoveredAreaSqM}}</td><td class="center">Sq.m</td></tr>
 </table>
 
-{{#if briefDescription}}
-<h2>4b. Brief Description of the Property (Site Visit)</h2>
-<p class="words">{{briefDescription}}</p>
-{{/if}}
-
-<h2>5. Building Specifications</h2>
-<table>
-  <tr><td class="label">Type of construction</td><td>{{or buildingSpecs.typeOfConstruction "N.A."}}</td></tr>
-  <tr><td class="label">Type of foundation</td><td>{{or buildingSpecs.foundation "N.A."}}</td></tr>
-  <tr><td class="label">Quality of construction</td><td>{{or buildingSpecs.quality "N.A."}}</td></tr>
-  <tr><td class="label">Stage of construction</td><td>{{or buildingSpecs.stage "Complete"}}</td></tr>
-  <tr><td class="label">Year of construction</td><td>{{building.yearOfConstruction}}</td></tr>
-  <tr><td class="label">Total estimated life</td><td>{{building.expectedLifeYears}} years</td></tr>
-  <tr><td class="label">Maintenance / exterior / interior</td>
-      <td>{{or buildingSpecs.maintenance "Good"}} / {{or buildingSpecs.exterior "Good"}} /
-          {{or buildingSpecs.interior "Good"}}</td></tr>
+<h3 class="sub">7 &nbsp; Drawing approval</h3>
+<table class="clauses">
+  <tr><td class="sn">a.</td><td class="label">Date of issue and validity of the approved map / plan</td>
+      <td>{{or general.buildingPlanApprovalNo general.buildingPlanApproved}}</td></tr>
+  <tr><td class="sn">b.</td><td class="label">Approved map / plan issuing authority</td>
+      <td>{{or general.approvingAuthority "N.A."}}</td></tr>
+  <tr><td class="sn">c.</td>
+      <td class="label">Whether the genuineness or authenticity of the approved map / plan is verified</td>
+      <td>{{or general.planAuthenticityVerified "N.A."}}</td></tr>
+  <tr><td class="sn">d.</td><td class="label">Any other comments by the valuer on the authenticity of the approved plan</td>
+      <td>{{or general.natureOfViolations "N.A."}}</td></tr>
+  <tr><td class="sn">e.</td>
+      <td class="label">Whether the building is constructed as per the approved plan; details of deviation, if any</td>
+      <td>{{or general.constructionAsPerLayout "N.A."}}</td></tr>
 </table>
 
+{{!-- ============ SPECIFICATIONS & FLOORWISE VALUATION ============ --}}
 {{#if floorSpecRows}}
-<h2>5a. Specifications &amp; Covered Area Rates — Floorwise</h2>
+<div class="page-break"></div>
+<h3 class="sub">8 &nbsp; Specification of construction (floorwise)</h3>
 <table>
   {{#each floorSpecRows}}
   <tr>
     {{#if this.header}}
-      <th>{{this.label}}</th>
-      {{#each this.values}}<th>{{this}}</th>{{/each}}
+      <th style="width:34%">{{this.label}}</th>
+      {{#each this.values}}<th class="center">{{this}}</th>{{/each}}
     {{else}}
-      <td class="label">{{this.label}}</td>
+      <td class="label" style="width:34%">{{this.label}}</td>
       {{#each this.values}}<td>{{this}}</td>{{/each}}
     {{/if}}
   </tr>
   {{/each}}
 </table>
+{{else}}
+<div class="page-break"></div>
 {{/if}}
 
-<h2>6. Part A — Valuation of Land</h2>
-<table>
-  <tr><td class="label">Area of land under consideration</td><td class="num">{{num plotAreaSqM}} Sq.m</td></tr>
-  <tr><td class="label">Prevailing market rate</td><td class="num">₹ {{inr land.prevailingMarketRate}} / Sq.m</td></tr>
-  <tr><td class="label">Guideline (circle) rate</td><td class="num">₹ {{inr land.circleRate}} / Sq.m</td></tr>
-  <tr><td class="label">Unit rate adopted in this valuation</td><td class="num">₹ {{inr land.adoptedRate}} / Sq.m</td></tr>
-  <tr><td class="label">Plot position</td><td>{{or land.plotPosition "Intermittent Plot"}}</td></tr>
-  <tr class="total"><td>Estimated value of land (Part A)</td><td class="num">₹ {{inr computed.partA}}</td></tr>
-</table>
-<div class="note">Variation of adopted rate over circle rate: {{num computed.rateVariationPercent}}%.</div>
-
-<h2>7. Part B — Building Component (after depreciation)</h2>
+<h3 class="band">Floorwise Valuation of the Covered Area</h3>
 <table>
   <tr>
-    <th>Floor</th><th>Covered area (Sq.m)</th><th>Year</th><th>Age</th><th>Dep. %</th>
-    <th>Replacement rate</th><th>Replacement value</th><th>Depreciation</th><th>Depreciated value</th>
+    <th style="width:34%">Particulars</th>
+    {{#each computed.floors}}<th class="center">{{this.name}}</th>{{/each}}
   </tr>
-  {{#each computed.floors}}
-  <tr>
-    <td>{{this.name}}</td>
-    <td class="num">{{num this.coveredAreaSqM}}</td>
-    <td class="num">{{this.yearOfConstruction}}</td>
-    <td class="num">{{this.age}} yrs</td>
-    <td class="num">{{pct this.depreciationPercent}}</td>
-    <td class="num">₹ {{inr this.replacementRate}}</td>
-    <td class="num">₹ {{inr this.replacementValue}}</td>
-    <td class="num">₹ {{inr this.depreciation}}</td>
-    <td class="num">₹ {{inr this.depreciatedValue}}</td>
-  </tr>
-  {{/each}}
-  <tr class="total">
-    <td colspan="8">Total — Parts B, C, D &amp; E (building, amenities &amp; extra items)</td>
-    <td class="num">₹ {{inr computed.partBtoE}}</td>
-  </tr>
+  <tr><td class="label">Total plinth area (Sq.m)</td>
+      {{#each computed.floors}}<td class="num">{{num this.coveredAreaSqM}}</td>{{/each}}</tr>
+  <tr><td class="label">Height of floor</td>
+      {{#each floorHeights}}<td class="num">{{or this "N.A."}}</td>{{/each}}</tr>
+  <tr><td class="label">Year of construction</td>
+      {{#each computed.floors}}<td class="num">{{this.yearOfConstruction}}</td>{{/each}}</tr>
+  <tr><td class="label">Equivalent spent life</td>
+      {{#each computed.floors}}<td class="num">{{this.age}} Yrs</td>{{/each}}</tr>
+  <tr><td class="label">Residual age</td>
+      {{#each computed.floors}}<td class="num">{{this.residualAge}} Yrs</td>{{/each}}</tr>
+  <tr><td class="label">Total estimated life</td>
+      {{#each computed.floors}}<td class="num">{{this.expectedLifeYears}} Yrs</td>{{/each}}</tr>
+  <tr><td class="label">Depreciation percentage [salvage value as 10%]</td>
+      {{#each computed.floors}}<td class="num">{{pct this.depreciationPercent}}</td>{{/each}}</tr>
+  <tr><td class="label">Replacement rate of construction with existing conditions &amp;
+      specifications (per Sq.m)</td>
+      {{#each computed.floors}}<td class="num">&#8377; {{inr this.replacementRate}}</td>{{/each}}</tr>
+  <tr><td class="label">Replacement value</td>
+      {{#each computed.floors}}<td class="num">&#8377; {{inr this.replacementValue}}</td>{{/each}}</tr>
+  <tr><td class="label">Depreciation</td>
+      {{#each computed.floors}}<td class="num">&#8377; {{inr this.depreciation}}</td>{{/each}}</tr>
+  <tr class="total"><td>Depreciated value</td>
+      {{#each computed.floors}}<td class="num">&#8377; {{inr this.depreciatedValue}}</td>{{/each}}</tr>
 </table>
 <div class="note">
-  Depreciation is computed on a 90% depreciable base, taking salvage value as 10% of cost.
+  Depreciation is computed on a 90% depreciable base, taking the salvage value as 10% of cost.
 </div>
 
-<h2>8. Abstract of Value</h2>
+<h3 class="band">Part C &nbsp;&middot;&nbsp; Extra Items (after depreciation)</h3>
+{{#if extraItemRows.length}}
 <table>
-  <tr><td class="label">Part A — Land</td><td class="num">₹ {{inr computed.partA}}</td></tr>
-  <tr><td class="label">Parts B–E — Building, amenities &amp; extra items</td>
-      <td class="num">₹ {{inr computed.partBtoE}}</td></tr>
-  <tr><td class="label">Part F — Services</td><td>Considered in covered area rates</td></tr>
-  <tr class="total"><td>Total value</td><td class="num">₹ {{inr computed.totalValue}}</td></tr>
-  <tr class="grand"><td>Present fair market value (say)</td><td class="num">₹ {{inr computed.roundedValue}}</td></tr>
-  <tr><td class="label">Realizable value (90%)</td><td class="num">₹ {{inr computed.realizableValue}}</td></tr>
-  <tr><td class="label">Distress / forced sale value (80%)</td><td class="num">₹ {{inr computed.distressValue}}</td></tr>
-  <tr><td class="label">Insurable value of building</td><td class="num">₹ {{inr computed.insurableValue}}</td></tr>
-</table>
-<div class="words">{{marketValueInWords}}</div>
-
-<h2>9. Valuation as per Govt. Guideline Rates</h2>
-<table>
-  <tr><th>Component</th><th>Rate</th><th>Value</th></tr>
-  {{#each computed.guideline.floors}}
-  <tr>
-    <td>{{this.name}} ({{this.roofType}})</td>
-    <td class="num">₹ {{inr this.depreciatedRate}} / Sq.m</td>
-    <td class="num">₹ {{inr this.value}}</td>
-  </tr>
+  {{#each extraItemRows}}
+  <tr><td class="label">{{this.label}}</td><td class="num">{{this.value}}</td></tr>
   {{/each}}
-  <tr><td>Land</td>
-      <td class="num">₹ {{inr computed.guideline.circleRateAdjusted}} / Sq.m</td>
-      <td class="num">₹ {{inr computed.guideline.landValue}}</td></tr>
-  <tr class="total"><td colspan="2">Total value as per guideline rates</td>
-      <td class="num">₹ {{inr computed.guideline.totalValue}}</td></tr>
+  <tr class="total"><td>Total — extra items</td>
+      <td class="num">&#8377; {{inr computed.extraItemsValue}}</td></tr>
+</table>
+{{else}}
+<p class="prose callout">Considered in the covered area rates.</p>
+{{/if}}
+
+<h3 class="band">Part D &nbsp;&middot;&nbsp; Amenities</h3>
+<p class="prose callout">{{or amenitiesNote "None"}}</p>
+
+<h3 class="band">Part E &nbsp;&middot;&nbsp; Miscellaneous</h3>
+<p class="prose callout">{{or miscellaneousNote "None"}}</p>
+
+<h3 class="band">Part F &nbsp;&middot;&nbsp; Value of Services (after depreciation)</h3>
+{{#if serviceRows.length}}
+<table>
+  {{#each serviceRows}}
+  <tr><td class="label">{{this.label}}</td><td>{{this.value}}</td></tr>
+  {{/each}}
+</table>
+{{else}}
+<table>
+  <tr><td class="label">Water supply arrangement</td><td>Considered in the covered area rates</td></tr>
+  <tr><td class="label">Drainage arrangement</td><td>Considered in the covered area rates</td></tr>
+  <tr><td class="label">Electric supply fittings</td><td>Considered in the covered area rates</td></tr>
+</table>
+{{/if}}
+
+<h3 class="band">Part G &nbsp;&middot;&nbsp; Abstract</h3>
+<table class="keep">
+  <tr><td class="sn">1</td><td class="label">Part A — Land</td>
+      <td class="num">&#8377; {{inr computed.partA}}</td></tr>
+  <tr><td class="sn">2</td>
+      <td class="label">Parts B, C, D &amp; E — Building, amenities &amp; extra items</td>
+      <td class="num">&#8377; {{inr computed.partBtoE}}</td></tr>
+  <tr><td class="sn">3</td><td class="label">Part F — Services</td>
+      <td>Considered in the covered area rates</td></tr>
+  <tr class="total"><td class="sn"></td><td>Present worth</td>
+      <td class="num">&#8377; {{inr computed.totalValue}}</td></tr>
+  <tr class="grand"><td class="sn"></td><td>Say</td>
+      <td class="num">&#8377; {{inr computed.roundedValue}}</td></tr>
 </table>
 
-<h2>10. Ground Coverage &amp; FAR</h2>
+<h3 class="sub">Ground coverage &amp; FAR</h3>
 <table>
-  <tr><td class="label">Plot area</td><td class="num">{{num computed.coverage.plotAreaSqM}} Sq.m</td></tr>
+  <tr><td class="label">Plot area</td>
+      <td class="num">{{num computed.coverage.plotAreaSqM}} Sq.m</td></tr>
   <tr><td class="label">Ground coverage achieved</td>
       <td class="num">{{num computed.coverage.groundCoverageSqM}} Sq.m
           ({{num computed.coverage.achievedCoveragePercent}}%)</td></tr>
@@ -279,31 +703,39 @@
   <tr><td class="label">Total covered area</td>
       <td class="num">{{num computed.coverage.totalCoveredAreaSqM}} Sq.m</td></tr>
   <tr><td class="label">FAR achieved / permissible</td>
-      <td class="num">{{num computed.coverage.achievedFAR}} / {{computed.coverage.permissibleFAR}}</td></tr>
+      <td class="num">{{num computed.coverage.achievedFAR}} /
+          {{computed.coverage.permissibleFAR}}</td></tr>
 </table>
 
 {{#if remarks}}
-<h2>10a. Remarks</h2>
-<p class="words">{{remarks}}</p>
+<h3 class="sub">Remarks</h3>
+<p class="prose callout">{{remarks}}</p>
 {{/if}}
 
-<h2>11. Declaration</h2>
-<p>
-  To assess the value of the property I have adopted the <strong>{{methodLabel}}</strong>, which is
-  appropriate for the valuation of such properties. The property was inspected on
-  {{date siteVisitDate}} by {{or engineer.name "the undersigned"}}. The present market value of the
-  property discussed in this report, adopting the prevailing market rate for land, is of the order of
-  <strong>₹ {{inr computed.roundedValue}}</strong> ({{marketValueInWords}}).
-</p>
-<p>
-  I have no direct or indirect interest in the property valued. The information furnished is true and
-  correct to the best of my knowledge and belief.
-</p>
-<table style="margin-top:22px;">
-  <tr>
-    <td style="border:none;">Place: {{or place "Etah"}}<br/>Date: {{date valuationDate}}</td>
-    <td style="border:none; text-align:right;">
-      <br/><br/>____________________________<br/>For V.N.V. Engineers<br/>(Approved Valuer)
-    </td>
-  </tr>
+{{!-- ============ APPLICABLE GOVT. GUIDELINE RATES ============ --}}
+<div class="page-break"></div>
+<h2 class="part">Applicable Govt. Guideline Rates (Circle Rates)</h2>
+
+<table>
+  <tr><td class="label">Sub-registrar office / Tehsil</td>
+      <td>{{or siteAddress.tehsilForCircleRates "N.A."}}</td></tr>
+  <tr><td class="label">Local body / Mohalla</td>
+      <td>{{or siteAddress.mohalla "N.A."}}</td></tr>
+  <tr><td class="label">Road width band</td>
+      <td>{{#if roadWidthMeters}}{{num roadWidthMeters}} m{{else}}N.A.{{/if}}</td></tr>
+  <tr class="total"><td>Circle rate applied</td>
+      <td class="num">&#8377; {{inr land.circleRate}} / Sq.m</td></tr>
 </table>
+
+{{!-- The label sits above rather than over the scan: this is a document, and
+      an overlay would cover the very rows the rate was read from. --}}
+{{#if circleRatePhoto}}
+<h3 class="band">Extract from the Government Circle Rate Register</h3>
+<div class="plate" style="height: {{circleRateHeightMm}}mm; margin-top: 0;">
+  <img src="{{circleRatePhoto}}" alt="Extract from the government circle-rate register" />
+</div>
+{{else}}
+<div class="placeholder" style="height: {{circleRateHeightMm}}mm; margin-top: 3mm;">
+  No circle-rate extract uploaded yet.
+</div>
+{{/if}}

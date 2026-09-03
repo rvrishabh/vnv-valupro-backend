@@ -13,6 +13,11 @@
         "include": "modules/**/*.hbs",
         "watchAssets": true,
         "outDir": "dist/src"
+      },
+      {
+        "include": "modules/**/report/assets/**",
+        "watchAssets": true,
+        "outDir": "dist/src"
       }
     ]
   }

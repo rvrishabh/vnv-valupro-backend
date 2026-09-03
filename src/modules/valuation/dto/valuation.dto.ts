@@ -362,7 +362,11 @@ export class CircleRateSuggestionQueryDto {
 }
 
 export class PhotoSectionQueryDto {
-  @ApiProperty({ enum: ['SITE_VISIT', 'GOOGLE_EARTH'] })
-  @IsEnum({ SITE_VISIT: 'SITE_VISIT', GOOGLE_EARTH: 'GOOGLE_EARTH' })
-  section: 'SITE_VISIT' | 'GOOGLE_EARTH';
+  @ApiProperty({ enum: ['SITE_VISIT', 'GOOGLE_EARTH', 'CIRCLE_RATE'] })
+  @IsEnum({
+    SITE_VISIT: 'SITE_VISIT',
+    GOOGLE_EARTH: 'GOOGLE_EARTH',
+    CIRCLE_RATE: 'CIRCLE_RATE',
+  })
+  section: 'SITE_VISIT' | 'GOOGLE_EARTH' | 'CIRCLE_RATE';
 }

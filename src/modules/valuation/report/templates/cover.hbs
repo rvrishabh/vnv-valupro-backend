@@ -1,0 +1,204 @@
+{{!--
+  The covering letter — page 1 of the report.
+
+  Printed with zero Chrome margins so the letterhead artwork can bleed to the
+  paper's edge; the content box below is inset to sit inside the artwork's own
+  rules (measured off the letterhead: side rules at 15mm, the credentials strip
+  ends at ~38mm, the footer rule starts at ~263mm).
+--}}
+{{> report-styles}}
+<style>
+  .sheet {
+    position: relative;
+    width: 210mm;
+    height: 297mm;
+    overflow: hidden;
+  }
+
+  .letterhead {
+    position: absolute;
+    inset: 0;
+    width: 210mm;
+    height: 297mm;
+  }
+
+  .body {
+    position: absolute;
+    top: 52mm;
+    right: 15mm;
+    bottom: 40mm;
+    left: 15mm;
+  }
+
+  .addressee { font-size: 10.5pt; line-height: 1.5; }
+  .addressee strong { color: var(--navy); }
+
+  .ref {
+    float: right;
+    text-align: right;
+    font-size: 9pt;
+    color: var(--muted);
+  }
+  .ref b { display: block; color: var(--navy); font-size: 9.5pt; }
+
+  .purpose {
+    margin: 7mm 0 6mm;
+    padding: 2.5mm 3mm;
+    background: var(--tint);
+    border-left: 3px solid var(--gold);
+  }
+  .purpose h2 {
+    margin: 0 0 1mm;
+    color: var(--navy);
+    font-size: 10pt;
+    font-weight: 700;
+  }
+  .purpose .cite { font-size: 8pt; font-weight: 400; color: var(--muted); }
+
+  .salutation { margin-bottom: 5mm; font-size: 10.5pt; }
+
+  /* Label/value pairs rather than a bordered table: the covering letter should
+     read as correspondence, not as one more form. */
+  .facts { width: 100%; border-collapse: collapse; }
+  .facts td {
+    border: none;
+    border-bottom: .4pt solid var(--line);
+    padding: 2.2mm 0;
+    vertical-align: top;
+    font-size: 10pt;
+  }
+  .facts td.k {
+    width: 46mm;
+    color: var(--navy);
+    font-weight: 700;
+    font-size: 9.5pt;
+    padding-right: 4mm;
+  }
+
+  .verdict {
+    margin-top: 7mm;
+    border: .6pt solid var(--navy);
+  }
+  .verdict .headline {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 6mm;
+    padding: 3mm 4mm;
+    background: var(--navy);
+    color: #fff;
+  }
+  .verdict .headline .k {
+    font-size: 9.5pt;
+    font-weight: 600;
+    letter-spacing: .4px;
+    text-transform: uppercase;
+  }
+  .verdict .headline .v { font-size: 15pt; font-weight: 700; }
+  .verdict .in-words {
+    padding: 2mm 4mm;
+    background: var(--tint);
+    border-bottom: .4pt solid var(--line);
+    font-style: italic;
+    font-size: 9.5pt;
+    color: var(--navy);
+  }
+  .verdict .secondary { display: flex; }
+  .verdict .secondary div {
+    flex: 1;
+    padding: 2.5mm 4mm;
+    font-size: 9pt;
+  }
+  .verdict .secondary div + div { border-left: .4pt solid var(--line); }
+  .verdict .secondary span { display: block; color: var(--muted); font-size: 8pt; }
+  .verdict .secondary b { color: var(--navy); font-size: 10.5pt; }
+
+  .valediction { margin-top: 9mm; font-size: 10.5pt; }
+  /* The signature rule has to start on its own line under "Yours faithfully,"
+     — as an inline-block it would sit beside it and the following text would
+     wrap around it instead. */
+  .valediction .name {
+    display: block;
+    width: 62mm;
+    margin-top: 18mm;
+    padding-top: 1.5mm;
+    border-top: .6pt solid var(--navy);
+  }
+  .valediction .name strong { display: block; color: var(--navy); font-size: 10pt; }
+  .valediction .name span { display: block; font-size: 8pt; color: var(--muted); }
+</style>
+
+<div class="sheet">
+  <img class="letterhead" src="{{letterhead}}" alt="" />
+
+  <div class="body serif">
+    <div class="ref">
+      <b>{{or reportNo "—"}}</b>
+      {{dateLong valuationDate}}
+    </div>
+
+    <div class="addressee">
+      The Manager<br />
+      <strong>{{institution.name}}</strong><br />
+      {{#if branch.branchName}}{{branch.branchName}}{{#if siteAddress.district}}, {{siteAddress.district}}{{/if}}{{/if}}
+    </div>
+
+    <div class="purpose">
+      <h2>
+        Purpose of Valuation
+        <span class="cite">(as defined by IBA circular no. OPR/CIR/2043 dtd. 04-02-2017)</span>
+      </h2>
+      Ascertaining the value of the property offered as security.
+    </div>
+
+    <div class="salutation">
+      Dear Sir,<br />
+      Please find below the details of the property visited for valuation:
+    </div>
+
+    <table class="facts">
+      <tr>
+        <td class="k">Owner/s</td>
+        <td>{{or titleDeed.ownerName "N.A."}}</td>
+      </tr>
+      <tr>
+        <td class="k">Address of Property</td>
+        <td>{{or consolidatedSiteAddress "N.A."}}</td>
+      </tr>
+      <tr>
+        <td class="k">GPS Co-ordinates</td>
+        <td>{{or gpsCoordinates "N.A."}}</td>
+      </tr>
+      <tr>
+        <td class="k">Date of Inspection</td>
+        <td>{{dateLong siteVisitDate}}</td>
+      </tr>
+    </table>
+
+    <div class="verdict">
+      <div class="headline">
+        <span class="k">Fair Market Value</span>
+        <span class="v">&#8377; {{inr computed.roundedValue}}</span>
+      </div>
+      <div class="in-words">{{marketValueInWords}}</div>
+      <div class="secondary">
+        <div>
+          <span>Realizable Value</span>
+          <b>&#8377; {{inr computed.realizableValue}}</b>
+        </div>
+        <div>
+          <span>Forced / Distress Sale Value</span>
+          <b>&#8377; {{inr computed.distressValue}}</b>
+        </div>
+      </div>
+    </div>
+
+    <div class="valediction">
+      Yours faithfully,
+      <div class="name">
+        <strong>{{valuer.name}}</strong>
+        <span>Chartered Engineer &amp; Registered Valuer &middot; For V.N.V. Engineers</span>
+      </div>
+    </div>
+  </div>
+</div>
