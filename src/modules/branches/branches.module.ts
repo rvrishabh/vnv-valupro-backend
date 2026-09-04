@@ -8,7 +8,11 @@ import { BranchesRepository } from './repositories/branches.repository';
 import { IfscLookupService } from './services/ifsc-lookup.service';
 
 @Module({
-  imports: [forwardRef(() => AuthModule), InstitutionsModule, InstitutionTypesModule],
+  imports: [
+    forwardRef(() => AuthModule),
+    InstitutionsModule,
+    InstitutionTypesModule,
+  ],
   controllers: [BranchesController],
   providers: [BranchesService, BranchesRepository, IfscLookupService],
   exports: [BranchesService, BranchesRepository, IfscLookupService],

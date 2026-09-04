@@ -76,7 +76,9 @@ export class CasesController {
   }
 
   @Get(':id/timeline')
-  @ApiOperation({ summary: 'Participants, milestones and the full audit trail' })
+  @ApiOperation({
+    summary: 'Participants, milestones and the full audit trail',
+  })
   @Roles('SUPER_ADMIN', 'ADMIN', 'SITE_ENGINEER', 'CHECKER', 'BANK_MANAGER')
   timeline(@Param('id', ParseUUIDPipe) id: string) {
     return this.workflow.timeline(id);
@@ -98,7 +100,10 @@ export class CasesController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Engineer opens the site visit (mobile app)' })
   @Roles('SUPER_ADMIN', 'ADMIN', 'SITE_ENGINEER')
-  startSurvey(@Param('id', ParseUUIDPipe) id: string, @Req() req: AuthenticatedRequest) {
+  startSurvey(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Req() req: AuthenticatedRequest,
+  ) {
     return this.workflow.startSurvey(id, req.user.id);
   }
 

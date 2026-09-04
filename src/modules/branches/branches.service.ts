@@ -9,10 +9,7 @@ import { FindQuery } from 'types/common.types';
 import { BranchFilter } from 'types/branch.types';
 import { InstitutionTypesRepository } from '../institution-types/repositories/institution-types.repository';
 import { InstitutionsRepository } from '../institutions/repositories/institutions.repository';
-import {
-  CreateManualBranchDto,
-  UpdateBranchDto,
-} from './dto';
+import { CreateManualBranchDto, UpdateBranchDto } from './dto';
 import {
   BRANCH_WITH_INSTITUTION,
   BranchesRepository,

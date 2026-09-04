@@ -89,7 +89,10 @@ function splitBalanced(photos: LayoutPhoto[]): [LayoutPhoto[], LayoutPhoto[]] {
   for (let i = 0; i < photos.length; i++) {
     const withCurrent = running + photos[i].aspect;
     if (withCurrent >= target) {
-      splitIndex = Math.abs(withCurrent - target) <= Math.abs(running - target) ? i + 1 : i;
+      splitIndex =
+        Math.abs(withCurrent - target) <= Math.abs(running - target)
+          ? i + 1
+          : i;
       break;
     }
     running = withCurrent;

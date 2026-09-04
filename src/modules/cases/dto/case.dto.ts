@@ -23,7 +23,9 @@ export class CreateCaseDto {
   customerName: string;
 
   @ApiProperty({ example: '9412734044' })
-  @Matches(/^[0-9]{10}$/, { message: 'customerMobile must be a 10 digit number' })
+  @Matches(/^[0-9]{10}$/, {
+    message: 'customerMobile must be a 10 digit number',
+  })
   customerMobile: string;
 
   @ApiProperty()

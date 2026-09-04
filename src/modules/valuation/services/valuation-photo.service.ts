@@ -57,6 +57,16 @@ export interface ReportPhoto {
   aspect: number;
 }
 
+export interface UploadedPhoto {
+  id: string;
+  section: string;
+  sortOrder: number;
+  mimeType: string;
+  fileSize: number;
+  createdAt: Date;
+  url: string;
+}
+
 /**
  * Site-visit and Google Earth photos for the photograph annexure.
  *
@@ -117,7 +127,7 @@ export class ValuationPhotoService {
       ? 0
       : await this.nextSortOrder(valuationId);
 
-    const created = [];
+    const created: UploadedPhoto[] = [];
     for (const [index, file] of files.entries()) {
       // Re-encoded to a bounded JPEG regardless of source format, so storage
       // and the eventual PDF's HTML payload stay small no matter what a
@@ -241,7 +251,7 @@ export class ValuationPhotoService {
     return {
       siteVisit: rows
         .filter((r) => r.section === 'SITE_VISIT')
-        .map((row) => toPhoto(row, 0.75)!),
+        .map((row) => toPhoto(row, 0.75)),
       googleEarth: toPhoto(
         rows.find((r) => r.section === 'GOOGLE_EARTH'),
         1.5,

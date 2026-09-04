@@ -7,10 +7,7 @@ import { Prisma } from 'generated/prisma/client';
 import { FindQuery } from 'types/common.types';
 import { InstitutionFilter } from 'types/institution.types';
 import { InstitutionTypesRepository } from '../institution-types/repositories/institution-types.repository';
-import {
-  CreateInstitutionDto,
-  UpdateInstitutionDto,
-} from './dto';
+import { CreateInstitutionDto, UpdateInstitutionDto } from './dto';
 import { InstitutionsRepository } from './repositories/institutions.repository';
 
 @Injectable()

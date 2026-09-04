@@ -38,5 +38,7 @@ export const NO_ROAD_WIDTH_BAND = 'NONE';
 
 /** Midnight of the given date, in UTC — one register entry per area per day. */
 export function truncateToDay(date: Date): Date {
-  return new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
+  return new Date(
+    Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()),
+  );
 }

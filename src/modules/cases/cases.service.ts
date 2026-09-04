@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Case, Prisma } from 'generated/prisma/client';
+import { Case } from 'generated/prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { FilterRecord, FindQuery, PaginatedResult } from 'types/common.types';
 import { CreateCaseDto } from './dto';
@@ -54,7 +54,7 @@ export class CasesService {
       institution: { connect: { id: dto.institutionId } },
       createdBy: { connect: { id: userId } },
       ...(dto.branchId ? { branch: { connect: { id: dto.branchId } } } : {}),
-    } as Prisma.CaseCreateInput);
+    });
 
     await this.workflow.recordCreation(created.id, userId);
 

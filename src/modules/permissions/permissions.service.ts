@@ -60,9 +60,7 @@ export class PermissionsService {
     if (data.name) {
       const existing = await this.permissionsRepo.findByName(data.name);
       if (existing && existing.id !== id) {
-        throw new ConflictException(
-          `Permission "${data.name}" already exists`,
-        );
+        throw new ConflictException(`Permission "${data.name}" already exists`);
       }
     }
 

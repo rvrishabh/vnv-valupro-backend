@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { Case, CaseStatus, Prisma } from 'generated/prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 
@@ -23,14 +27,24 @@ export class CaseWorkflowService {
 
   constructor(private readonly prisma: PrismaService) {}
 
-  async assign(caseId: string, engineerId: string, actorId: string, notes?: string) {
-    const engineer = await this.prisma.user.findUnique({ where: { id: engineerId } });
+  async assign(
+    caseId: string,
+    engineerId: string,
+    actorId: string,
+    notes?: string,
+  ) {
+    const engineer = await this.prisma.user.findUnique({
+      where: { id: engineerId },
+    });
     if (!engineer) throw new NotFoundException('Engineer not found');
 
     return this.transition(caseId, 'ASSIGNED', actorId, {
       notes: notes ?? `Assigned to ${engineer.name}`,
       action: 'CASE_ASSIGNED',
-      data: { assignedTo: { connect: { id: engineerId } }, assignedAt: new Date() },
+      data: {
+        assignedTo: { connect: { id: engineerId } },
+        assignedAt: new Date(),
+      },
     });
   }
 
@@ -58,7 +72,9 @@ export class CaseWorkflowService {
     if (!current) throw new NotFoundException('Case not found');
 
     if (current.surveyCompletedAt) {
-      throw new BadRequestException('The site visit has already been completed');
+      throw new BadRequestException(
+        'The site visit has already been completed',
+      );
     }
 
     return this.transition(caseId, 'IN_PROGRESS', actorId, {
@@ -85,14 +101,24 @@ export class CaseWorkflowService {
   }
 
   /** Called by the valuation module once a checker has decided. */
-  recordReview(caseId: string, actorId: string, approved: boolean, notes?: string) {
-    return this.transition(caseId, approved ? 'APPROVED' : 'REJECTED', actorId, {
-      notes,
-      action: approved ? 'REPORT_APPROVED' : 'REPORT_REJECTED',
-      data: approved
-        ? { approvedAt: new Date(), checkedBy: { connect: { id: actorId } } }
-        : { rejectedAt: new Date(), checkedBy: { connect: { id: actorId } } },
-    });
+  recordReview(
+    caseId: string,
+    actorId: string,
+    approved: boolean,
+    notes?: string,
+  ) {
+    return this.transition(
+      caseId,
+      approved ? 'APPROVED' : 'REJECTED',
+      actorId,
+      {
+        notes,
+        action: approved ? 'REPORT_APPROVED' : 'REPORT_REJECTED',
+        data: approved
+          ? { approvedAt: new Date(), checkedBy: { connect: { id: actorId } } }
+          : { rejectedAt: new Date(), checkedBy: { connect: { id: actorId } } },
+      },
+    );
   }
 
   /** Ordered lifecycle for the case detail view. */
@@ -154,7 +180,9 @@ export class CaseWorkflowService {
       allowSameStatus?: boolean;
     },
   ): Promise<Case> {
-    const current = await this.prisma.case.findUnique({ where: { id: caseId } });
+    const current = await this.prisma.case.findUnique({
+      where: { id: caseId },
+    });
     if (!current) throw new NotFoundException('Case not found');
 
     const isSame = current.status === next;

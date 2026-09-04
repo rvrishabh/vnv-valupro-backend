@@ -17,7 +17,13 @@ import {
 import { BaseFilterQueryDto } from 'src/common/dto';
 import { IListValuationsQuery, RoofType } from 'types/valuation.types';
 
-const ROOF_TYPES: RoofType[] = ['RCC', 'RBC', 'Girder Stone', 'Tin Shed', 'Kachcha'];
+const ROOF_TYPES: RoofType[] = [
+  'RCC',
+  'RBC',
+  'Girder Stone',
+  'Tin Shed',
+  'Kachcha',
+];
 
 export class FloorDto {
   @ApiProperty({ example: 'Ground Floor' })
@@ -33,7 +39,8 @@ export class FloorDto {
   @ApiPropertyOptional({
     example: 250,
     minimum: 0,
-    description: 'M-Rate!D49 — the area measured on site, before any considered-basis adjustment',
+    description:
+      'M-Rate!D49 — the area measured on site, before any considered-basis adjustment',
   })
   @IsOptional()
   @IsNumber()
@@ -65,13 +72,18 @@ export class FloorDto {
   @Min(1800)
   yearOfConstruction?: number;
 
-  @ApiPropertyOptional({ example: 80, description: 'M-Rate!C84:E84 — per-floor expected life' })
+  @ApiPropertyOptional({
+    example: 80,
+    description: 'M-Rate!C84:E84 — per-floor expected life',
+  })
   @IsOptional()
   @IsInt()
   @Min(1)
   expectedLifeYears?: number;
 
-  @ApiPropertyOptional({ description: 'Floorwise specifications (walls, doors, flooring, ...)' })
+  @ApiPropertyOptional({
+    description: 'Floorwise specifications (walls, doors, flooring, ...)',
+  })
   @IsOptional()
   @IsObject()
   specs?: Record<string, string>;
@@ -98,7 +110,10 @@ export class LandDto {
   @IsNotEmpty()
   plotPosition: string;
 
-  @ApiPropertyOptional({ example: 0, description: 'Fraction, e.g. 0.15 for 15%' })
+  @ApiPropertyOptional({
+    example: 0,
+    description: 'Fraction, e.g. 0.15 for 15%',
+  })
   @IsOptional()
   @IsNumber()
   @Min(0)
@@ -152,19 +167,28 @@ export class UpsertValuationDto {
   @Min(0)
   plotAreaSqM?: number;
 
-  @ApiPropertyOptional({ example: 306.9, description: 'M-Doc!C103 — area as typed in the deed' })
+  @ApiPropertyOptional({
+    example: 306.9,
+    description: 'M-Doc!C103 — area as typed in the deed',
+  })
   @IsOptional()
   @IsNumber()
   @Min(0)
   areaAsPerDeed?: number;
 
-  @ApiPropertyOptional({ example: 306.9, description: 'M-Doc!C104 — area measured on site' })
+  @ApiPropertyOptional({
+    example: 306.9,
+    description: 'M-Doc!C104 — area measured on site',
+  })
   @IsOptional()
   @IsNumber()
   @Min(0)
   areaAsPerSite?: number;
 
-  @ApiPropertyOptional({ enum: ['ft', 'm'], description: 'M-Doc!C91 — unit of the side dimensions' })
+  @ApiPropertyOptional({
+    enum: ['ft', 'm'],
+    description: 'M-Doc!C91 — unit of the side dimensions',
+  })
   @IsOptional()
   @IsEnum({ ft: 'ft', m: 'm' })
   dimensionUnit?: 'ft' | 'm';
@@ -197,19 +221,25 @@ export class UpsertValuationDto {
   @IsString()
   assetsSoldAsPerDeed?: string;
 
-  @ApiPropertyOptional({ enum: ['Freehold', 'Leasehold'], description: 'M-Doc!C62' })
+  @ApiPropertyOptional({
+    enum: ['Freehold', 'Leasehold'],
+    description: 'M-Doc!C62',
+  })
   @IsOptional()
   @IsString()
   tenure?: string;
 
   @ApiPropertyOptional({
-    description: 'M-Doc!C63:C69 — lessor, lessee, dates, premium, ground rent, easements',
+    description:
+      'M-Doc!C63:C69 — lessor, lessee, dates, premium, ground rent, easements',
   })
   @IsOptional()
   @IsObject()
   leaseDetails?: Record<string, unknown>;
 
-  @ApiPropertyOptional({ description: 'M-Doc!C41:C52 — address as observed on site' })
+  @ApiPropertyOptional({
+    description: 'M-Doc!C41:C52 — address as observed on site',
+  })
   @IsOptional()
   @IsObject()
   siteAddress?: Record<string, unknown>;
@@ -229,7 +259,10 @@ export class UpsertValuationDto {
   @IsString()
   documentsReceived?: string;
 
-  @ApiPropertyOptional({ description: 'M-Doc!C28', example: '27.565146, 78.652088' })
+  @ApiPropertyOptional({
+    description: 'M-Doc!C28',
+    example: '27.565146, 78.652088',
+  })
   @IsOptional()
   @IsString()
   gpsCoordinates?: string;
@@ -243,7 +276,8 @@ export class UpsertValuationDto {
   circleRateMohalla?: string;
 
   @ApiPropertyOptional({
-    description: 'Road width in metres — picks the <=9m / 9-18m / >18m circle-rate band',
+    description:
+      'Road width in metres — picks the <=9m / 9-18m / >18m circle-rate band',
     example: 12,
   })
   @IsOptional()
@@ -274,20 +308,46 @@ export class UpsertValuationDto {
   @IsString()
   areaBasis?: string;
 
-  @ApiPropertyOptional({ description: 'M-Doc!C110 — undivided share of land for a Flat' })
+  @ApiPropertyOptional({
+    description: 'M-Doc!C110 — undivided share of land for a Flat',
+  })
   @IsOptional()
   @IsNumber()
   @Min(0)
   undividedShareOfLand?: number;
 
-  @ApiPropertyOptional() @IsOptional() @IsObject() titleDeed?: Record<string, unknown>;
-  @ApiPropertyOptional() @IsOptional() @IsObject() boundaries?: Record<string, unknown>;
-  @ApiPropertyOptional() @IsOptional() @IsObject() dimensions?: Record<string, unknown>;
-  @ApiPropertyOptional() @IsOptional() @IsObject() buildingSpecs?: Record<string, unknown>;
-  @ApiPropertyOptional() @IsOptional() @IsObject() generalDetails?: Record<string, unknown>;
-  @ApiPropertyOptional() @IsOptional() @IsObject() extraItems?: Record<string, number | string>;
-  @ApiPropertyOptional() @IsOptional() @IsObject() services?: Record<string, number | string>;
-  @ApiPropertyOptional() @IsOptional() @IsObject() siteVisit?: Record<string, unknown>;
+  @ApiPropertyOptional() @IsOptional() @IsObject() titleDeed?: Record<
+    string,
+    unknown
+  >;
+  @ApiPropertyOptional() @IsOptional() @IsObject() boundaries?: Record<
+    string,
+    unknown
+  >;
+  @ApiPropertyOptional() @IsOptional() @IsObject() dimensions?: Record<
+    string,
+    unknown
+  >;
+  @ApiPropertyOptional() @IsOptional() @IsObject() buildingSpecs?: Record<
+    string,
+    unknown
+  >;
+  @ApiPropertyOptional() @IsOptional() @IsObject() generalDetails?: Record<
+    string,
+    unknown
+  >;
+  @ApiPropertyOptional() @IsOptional() @IsObject() extraItems?: Record<
+    string,
+    number | string
+  >;
+  @ApiPropertyOptional() @IsOptional() @IsObject() services?: Record<
+    string,
+    number | string
+  >;
+  @ApiPropertyOptional() @IsOptional() @IsObject() siteVisit?: Record<
+    string,
+    unknown
+  >;
 
   @ApiPropertyOptional() @IsOptional() @IsString() engineerNotes?: string;
 }

@@ -41,7 +41,9 @@ export class CircleRateService {
 
     const category = resolveCircleRateCategory(method);
     const roadWidthBand =
-      category === 'LAND' ? resolveRoadWidthBand(roadWidthMeters) : NO_ROAD_WIDTH_BAND;
+      category === 'LAND'
+        ? resolveRoadWidthBand(roadWidthMeters)
+        : NO_ROAD_WIDTH_BAND;
 
     const entry = await this.prisma.circleRateEntry.findFirst({
       where: {
@@ -88,14 +90,18 @@ export class CircleRateService {
     if (!tehsil || !mohalla || !rate || !roadWidthMeters) return;
 
     const area = await this.prisma.circleRateArea.upsert({
-      where: { subRegistrarOffice_mohalla: { subRegistrarOffice: tehsil, mohalla } },
+      where: {
+        subRegistrarOffice_mohalla: { subRegistrarOffice: tehsil, mohalla },
+      },
       update: {},
       create: { subRegistrarOffice: tehsil, mohalla },
     });
 
     const category = resolveCircleRateCategory(report.method);
     const roadWidthBand =
-      category === 'LAND' ? resolveRoadWidthBand(roadWidthMeters) : NO_ROAD_WIDTH_BAND;
+      category === 'LAND'
+        ? resolveRoadWidthBand(roadWidthMeters)
+        : NO_ROAD_WIDTH_BAND;
     const effectiveFrom = truncateToDay(new Date());
 
     await this.prisma.circleRateEntry.upsert({

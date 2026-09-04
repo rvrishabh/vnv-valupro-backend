@@ -24,7 +24,12 @@ export class CasesRepository extends PrismaBaseRepository<
 
   protected searchFields = ['caseNumber', 'customerName', 'customerMobile'];
 
-  protected filterableFields = ['status', 'institutionId', 'assignedToId', 'createdAt'];
+  protected filterableFields = [
+    'status',
+    'institutionId',
+    'assignedToId',
+    'createdAt',
+  ];
 
   protected sortableFields = ['createdAt', 'caseNumber', 'customerName'];
 

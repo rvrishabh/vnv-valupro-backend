@@ -1,6 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { ValuationMethod, ValuationResult } from 'types/valuation.types';
+import {
+  FloorInput,
+  FloorSpecs,
+  ValuationMethod,
+  ValuationResult,
+} from 'types/valuation.types';
 import { resolveUndividedShare } from '../engine/area-basis.util';
 import { areaFromDimensions, type SideDimensions } from '../engine/area.util';
 import { ValuationRepository } from '../repositories/valuation.repository';
@@ -58,6 +63,11 @@ const METHOD_LABELS: Record<ValuationMethod, string> = {
 };
 
 const DIRECTIONS = ['north', 'south', 'east', 'west'] as const;
+
+/** The Prisma shape `findDetailed` resolves to, including the joined case/institution/branch. */
+type DetailedReport = NonNullable<
+  Awaited<ReturnType<ValuationRepository['findDetailed']>>
+>;
 
 /**
  * Who the report is issued and signed by.
@@ -127,7 +137,7 @@ export class ReportService {
     const templateKey = await this.resolveTemplate(report.case?.institutionId);
     const photos = await this.photoService.getPhotosForReport(id);
     const view = this.toViewModel(report, photos);
-    const owner = String(view.ownerName ?? 'valuation');
+    const owner = String((view.ownerName as string | null) ?? 'valuation');
 
     const buffer = await this.pdfService.renderAndMerge([
       {
@@ -176,7 +186,7 @@ export class ReportService {
 
     const photos = await this.photoService.getPhotosForReport(id);
     const view = this.toViewModel(report, photos);
-    const owner = String(view.ownerName ?? '');
+    const owner = String((view.ownerName as string | null) ?? '');
 
     const buffer = await this.pdfService.render(
       'photo-annexure',
@@ -275,7 +285,9 @@ export class ReportService {
     view: Record<string, unknown>,
     { numbered }: { numbered: boolean },
   ): string {
-    const owner = this.escapeHtml(String(view.ownerName ?? ''));
+    const owner = this.escapeHtml(
+      String((view.ownerName as string | null) ?? ''),
+    );
     const valuer = this.escapeHtml(SIGNING_VALUER.name);
     const pageNumber = numbered
       ? '<span>Page <span class="pageNumber"></span> of <span class="totalPages"></span></span>'
@@ -310,13 +322,17 @@ export class ReportService {
    * recalculated, so a rendered PDF always matches what was approved.
    */
   private toViewModel(
-    report: Record<string, any>,
+    report: DetailedReport,
     photos: ReportPhotos,
   ): Record<string, unknown> {
-    const computed = (report.computed ?? {}) as Partial<ValuationResult>;
-    const method = (report.method ?? 'LAND_AND_BUILDING') as ValuationMethod;
-    const titleDeed = (report.titleDeed ?? {}) as Record<string, unknown>;
-    const floors = (report.floors as Record<string, any>[]) ?? [];
+    const computed = (report.computed ??
+      {}) as unknown as Partial<ValuationResult>;
+    const method: ValuationMethod = report.method ?? 'LAND_AND_BUILDING';
+    const titleDeed = (report.titleDeed ?? {}) as unknown as Record<
+      string,
+      unknown
+    >;
+    const floors = (report.floors as unknown as FloorInput[]) ?? [];
     // The ground floor sets the building's own age wherever the report prints
     // a single figure — later floors are additions to it, so the oldest floor
     // is the one that describes the structure.
@@ -441,7 +457,7 @@ export class ReportService {
 
   /** Null rather than 0 when no floor carries the figure, so the template can omit the row. */
   private sumFloors(
-    floors: Record<string, any>[],
+    floors: FloorInput[],
     key: 'coveredAreaSqM' | 'actualAreaSqM',
   ): number | null {
     const values = floors
@@ -456,7 +472,9 @@ export class ReportService {
    * is how the workbook itself records them. Both are printed as given.
    */
   private toValueRows(source: unknown): { label: string; value: string }[] {
-    const entries = Object.entries((source ?? {}) as Record<string, unknown>);
+    const entries = Object.entries(
+      (source ?? {}) as Record<string, string | number>,
+    );
     return entries
       .filter(
         ([, value]) => value !== null && value !== undefined && value !== '',
@@ -475,7 +493,7 @@ export class ReportService {
     source: unknown,
     labels: [string, string][],
   ): { label: string; value: string }[] {
-    const data = (source ?? {}) as Record<string, unknown>;
+    const data = (source ?? {}) as Record<string, string | number>;
     if (!Object.keys(data).length) return [];
 
     return labels.map(([key, label]) => ({
@@ -488,7 +506,9 @@ export class ReportService {
   }
 
   private summariseNote(source: unknown, key: string): string | null {
-    const value = (source as Record<string, unknown>)?.[key];
+    const value = (source as Record<string, string | number> | undefined)?.[
+      key
+    ];
     return value === null || value === undefined || value === ''
       ? null
       : String(value);
@@ -502,9 +522,15 @@ export class ReportService {
     return spaced.charAt(0).toUpperCase() + spaced.slice(1).toLowerCase();
   }
 
-  private toBoundaryRows(report: Record<string, any>) {
-    const boundaries = (report.boundaries ?? {}) as Record<string, any>;
-    const dimensions = (report.dimensions ?? {}) as Record<string, any>;
+  private toBoundaryRows(report: DetailedReport) {
+    const boundaries = (report.boundaries ?? {}) as unknown as Record<
+      string,
+      { asPerDocs?: unknown; asPerSite?: unknown }
+    >;
+    const dimensions = (report.dimensions ?? {}) as unknown as Record<
+      string,
+      { asPerDocs?: unknown; asPerSite?: unknown }
+    >;
 
     return DIRECTIONS.map((direction) => ({
       direction: direction.charAt(0).toUpperCase() + direction.slice(1),
@@ -535,19 +561,18 @@ export class ReportService {
    * Pivots the per-floor specs into rows, since the report prints one row per
    * specification with a column per floor (M-Rate 65-79).
    */
-  private toFloorSpecRows(report: Record<string, any>) {
-    const floors = ((report.floors as any[]) ?? []).filter(
-      (f) => f?.coveredAreaSqM > 0,
+  private toFloorSpecRows(report: DetailedReport) {
+    const floors = ((report.floors as unknown as FloorInput[]) ?? []).filter(
+      (f) => (f?.coveredAreaSqM ?? 0) > 0,
     );
     if (!floors.length) return [];
 
-    const labels: [string, string][] = [
+    const labels: [keyof FloorSpecs, string][] = [
       ['superstructure', 'Superstructure'],
       ['walls', 'Walls'],
       ['partitions', 'Partitions'],
       ['doors', 'Doors'],
       ['windows', 'Windows'],
-      ['roofType', 'RCC works (roof type)'],
       ['finishing', 'Plastering / finishing'],
       ['flooring', 'Flooring'],
       ['specialFinish', 'Special finish — marble, granite, wood panel etc.'],
@@ -563,13 +588,22 @@ export class ReportService {
       ['heightOfFloor', 'Height of floor'],
     ];
 
+    const rows = labels.map(([key, label]) => ({
+      label,
+      values: floors.map((f) => f.specs?.[key] ?? 'N.A.'),
+      header: false,
+    }));
+    // Roof type lives on the floor itself (not in `specs`), but prints in the
+    // same table, between the window and plastering rows (M-Rate 65-79).
+    rows.splice(4, 0, {
+      label: 'RCC works (roof type)',
+      values: floors.map((f) => f.roofType ?? 'N.A.'),
+      header: false,
+    });
+
     return [
       { label: 'Floor', values: floors.map((f) => f.name), header: true },
-      ...labels.map(([key, label]) => ({
-        label,
-        values: floors.map((f) => f.specs?.[key] ?? 'N.A.'),
-        header: false,
-      })),
+      ...rows,
     ];
   }
 
@@ -593,8 +627,11 @@ export class ReportService {
    * M-Doc!C120 — "House has total of 2 Living Rooms, 9 Bed rooms, ...".
    * Built from the counts so the sentence always agrees with the numbers.
    */
-  private summariseRooms(report: Record<string, any>): string | null {
-    const rooms = (report.rooms ?? {}) as Record<string, unknown>;
+  private summariseRooms(report: DetailedReport): string | null {
+    const rooms = (report.rooms ?? {}) as unknown as Record<
+      string,
+      number | undefined
+    >;
     const parts = [
       ['Living Rooms', rooms.livingRooms],
       ['Bed rooms', rooms.bedRooms],
@@ -613,8 +650,8 @@ export class ReportService {
       : `${subject} has total of ${last}`;
   }
 
-  private formatGps(report: Record<string, any>): string | undefined {
-    if (report.gpsCoordinates) return report.gpsCoordinates as string;
+  private formatGps(report: DetailedReport): string | undefined {
+    if (report.gpsCoordinates) return report.gpsCoordinates;
     if (report.visitLat == null || report.visitLng == null) return undefined;
     return `${report.visitLat}, ${report.visitLng}`;
   }
