@@ -19,7 +19,7 @@
   .title-block h1 {
     margin: 0 0 1mm;
     color: var(--navy);
-    font-size: 14pt;
+    font-size: 10.5pt;
     font-weight: 700;
     letter-spacing: .6px;
     text-transform: uppercase;
@@ -28,7 +28,7 @@
     display: flex;
     justify-content: space-between;
     gap: 6mm;
-    font-size: 9pt;
+    font-size: 7pt;
     color: var(--muted);
   }
   .title-block .valuer b { color: var(--navy); }
@@ -38,7 +38,7 @@
     padding-bottom: 1.2mm;
     border-bottom: 1pt solid var(--gold);
     color: var(--navy);
-    font-size: 11pt;
+    font-size: 8.4pt;
     font-weight: 700;
     letter-spacing: .5px;
     text-transform: uppercase;
@@ -165,7 +165,7 @@
 </table>
 
 <h3 class="sub">14 &nbsp; Dimensions of the Site</h3>
-<table>
+<table class="dims">
   <tr>
     <th style="width:14%">Direction</th>
     <th class="center">(14a) As per Documents</th>
@@ -190,8 +190,11 @@
 <table class="clauses">
   <tr><td class="sn">14.1</td><td class="label">Latitude, longitude &amp; co-ordinates of the site</td>
       <td>{{or gpsCoordinates "N.A."}}</td></tr>
+  {{!-- Prints the same figure as clause 16: the area actually carried into the
+        valuation, not a raw re-derivation from the site dimensions above —
+        the two should never disagree on the page. --}}
   <tr><td class="sn">15</td><td class="label">Extent of the site</td>
-      <td>{{#if areaFromDimensions}}{{num areaFromDimensions}} Sq.m (from site dimensions){{else}}N.A.{{/if}}</td></tr>
+      <td>{{num plotAreaSqM}} Sq.m</td></tr>
   <tr class="total"><td class="sn">16</td>
       <td>Extent of the site considered for valuation (least of 14a &amp; 14b)</td>
       <td class="num">{{num plotAreaSqM}} Sq.m</td></tr>
@@ -476,7 +479,7 @@
 
 <h3 class="band">Part A &nbsp;&middot;&nbsp; Valuation of Land</h3>
 <h3 class="sub">1 &nbsp; Size of the plot</h3>
-<table>
+<table class="dims">
   <tr>
     <th style="width:14%">Direction</th>
     <th class="center">As per Documents</th>
@@ -517,9 +520,6 @@
   <tr class="total"><td class="sn">6</td><td>Estimated value of land</td>
       <td class="num">&#8377; {{inr computed.partA}}</td></tr>
 </table>
-<div class="note">
-  Variation of the adopted rate over the circle rate: {{num computed.rateVariationPercent}}%.
-</div>
 
 <h3 class="band">Part B &nbsp;&middot;&nbsp; Building Component</h3>
 <table class="clauses">
@@ -689,22 +689,6 @@
       <td class="num">&#8377; {{inr computed.totalValue}}</td></tr>
   <tr class="grand"><td class="sn"></td><td>Say</td>
       <td class="num">&#8377; {{inr computed.roundedValue}}</td></tr>
-</table>
-
-<h3 class="sub">Ground coverage &amp; FAR</h3>
-<table>
-  <tr><td class="label">Plot area</td>
-      <td class="num">{{num computed.coverage.plotAreaSqM}} Sq.m</td></tr>
-  <tr><td class="label">Ground coverage achieved</td>
-      <td class="num">{{num computed.coverage.groundCoverageSqM}} Sq.m
-          ({{num computed.coverage.achievedCoveragePercent}}%)</td></tr>
-  <tr><td class="label">Ground coverage permissible</td>
-      <td class="num">{{computed.coverage.permissibleCoveragePercent}}%</td></tr>
-  <tr><td class="label">Total covered area</td>
-      <td class="num">{{num computed.coverage.totalCoveredAreaSqM}} Sq.m</td></tr>
-  <tr><td class="label">FAR achieved / permissible</td>
-      <td class="num">{{num computed.coverage.achievedFAR}} /
-          {{computed.coverage.permissibleFAR}}</td></tr>
 </table>
 
 {{#if remarks}}

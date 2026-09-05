@@ -1,11 +1,11 @@
-{{!--
+{{!
   Styles shared by every part of the valuation report.
 
   The palette is sampled straight out of the letterhead artwork so the pages
   that carry only the slim header still read as the same stationery as the
   full-letterhead cover: navy #0a1f44 for rules and section bars, gold #c9a84c
   for the accent hairline, and the three blue tints for table banding.
---}}
+}}
 <style>
   :root {
     --navy: #0a1f44;
@@ -17,18 +17,22 @@
     --line: #b9c6dd;
   }
 
-  * { box-sizing: border-box; }
+  * {
+    box-sizing: border-box;
+  }
 
   body {
     margin: 0;
     color: var(--ink);
-    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-    font-size: 8.8pt;
-    line-height: 1.36;
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 6.8pt;
+    line-height: 1.28;
     -webkit-print-color-adjust: exact;
   }
 
-  .serif { font-family: Georgia, "Times New Roman", serif; }
+  .serif {
+    font-family: Georgia, 'Times New Roman', serif;
+  }
 
   /* ---------- Section headings ---------- */
 
@@ -40,14 +44,16 @@
     padding: 1.6mm 3mm;
     background: var(--navy);
     color: #fff;
-    font-size: 9.8pt;
+    font-size: 7.6pt;
     font-weight: 600;
-    letter-spacing: .4px;
+    letter-spacing: 0.4px;
     text-transform: uppercase;
     break-after: avoid;
     page-break-after: avoid;
   }
-  h2.bar:first-child { margin-top: 0; }
+  h2.bar:first-child {
+    margin-top: 0;
+  }
 
   /* A lighter, centred band for the sub-parts inside an annexure
      (Part A, Part B, ...), matching the reference's grey centred captions. */
@@ -57,7 +63,7 @@
     background: var(--tint-2);
     border-left: 3px solid var(--gold);
     color: var(--navy);
-    font-size: 9.4pt;
+    font-size: 7.2pt;
     font-weight: 700;
     text-align: center;
     break-after: avoid;
@@ -67,7 +73,7 @@
   h3.sub {
     margin: 4mm 0 1.5mm;
     color: var(--navy);
-    font-size: 9.4pt;
+    font-size: 7.2pt;
     font-weight: 700;
     break-after: avoid;
     page-break-after: avoid;
@@ -83,12 +89,22 @@
        read back, so rows stay whole and the table breaks between them. */
     page-break-inside: auto;
   }
-  tr { page-break-inside: avoid; break-inside: avoid; }
+  tr {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
 
-  th, td {
-    border: .5pt solid var(--line);
-    padding: 1.1mm 1.8mm;
+  /* Explicit rather than left to inherit from body: some PDF viewers apply
+     their own minimum-font-size floor to inherited table text before an
+     explicitly-set size, which is what made these look unchanged even after
+     the body font-size was cut — setting it directly here is what actually
+     shrinks what renders inside every table on every page. */
+  th,
+  td {
+    border: 0.5pt solid var(--line);
+    padding: 0.7mm 1.3mm;
     vertical-align: top;
+    font-size: 7px;
   }
 
   th {
@@ -101,51 +117,95 @@
   /* The serial-number gutter the reference numbers its clauses in. Wide
      enough for the two-part numbers ("2 a.", "21.1") to stay on one line —
      a wrapped clause number reads as two clauses. */
-  td.sn, th.sn {
+  td.sn,
+  th.sn {
     width: 13mm;
     text-align: center;
     color: var(--muted);
     white-space: nowrap;
   }
-  td.label { width: 46%; background: var(--tint); }
-  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
-  td.center, th.center { text-align: center; }
+  td.label {
+    width: 46%;
+    background: var(--tint);
+  }
+  td.num,
+  th.num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  td.center,
+  th.center {
+    text-align: center;
+  }
 
-  tr.total td { background: var(--tint-2); font-weight: 700; }
+  /* Dimension figures (feet/metres) read as measurements, not money — the
+     reference report centres them under their column head rather than
+     right-justifying them the way a rupee amount is. */
+  table.dims td.num {
+    text-align: center;
+  }
+
+  tr.total td {
+    background: var(--tint-2);
+    font-weight: 700;
+  }
   tr.grand td {
     background: var(--navy);
     color: #fff;
     font-weight: 700;
-    font-size: 10pt;
+    font-size: 7.8pt;
   }
 
   /* ---------- Prose blocks ---------- */
 
-  .prose { margin: 0 0 2.5mm; }
+  .prose {
+    margin: 0 0 2.5mm;
+  }
 
   .callout {
     padding: 2mm 3mm;
-    border: .5pt solid var(--line);
+    border: 0.5pt solid var(--line);
     border-left: 3px solid var(--gold);
     background: var(--tint);
   }
 
-  .words { font-style: italic; color: var(--navy); }
+  .words {
+    font-style: italic;
+    color: var(--navy);
+  }
 
-  .note { margin-top: 1.5mm; color: var(--muted); font-size: 8pt; }
+  .note {
+    margin-top: 1.5mm;
+    color: var(--muted);
+    font-size: 6.4pt;
+  }
 
-  .muted { color: var(--muted); }
+  .muted {
+    color: var(--muted);
+  }
 
   /* An ordered list that prints its own markers in the left gutter, so a
      clause's wrapped lines align under its text rather than under its number
      — which is how the reference's Certificate and Format-E read. */
-  ol.clauses { margin: 0 0 2mm; padding-left: 8mm; }
-  ol.clauses > li { margin-bottom: 1.2mm; padding-left: 1mm; }
+  ol.clauses {
+    margin: 0 0 2mm;
+    padding-left: 8mm;
+  }
+  ol.clauses > li {
+    margin-bottom: 1.2mm;
+    padding-left: 1mm;
+  }
 
-  .page-break { page-break-before: always; break-before: page; }
+  .page-break {
+    page-break-before: always;
+    break-before: page;
+  }
   /* Keeps a short block (a signature panel, a small table) from being orphaned
      across a page boundary. */
-  .keep { page-break-inside: avoid; break-inside: avoid; }
+  .keep {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
 
   /* ---------- Signature panel ---------- */
 
@@ -156,15 +216,24 @@
     gap: 10mm;
     margin-top: 10mm;
   }
-  .sign-off .place { font-size: 9pt; }
+  .sign-off .place {
+    font-size: 7pt;
+  }
   .sign-off .who {
     text-align: center;
     min-width: 62mm;
     padding-top: 14mm;
-    border-top: .6pt solid var(--navy);
+    border-top: 0.6pt solid var(--navy);
   }
-  .sign-off .who strong { display: block; color: var(--navy); }
-  .sign-off .who span { display: block; font-size: 8pt; color: var(--muted); }
+  .sign-off .who strong {
+    display: block;
+    color: var(--navy);
+  }
+  .sign-off .who span {
+    display: block;
+    font-size: 6.2pt;
+    color: var(--muted);
+  }
 
   /* ---------- Photo pages ---------- */
 
@@ -174,32 +243,59 @@
      what lets a landscape photo render wide and a portrait photo narrow, side
      by side, with neither cropped nor letterboxed; a uniform grid cannot do
      that because a cell's shape is fixed independently of what is inside it. */
-  .photo-rows { display: flex; flex-direction: column; gap: 2mm; }
+  .photo-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 2mm;
+  }
   /* Rows normally sum to exactly the container width; centring only matters
      for the rare case a row got scaled down to fit the page-height budget,
      leaving a small even margin instead of a one-sided gap. */
-  .photo-row { display: flex; gap: 2mm; justify-content: center; }
+  .photo-row {
+    display: flex;
+    gap: 2mm;
+    justify-content: center;
+  }
   .photo-cell {
     overflow: hidden;
     flex: 0 0 auto;
-    border: .5pt solid var(--line);
+    border: 0.5pt solid var(--line);
   }
-  .photo-cell img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-cell img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
 
-  .plate { position: relative; margin-top: 3mm; }
+  .plate {
+    position: relative;
+    margin-top: 3mm;
+  }
   .plate img {
-    width: 100%; height: 100%; object-fit: cover; display: block;
-    border: .5pt solid var(--line);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border: 0.5pt solid var(--line);
   }
   .plate-label {
-    position: absolute; top: 2.5mm; right: 2.5mm;
-    background: var(--navy); color: #fff;
+    position: absolute;
+    top: 2.5mm;
+    right: 2.5mm;
+    background: var(--navy);
+    color: #fff;
     padding: 1.2mm 3.5mm;
-    font-size: 8.5pt; font-weight: 600; letter-spacing: .3px;
+    font-size: 6.8pt;
+    font-weight: 600;
+    letter-spacing: 0.3px;
   }
   .placeholder {
-    display: flex; align-items: center; justify-content: center;
-    border: .6pt dashed var(--line);
-    color: var(--muted); font-style: italic;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0.6pt dashed var(--line);
+    color: var(--muted);
+    font-style: italic;
   }
 </style>
